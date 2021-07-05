@@ -1,0 +1,26 @@
+% Creating a Crease Schematic - Default Fold
+% Last edited 6/9/2021 by Lucien Peach
+
+clear
+clc
+
+% Specify inputs
+r = 0.25; %[m]
+n = 6;
+
+% Outputs ls, which will be used in graphing the default fold
+[ls] = Default_creasedesign(r, n);
+
+% Create a figure that demonstrates the crease schematic
+
+% Specify value for h, the height of the tube section
+h = 0.3; %[m]
+
+% Outputs graphing for default tube
+[dataFoldDefault, m, lmax] = Default_papercut(n, ls, h, r);
+axis off
+
+% Convert to DXF
+% filename = (['FoldDefault_r' num2str(r) '_n' num2str(n) '_h' num2str(h) ...
+%     '.dxf']);
+% GenerateDXF(filename, dataFoldDefault)
