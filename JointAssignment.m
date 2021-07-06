@@ -67,7 +67,7 @@ for i = 1:N
     % If prismatic
     elseif JointStruct(i).type == 'P'
         
-        TransformStruct(i).rs = JointStruct(i).q0*(1 + csc(beta));
+        TransformStruct(i).rs = 1/4*JointStruct(i).q0*(2 + csc(beta));
     
     % Otherwise
     else
