@@ -53,6 +53,7 @@ dataFoldA(count).x = boundarybottom(:, 1);
 dataFoldA(count).y = boundarybottom(:, 2);
 dataFoldA(count).color = black;
 
+figure()
 plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
     dataFoldA(count).color)
 hold on
@@ -620,6 +621,6 @@ else
     lmax = h1 + 4*lmax + h2;
 end
 
-% close all
+close
 
 end

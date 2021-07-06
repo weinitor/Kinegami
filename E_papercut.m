@@ -33,6 +33,7 @@ dataFoldE(count).x = boundarybottom(:, 1);
 dataFoldE(count).y = boundarybottom(:, 2);
 dataFoldE(count).color = black;
 
+figure()
 plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
     dataFoldE(count).color)
 hold on
@@ -433,6 +434,6 @@ daspect([1 1 1])
 m = 0;
 lmax = h1 + 2*l2 + nl*2*l1 + h2 + l2;
 
-% close all
+close
 
 end

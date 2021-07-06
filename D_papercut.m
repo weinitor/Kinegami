@@ -28,6 +28,7 @@ dataFoldD(count).y = boundarybottom(:, 2);
 dataFoldD(count).color = black;
 
 % Begin plot. Plot boundary
+figure()
 plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
     dataFoldD(count).color);
 hold on
@@ -1062,7 +1063,7 @@ daspect([1 1 1])
 m = 0;
 lmax = h1 + 2*lmax + h2;
 
-close all
+close
 
 
 end

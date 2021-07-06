@@ -23,6 +23,7 @@ dataFoldDefault(count).x = leftboundaryx;
 dataFoldDefault(count).y = leftboundaryy;
 dataFoldDefault(count).color = black;
 
+figure()
 plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
     dataFoldDefault(count).color)
 hold on
@@ -139,6 +140,6 @@ daspect([1 1 1])
 m = 0;
 lmax = h;
 
-close all
+close
 
 end

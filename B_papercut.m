@@ -22,6 +22,7 @@ dataFoldB(count).x = boundarybottom(:, 1);
 dataFoldB(count).y = boundarybottom(:, 2);
 dataFoldB(count).color = black;
 
+figure()
 plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
     dataFoldB(count).color)
 hold on
@@ -277,7 +278,8 @@ daspect([1 1 1])
 m = floor(alpha/((2*pi)/n))*ls + x;
 lmax = h1 + l + h2;
 % 
-close all
+
+close
 
 
 end
