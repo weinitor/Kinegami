@@ -7,3 +7,6 @@ Run scripts SphericalKinegami.m, UniversalKinegami.m, PlanarKinegami.m, or Cylin
 # Updates:
 7/5/2021:
 Edited JointAssignment.m to include correct value of rs for Prismatic Joints.
+Edited
+
+7/6/2021:
