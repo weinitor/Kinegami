@@ -339,9 +339,6 @@ h_blue = zeros(2*(n)*nl, 2);
 % Loop through to store [x,y] pairs for each line segment
 for bb = 0:2*nl:2*nl*(n-1)
     
-    % Increase count initially 
-    count = count + 1;
-    
     % Indexing 
     index = (bb/(2*nl)) + 1;
     
@@ -367,6 +364,10 @@ for bb = 0:2*nl:2*nl*(n-1)
     % Storing to data array and plotting must take place in segments of two
     % points.
     for j = 0:2:(2*nl)-2
+        
+        % Increase count initially 
+        count = count + 1;
+        
         dataFoldE(count).x = h_blue(bb+j+1:bb+j+2, 1);
         dataFoldE(count).y = h_blue(bb+j+1:bb+j+2, 2);
         dataFoldE(count).color = blue;
@@ -385,9 +386,6 @@ h_orange = zeros(2*(n)*nl, 2);
 % Loop through to store [x,y] pairs for each line segment
 for cc = 0:2*nl:2*nl*(n-1)
     
-    % Increase count initially 
-    count = count + 1;
-    
     % Indexing 
     index = (cc/(2*nl)) + 1;
     
@@ -398,14 +396,14 @@ for cc = 0:2*nl:2*nl*(n-1)
         if rem(i, 2) == 0 % Even
             
             % Determine x and y coordinates for point
-            h_orange(bb+i, 1) = index*ls;
-            h_orange(bb+i, 2) = h1 + 2*l2 + (i-1)*l1;
+            h_orange(cc+i, 1) = index*ls;
+            h_orange(cc+i, 2) = h1 + 2*l2 + (i-1)*l1;
  
         else % Odd
             
             % Determine x and y coordinates for point
-            h_orange(bb+i, 1) = (index*ls) - (l1 / tan(alpha));
-            h_orange(bb+i, 2) = h1 + 2*l2 + i*l1;
+            h_orange(cc+i, 1) = (index*ls) - (l1 / tan(alpha));
+            h_orange(cc+i, 2) = h1 + 2*l2 + i*l1;
          
         end
     end
@@ -413,8 +411,12 @@ for cc = 0:2*nl:2*nl*(n-1)
     % Storing to data array and plotting must take place in segments of two
     % points.
     for j = 0:2:(2*nl)-2
-        dataFoldE(count).x = h_orange(bb+j+1:bb+j+2, 1);
-        dataFoldE(count).y = h_orange(bb+j+1:bb+j+2, 2);
+        
+        % Increase count initially 
+        count = count + 1;
+        
+        dataFoldE(count).x = h_orange(cc+j+1:cc+j+2, 1);
+        dataFoldE(count).y = h_orange(cc+j+1:cc+j+2, 2);
         dataFoldE(count).color = orange;
         
         plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
@@ -434,6 +436,6 @@ daspect([1 1 1])
 m = 0;
 lmax = h1 + 2*l2 + nl*2*l1 + h2 + l2;
 
-close
+% close
 
 end
