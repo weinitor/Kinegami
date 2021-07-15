@@ -54,23 +54,21 @@ disp(alpha)
 % Determine phi2
 phi2 = atan2(norm(cross(bm, wd)), dot(bm, wd)) - alpha;
 
-% Joint Definitions and Fittings
-h1 = 0;
-h2 = 0;
-
 % Elbow Fitting
 [lengths, ls] = A_creasedesign(r, n, phi1, theta1);
 
 infostruct(index).ls = ls;
 infostruct(index).r = r;
 
-[dataFoldA, m, lmax] = A_papercut(lengths, ls, n, h1, h2, r, phi1, theta1, mirror);
+[dataFoldA, m, lmax] = A_papercut(lengths, ls, n, infostruct(index).h1, ...
+    infostruct(index).h2, r, phi1, theta1, mirror);
 
 infostruct(index).m = m;
 infostruct(index).lmax = lmax;
 infostruct(index).n = n;
 infostruct(index).type = dataFoldA;
 infostruct(index).name = "Elbow";
+infostruct(index).theta = theta1;
 
 % Twist Fitting
 Tnorm = norm(t);
@@ -80,13 +78,16 @@ Tnorm = norm(t);
 infostruct(index+1).ls = ls;
 infostruct(index+1).r = r;
 
-[dataFoldB, m, lmax] = B_papercut(x, l, ls, n, h1, h2, r, 0.2*Tnorm, alpha);
+[dataFoldB, m, lmax] = B_papercut(x, l, ls, n, infostruct(index+1).h1, ...
+    infostruct(index+1).h2, r, 0.2*Tnorm, alpha);
 
 infostruct(index+1).m = m;
 infostruct(index+1).lmax = lmax;
 infostruct(index+1).n = n;
 infostruct(index+1).type = dataFoldB;
 infostruct(index+1).name = "Twist";
+infostruct(index+1).alpha = alpha;
+infostruct(index+1).h = 0.2*Tnorm;
 
 % Tube
 [ls] = Default_creasedesign(r, n);
@@ -102,6 +103,7 @@ infostruct(index+2).lmax = lmax;
 infostruct(index+2).n = n;
 infostruct(index+2).type = dataFoldTube;
 infostruct(index+2).name = "Tube";
+infostruct(index+2).h = 0.8*Tnorm;
 
 % Elbow Fitting pt. 2
 [lengths, ls] = A_creasedesign(r, n, phi2, theta2);
@@ -109,13 +111,32 @@ infostruct(index+2).name = "Tube";
 infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
 
-[dataFoldD, m, lmax] = A_papercut(lengths, ls, n, h1, h2, r, phi2, theta2, mirror);
+[dataFoldD, m, lmax] = A_papercut(lengths, ls, n, infostruct(index+3).h1, ...
+    infostruct(index+3).h2, r, phi2, theta2, mirror);
 
 infostruct(index+3).m = m;
 infostruct(index+3).lmax = lmax;
 infostruct(index+3).n = n;
 infostruct(index+3).type = dataFoldD;
 infostruct(index+3).name = "Elbow";
+infostruct(index+3).theta = theta2;
+
+% If the height of any segment is 0, edit so that lines are not printed
+for i = index:index+3
+    
+    if infostruct(i).lmax == 0
+        
+        % Replaces x and y values with null, duplicate lines "erased"
+        for j = 1:size(infostruct(i).type, 2)
+            
+            infostruct(i).type(j).x = [];
+            infostruct(i).type(j).y = [];
+            
+        end
+        
+    end  
+    
+end
 
 % % Add field for tracking lmaxnet
 % infostruct(1).lmaxnet = infostruct(1).lmax;
@@ -142,7 +163,7 @@ infostruct(index+3).name = "Elbow";
 % for i = index:index+3
 %     
 %     [msum, lmax_sum] = DataFoldDuplicate(infostruct(i).type, ...
-%         infostruct, i, msum, lmax_sum);
+%         infostruct, i, msum, lmax_sum, 'triple');
 %     
 % end
 % 
@@ -159,7 +180,7 @@ infostruct(index+3).name = "Elbow";
 % % Figure adjustments
 % daspect([1, 1, 1])
 % axis off
-
+% 
 % close all
 
 
