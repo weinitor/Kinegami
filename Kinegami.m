@@ -1,7 +1,9 @@
 % Kinegami
-% Last Edited 6/28/2021 by Lucien Peach
+% Last Edited 7/20/2021 by Lucien Peach
 
-function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, mirror, triple, theta_mod, fingertip)
+function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
+    JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
+    TransformStruct)
 
     % Initialize infostruct
     num = 1 + 5*(size(JointStruct, 2) - 1);
@@ -27,8 +29,17 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct,
     infostruct(1).type = dataFoldTube;
     infostruct(1).name = "Tube";
     
-    % Joint Assignment and Sphere Analysis
-    [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip);
+    if strcmp(selfassign, 'true') == 1
+        
+        % Run if Joint Assignment has been pre-assigned
+        [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N); 
+        
+    else
+    
+        % Joint Assignment and Sphere Analysis for DH specs
+        [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip);
+        
+    end
 
     % Define h1 and h2
     for i = 1:init_size
@@ -206,13 +217,24 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct,
         newval = val+2;
 
         % Run Dubins Tube Analysis
-        [infostruct] = DubinsTube(r, n, TransformStruct(i).Od, ...
-            TransformStruct(i+1).Op, infostruct, newval, mirror);
-        
-        % Dubins Plotting
-        
-                
+        [infostruct, tvec] = DubinsTube(r, n, TransformStruct(i).Od, ...
+            TransformStruct(i+1).Op, infostruct, newval, mirror);     
       
+    end
+    
+    % Dubins Plotting
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+    
+    for i = 1:N
+        
+        val = 1 + (i-1)*5; 
+        
+        newval = val+2;
+    
+        [TransformStruct] = DubinsPlot(TransformStruct, infostruct, newval, i, tvec);
+    
     end
     
     % Add field for tracking lmaxnet

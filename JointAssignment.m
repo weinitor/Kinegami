@@ -1,5 +1,5 @@
 % Joint Assignment
-% Last Edited 6/25/2021 by Lucien Peach
+% Last Edited 7/20/2021 by Lucien Peach
 
 % Make r = 0.01
 % Make q0 = {0; 0; 0; 0.05; 0}
@@ -8,8 +8,6 @@
 % Make JointStruct.type = {R; R; R; P; 0}
 
 function [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip)
-
-TransformStruct(N+1) = struct();
 
 for i = (N+1):-1:1
     
