@@ -49,6 +49,28 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
     end
     
+    % Check a vectors for optimal orientation
+    for i = 1:N
+        
+        % Extract a and c vectors for frame being adjusted
+        a = TransformStruct(i+1).Oc(:, 1);
+        c = TransformStruct(i+1).Oc(:, 3);
+        
+        % Find distance vector between initial point and subsequent
+        Vd = TransformStruct(i+1).Oc(:, 4) - TransformStruct(i).Oc(:, 4); 
+        
+        % If dot product is less than 0, flip direction of a
+        if dot(Vd, a) < 0
+            
+            TransformStruct(i+1).Oc(:, 1) = -a;
+            
+            % Also flip c to keep consistent with RHR
+            TransformStruct(i+1).Oc(:, 3) = -c;
+            
+        end
+        
+    end
+    
     % Populate proximal and distal potential frames prior to looping
     for i = 1:N+1
     
@@ -102,6 +124,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     
     % Identify red, green, blue, as a, b, c
     legend('a', 'b', 'c')
+    daspect([1, 1, 1])
     
     % Add frames to previous plot
     for i = 1:N
