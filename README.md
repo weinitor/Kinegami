@@ -9,4 +9,6 @@ Run scripts SphericalKinegami.m, UniversalKinegami.m, PlanarKinegami.m, or Cylin
 Edited JointAssignment.m to include correct value of rs for Prismatic Joints.
 Edited Kinegami.m to support plotting for Proximal and Distal Frames. Added new function frameplot.m for frame plotting. Changed manner in which figures are closed in papercut files.
 
-7/6/2021:
+# References
+Run any files with Kinegami (preferably Universal and Spherical)
+Fixing solvedubins3d.m, specifically looking at lines 40-53 (theta calculations)
