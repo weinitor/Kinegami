@@ -1,5 +1,5 @@
 % Kinegami
-% Last Edited 7/20/2021 by Lucien Peach
+% Last Edited 7/22/2021 by Lucien Peach
 
 function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
@@ -90,6 +90,71 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
     end
         
+    % This figure call has no purpose except to prevent previous figure
+    % from closing
+    figure()
+    for i = 1:N
+        
+        if JointStruct(i).type == 'R'
+            
+            theta_m = JointStruct(i).qm;
+            jointindex = (i-1)*5+2;
+            
+            % Revolute Joint
+            [lengths, ls] = D_creasedesign_updated(r, n, theta_m);
+            
+            infostruct(jointindex).r = r;
+            infostruct(jointindex).ls = ls;
+            
+            [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, ...
+                infostruct(i).h1, infostruct(i).h2, r, theta_m);
+            
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).type = dataFoldD; 
+            infostruct(jointindex).name = "Revolute";
+            
+        elseif JointStruct(i).type == 'P'
+            
+            % Prismatic Joint
+            beta = pi/3;
+            nl = 2;
+            d0 = JointStruct(i).q0;
+            
+            jointindex = (i-1)*5+2;
+            
+            [ls, l1, h0, dm, E_alpha] = E_creasedesign(r, n, beta, d0, nl);
+            
+            infostruct(jointindex).r = r;
+            infostruct(jointindex).ls = ls;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).l1 = l1;
+            infostruct(jointindex).E_alpha = E_alpha;
+            
+            
+            [dataFoldE, m, lmax] = E_papercut(r, n, nl, ls, l1, dm, h0, ...
+                infostruct(i).h1, infostruct(i).h2, E_alpha, beta);
+
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).type = dataFoldE;
+            infostruct(jointindex).name = "Prismatic";
+            
+        else
+            
+        end
+        
+        val = 1 + (i-1)*5; 
+        
+        newval = val+2;
+
+        % Run Dubins Tube Analysis
+        [infostruct] = DubinsTube(r, n, TransformStruct(i).Od, ...
+            TransformStruct(i+1).Op, infostruct, newval, mirror);     
+      
+    end
+    
     % Create new figure to demonstrate the frames and their connections, as
     % well as the connection pipes
     figure()
@@ -158,12 +223,12 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         distalcenter(i+1, 2) = TransformStruct(i+1).Op(2, 4);
         distalcenter(i+1, 3) = TransformStruct(i+1).Op(3, 4);
         
-        x = [proximalcenter(i, 1), distalcenter(i+1, 1)];
-        y = [proximalcenter(i, 2), distalcenter(i+1, 2)];
-        z = [proximalcenter(i, 3), distalcenter(i+1, 3)];
+%         x = [proximalcenter(i, 1), distalcenter(i+1, 1)];
+%         y = [proximalcenter(i, 2), distalcenter(i+1, 2)];
+%         z = [proximalcenter(i, 3), distalcenter(i+1, 3)];
         
-        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 1.5);
-        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+%         h = plot3(x, y, z, 'color', 'k', 'Linewidth', 1.5);
+%         h.Annotation.LegendInformation.IconDisplayStyle = 'off';
  
     end
     
@@ -180,83 +245,14 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     zlabel('z')
     title('Frame Connections')
     
-    % This figure call has no purpose except to prevent previous figure
-    % from closing
-    figure()
-    for i = 1:N
-        
-        if JointStruct(i).type == 'R'
-            
-            theta_m = JointStruct(i).qm;
-            jointindex = (i-1)*5+2;
-            
-            % Revolute Joint
-            [lengths, ls] = D_creasedesign_updated(r, n, theta_m);
-            
-            infostruct(jointindex).r = r;
-            infostruct(jointindex).ls = ls;
-            
-            [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, ...
-                infostruct(i).h1, infostruct(i).h2, r, theta_m);
-            
-            infostruct(jointindex).m = m;
-            infostruct(jointindex).lmax = lmax;
-            infostruct(jointindex).n = n;
-            infostruct(jointindex).type = dataFoldD; 
-            infostruct(jointindex).name = "Revolute";
-            
-        elseif JointStruct(i).type == 'P'
-            
-            % Prismatic Joint
-            beta = pi/3;
-            nl = 2;
-            d0 = JointStruct(i).q0;
-            
-            jointindex = (i-1)*5+2;
-            
-            [ls, l1, h0, dm, E_alpha] = E_creasedesign(r, n, beta, d0, nl);
-            
-            infostruct(jointindex).r = r;
-            infostruct(jointindex).ls = ls;
-            infostruct(jointindex).n = n;
-            infostruct(jointindex).l1 = l1;
-            infostruct(jointindex).E_alpha = E_alpha;
-            
-            
-            [dataFoldE, m, lmax] = E_papercut(r, n, nl, ls, l1, dm, h0, ...
-                infostruct(i).h1, infostruct(i).h2, E_alpha, beta);
-
-            infostruct(jointindex).m = m;
-            infostruct(jointindex).lmax = lmax;
-            infostruct(jointindex).type = dataFoldE;
-            infostruct(jointindex).name = "Prismatic";
-            
-        else
-            
-        end
-        
-        val = 1 + (i-1)*5; 
-        
-        newval = val+2;
-
-        % Run Dubins Tube Analysis
-        [infostruct, tvec] = DubinsTube(r, n, TransformStruct(i).Od, ...
-            TransformStruct(i+1).Op, infostruct, newval, mirror);     
-      
-    end
-    
-    % Dubins Plotting
-    figure()
-    set(gcf, 'color', 'w')
-    hold on
-    
+    % Dubins Plotting    
     for i = 1:N
         
         val = 1 + (i-1)*5; 
         
         newval = val+2;
     
-        [TransformStruct] = DubinsPlot(TransformStruct, infostruct, newval, i, tvec);
+        [TransformStruct] = DubinsPlot(TransformStruct, infostruct, newval, i);
     
     end
     

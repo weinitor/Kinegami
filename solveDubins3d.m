@@ -12,9 +12,9 @@ ad = Od(:, 1).';
 op = Op(:, 4).';
 ap = Op(:, 1).';
 
-% % normalize 'velocity vectors'
-% ad = Ad / norm(Ad);
-% ap = Ap / norm(Ap);
+% normalize 'velocity vectors'
+% ad = ad / norm(ad);
+% ap = ap / norm(ap);
 % 
 % % Normalize position vectors
 % od = Odlarge / norm(Odlarge);
@@ -41,9 +41,12 @@ for i = 1:4
     
     T_normalized = norm(Tsol(i, :));
     T_hat(i, :) = Tsol(i, :)/T_normalized;
+    
+%     thetamatrix(i, 1) = acos(dot(ap, T_hat(i, :)) / (norm(ap)*norm(T_hat(i, :))));
+%     thetamatrix(i, 2) = acos(dot(ad, T_hat(i, :)) / (norm(ad)*norm(T_hat(i, :))));
 
-    thetamatrix(i, 1) = atan2(norm(cross(T_hat(i, :), ap)),dot(ap, T_hat(i, :)));
-    thetamatrix(i, 2) = atan2(norm(cross(T_hat(i, :), ad)),dot(ad, T_hat(i, :)));
+    thetamatrix(i, 1) = atan2(norm(cross(ap, T_hat(i, :))),dot(ap, T_hat(i, :)));
+    thetamatrix(i, 2) = atan2(norm(cross(T_hat(i, :), ad)),dot(T_hat(i, :), ad));
     
     ds(i) = r*thetamatrix(i, 1) + T_normalized + r*thetamatrix(i, 2);
     
