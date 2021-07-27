@@ -1,5 +1,6 @@
 % Dubins Path Plotting
 % Last edited 7/22/2021 by Lucien Peach
+% Last edidt 7/27/2021 by Wei-Hsi Chen
 
 function [TransformStruct] = DubinsPlot(TransformStruct, infostruct, index, i)
 
@@ -14,27 +15,28 @@ function [TransformStruct] = DubinsPlot(TransformStruct, infostruct, index, i)
 % index+2 = tube
 % index+3 = elbow2
 
-tvec = infostruct(index).tvec;
+tunit = infostruct(index).tunit;
 t = infostruct(index).t;
 
 % Origin point (Od)
 TransformStruct(i).path(:, 1) = TransformStruct(i).Od(:, 4);
-TransformStruct(i).newpath(:, 1) = TransformStruct(i).Od(:, 4);
-TransformStruct(i).newpath(:, 4) = TransformStruct(i+1).Op(:, 4);
 
+% Constructing the path via the parameters of the DubinsTube
 % Elbow1 Parameters and Path Plotting
 % ------------------------------------------------------------------------
 
 % Pull ap from initial frame
 ap = TransformStruct(i).Od(:, 1);
+ap = ap/norm(ap);
 
 % Determine ad based on theta - rotation matrix depends on axis of rotation
-% First, we must find w
-wp = cross(ap, tvec);
+% First, we must find w (w must be a normal vector)
+wp = cross(ap, tunit);
+wp = wp/norm(wp);
 
 % Use ap, rotationalmatrix, and w to determine ad for first elbow
-ad = rotationalmatrix(wp, infostruct(index).theta);
-ad = ad*ap;
+ad = rotationalmatrix(wp, infostruct(index).theta)*ap;
+ad = ad/norm(ad);
 
 % Factor in h1 and h2 offsets to determine positions for plotting
 TransformStruct(i).path(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
@@ -42,8 +44,6 @@ TransformStruct(i).path(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap
 TransformStruct(i).path(:, 3) = (infostruct(index).h2 + infostruct(index).dw)*ad ...
     + TransformStruct(i).path(:, 2);
 
-TransformStruct(i).newpath(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
-    + TransformStruct(i).newpath(:, 1);
 
 % Twist Parameters and Path Plotting
 % ------------------------------------------------------------------------
@@ -69,36 +69,46 @@ TransformStruct(i).path(:, 5) = (infostruct(index+2).h1 + infostruct(index+2).h2
 % Pull ap from elbow1 ad
 ap2 = ad;
 a_next = TransformStruct(i+1).Op(:, 1);
+a_next = a_next/norm(a_next);
 
-% Determine new ad based on theta
+% Determine new ad based on theta, (w must be a normal vector)
 wp2 = cross(ap2, a_next);
-ad = rotationalmatrix(wp2, infostruct(index+3).theta);
-ad = ad*ap2;
+wp2 = wp2/norm(wp2);
+ad2 = rotationalmatrix(wp2, infostruct(index+3).theta)*ap2;
+ad2 = ad2/norm(ad2);
 
 % Factor in h1 and h2 offsets
 TransformStruct(i).path(:, 6) = (infostruct(index+3).h1 + infostruct(index+3).dw)*ap2 ...
     + TransformStruct(i).path(:, 5);
-TransformStruct(i).path(:, 7) = (infostruct(index+3).h2 + infostruct(index+3).dw)*ad ...
+TransformStruct(i).path(:, 7) = (infostruct(index+3).h2 + infostruct(index+3).dw)*ad2 ...
     + TransformStruct(i).path(:, 6);
 
 
+% Constructing the path via the parameters of the DubinsPath
 % Newpath
-% aframe = -TransformStruct(i+1).Op(:, 1);
-% TransformStruct(i).newpath(:, 3) = TransformStruct(i).newpath(:, 4) + ...
-%     (infostruct(index+3).h2 + infostruct(index+3).dw)*aframe;
+% ------------------------------------------------------------------------
+TransformStruct(i).newpath(:, 1) = TransformStruct(i).Od(:, 4);
 
-TransformStruct(i).newpath(:, 3) = TransformStruct(i).newpath(:, 2) + ...
-    t.'+ (infostruct(index+3).dw + infostruct(index).dw)*tvec.';
+% TransformStruct(i).newpath(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
+%     + TransformStruct(i).newpath(:, 1);
+TransformStruct(i).newpath(:, 2) = infostruct(index).oc;
 
+% TransformStruct(i).newpath(:, 3) = TransformStruct(i).newpath(:, 2) + ...
+%     t.'+ (infostruct(index+3).dw + infostruct(index).dw)*tunit.';
+TransformStruct(i).newpath(:, 3) = infostruct(index+3).oc;
+
+% TransformStruct(i).newpath(:, 4) = TransformStruct(i+1).Op(:, 4);
+TransformStruct(i).newpath(:, 4) = TransformStruct(i).newpath(:, 3) + ...
+    TransformStruct(i+1).Op(:, 1)*infostruct(index+3).dw;
 
 % Should now create a "path" represented by segments 
 handle = plot3(TransformStruct(i).path(1, 1:7), TransformStruct(i).path(2, 1:7), ...
     TransformStruct(i).path(3, 1:7), 'LineWidth', 4, 'Color', 'k');
 handle.Annotation.LegendInformation.IconDisplayStyle = 'off';
 
-handle2 = plot3(TransformStruct(i).newpath(1, 1:4), TransformStruct(i).newpath(2, 1:4), ...
-    TransformStruct(i).newpath(3, 1:4), 'LineWidth', 3, 'Color', 'k');
-handle2.Annotation.LegendInformation.IconDisplayStyle = 'off';
+% handle2 = plot3(TransformStruct(i).newpath(1, 1:4), TransformStruct(i).newpath(2, 1:4), ...
+%     TransformStruct(i).newpath(3, 1:4), 'LineWidth', 3, 'Color', 'k');
+% handle2.Annotation.LegendInformation.IconDisplayStyle = 'off';
     
 
 end

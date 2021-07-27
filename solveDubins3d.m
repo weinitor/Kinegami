@@ -1,5 +1,6 @@
 % Dubins Path 3D Modeling
 % Lasted edited 6/25/2021 by Dr. Cynthia Sung and Lucien Peach
+% Lasted edited 7/27/2021 by Wei-Hsi Chen
 
 % Outputs row vector and two radian values
 % Make sure that Od and Op are normalized prior to entry
@@ -13,12 +14,8 @@ op = Op(:, 4).';
 ap = Op(:, 1).';
 
 % normalize 'velocity vectors'
-% ad = ad / norm(ad);
-% ap = ap / norm(ap);
-% 
-% % Normalize position vectors
-% od = Odlarge / norm(Odlarge);
-% op = Oplarge / norm(Oplarge);
+ad = ad / norm(ad);
+ap = ap / norm(ap);
 
 % solve for optimal t = [tx, ty, tz]
 T0 = od-op+randn(size(od));
@@ -42,9 +39,11 @@ for i = 1:4
     T_normalized = norm(Tsol(i, :));
     T_hat(i, :) = Tsol(i, :)/T_normalized;
     
-%     thetamatrix(i, 1) = acos(dot(ap, T_hat(i, :)) / (norm(ap)*norm(T_hat(i, :))));
-%     thetamatrix(i, 2) = acos(dot(ad, T_hat(i, :)) / (norm(ad)*norm(T_hat(i, :))));
+% Find angle using arccos, the range of the output angle is (0, pi)   
+%     thetamatrix(i, 1) = acos(dot(ap, T_hat(i, :)));
+%     thetamatrix(i, 2) = acos(dot(ad, T_hat(i, :)));
 
+% Find angle using atan2, the range of the output angle is (-pi, pi)   
     thetamatrix(i, 1) = atan2(norm(cross(ap, T_hat(i, :))),dot(ap, T_hat(i, :)));
     thetamatrix(i, 2) = atan2(norm(cross(T_hat(i, :), ad)),dot(T_hat(i, :), ad));
     
@@ -56,7 +55,7 @@ end
 
 disp(minds);
 
-% Output minimum tvector as well as minimum theta1 and theta2 values
+% Output minimum Tunittor as well as minimum theta1 and theta2 values
 tmin = Tsol(indexds, :);
 theta1min = thetamatrix(indexds, 1);
 theta2min = thetamatrix(indexds, 2);
@@ -122,15 +121,15 @@ axis equal
     function [Cd, Pd, Cp, Pp] = decomposePath1(T) % + ... +
         % find relevant points based on T vector
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
         
-        wp = cross(ap, cross(Tvec, ap));
-        yp = cross(Tvec, cross(Tvec, ap));
+        wp = cross(ap, cross(Tunit, ap));
+        yp = cross(Tunit, cross(Tunit, ap));
         Cp = op + r * wp / norm(wp); % center of starting circle
         Pp = Cp - r * yp / norm(yp); % point of leaving starting circle
         
-        wd = -cross(ad, cross(Tvec, ad));
-        yd = -cross(Tvec, cross(Tvec, ad));
+        wd = -cross(ad, cross(Tunit, ad));
+        yd = -cross(Tunit, cross(Tunit, ad));
         Cd = od + r * wd / norm(wd); % center of ending circle
         Pd = Cd - r * yd / norm(yd); % point of entering ending circle
     end
@@ -138,15 +137,15 @@ axis equal
     function [Cd, Pd, Cp, Pp] = decomposePath2(T) % - ... -
         % find relevant points based on T vector
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
         
-        wp = -cross(ap, cross(Tvec, ap));
-        yp = -cross(Tvec, cross(Tvec, ap));
+        wp = -cross(ap, cross(Tunit, ap));
+        yp = -cross(Tunit, cross(Tunit, ap));
         Cp = op + r * wp / norm(wp); % center of starting circle
         Pp = Cp - r * yp / norm(yp); % point of leaving starting circle
         
-        wd = cross(ad, cross(Tvec, ad));
-        yd = cross(Tvec, cross(Tvec, ad));
+        wd = cross(ad, cross(Tunit, ad));
+        yd = cross(Tunit, cross(Tunit, ad));
         Cd = od + r * wd / norm(wd); % center of ending circle
         Pd = Cd - r * yd / norm(yd); % point of entering ending circle
     end
@@ -154,15 +153,15 @@ axis equal
     function [Cd, Pd, Cp, Pp] = decomposePath3(T) % + ... -
         % find relevant points based on T vector
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
         
-        wp = cross(ap, cross(Tvec, ap));
-        yp = cross(Tvec, cross(Tvec, ap));
+        wp = cross(ap, cross(Tunit, ap));
+        yp = cross(Tunit, cross(Tunit, ap));
         Cp = op + r * wp / norm(wp); % center of starting circle
         Pp = Cp - r * yp / norm(yp); % point of leaving starting circle
         
-        wd = cross(ad, cross(Tvec, ad));
-        yd = cross(Tvec, cross(Tvec, ad));
+        wd = cross(ad, cross(Tunit, ad));
+        yd = cross(Tunit, cross(Tunit, ad));
         Cd = od + r * wd / norm(wd); % center of ending circle
         Pd = Cd - r * yd / norm(yd); % point of entering ending circle
     end
@@ -170,15 +169,15 @@ axis equal
     function [Cd, Pd, Cp, Pp] = decomposePath4(T) % - ... +
         % find relevant points based on T vector
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
         
-        wp = -cross(ap, cross(Tvec, ap));
-        yp = -cross(Tvec, cross(Tvec, ap));
+        wp = -cross(ap, cross(Tunit, ap));
+        yp = -cross(Tunit, cross(Tunit, ap));
         Cp = op + r * wp / norm(wp); % center of starting circle
         Pp = Cp - r * yp / norm(yp); % point of leaving starting circle
         
-        wd = -cross(ad, cross(Tvec, ad));
-        yd = -cross(Tvec, cross(Tvec, ad));
+        wd = -cross(ad, cross(Tunit, ad));
+        yd = -cross(Tunit, cross(Tunit, ad));
         Cd = od + r * wd / norm(wd); % center of ending circle
         Pd = Cd - r * yd / norm(yd); % point of entering ending circle
     end
@@ -195,13 +194,13 @@ axis equal
     function err = dubinspath1(T) % + ... +
         % equations to solve
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(Tvec,ap)),dot(ap,Tvec));
-        theta2 = atan2(norm(cross(Tvec,ad)),dot(ad,Tvec));
+        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
 
         err = T + ...
-            r*(tan(theta1/2) + tan(theta2/2))*Tvec + ...
+            r*(tan(theta1/2) + tan(theta2/2))*Tunit + ...
             r*(tan(theta1/2)*ap + tan(theta2/2)*ad) + ...
             - (od-op);
     end
@@ -209,13 +208,13 @@ axis equal
     function err = dubinspath2(T) % - ... -
         % equations to solve
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(Tvec,ap)),dot(ap,Tvec));
-        theta2 = atan2(norm(cross(Tvec,ad)),dot(ad,Tvec));
+        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
 
         err = T - ...
-            r*(tan(theta1/2) + tan(theta2/2))*Tvec - ...
+            r*(tan(theta1/2) + tan(theta2/2))*Tunit - ...
             r*(tan(theta1/2)*ap + tan(theta2/2)*ad) + ...
             - (od-op);
     end
@@ -223,13 +222,13 @@ axis equal
     function err = dubinspath3(T) % + ... -
         % equations to solve
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(Tvec,ap)),dot(ap,Tvec));
-        theta2 = atan2(norm(cross(Tvec,ad)),dot(ad,Tvec));
+        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
 
         err = T + ...
-            r*(tan(theta1/2) - tan(theta2/2))*Tvec + ...
+            r*(tan(theta1/2) - tan(theta2/2))*Tunit + ...
             r*(tan(theta1/2)*ap - tan(theta2/2)*ad) + ...
             - (od-op);
     end
@@ -237,13 +236,13 @@ axis equal
     function err = dubinspath4(T) % - ... +
         % equations to solve
         Tnorm = norm(T);
-        Tvec = T/Tnorm;
+        Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(Tvec,ap)),dot(ap,Tvec));
-        theta2 = atan2(norm(cross(Tvec,ad)),dot(ad,Tvec));
+        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
 
         err = T + ...
-            r*(-tan(theta1/2) + tan(theta2/2))*Tvec + ...
+            r*(-tan(theta1/2) + tan(theta2/2))*Tunit + ...
             r*(-tan(theta1/2)*ap + tan(theta2/2)*ad) + ...
             - (od-op);
     end

@@ -1,5 +1,7 @@
 % Dubins Tube Algorithm
 % Last Updated 7/22/2021 by Lucien Peach
+% Last Updated 7/27/2021 by Wei-Hsi Chen
+
 
 function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror)
 
@@ -24,16 +26,16 @@ bd = bd / norm(bd);
 % shortest path. output this t and the corresponding theta1 and theta2
 [t, theta1, theta2] = solveDubins3d(r, Od, Op);
 
-tvec = t/norm(t);
+tunit = t/norm(t);
 infostruct(index).t = t;
-infostruct(index).tvec = tvec;
+infostruct(index).tunit = tunit;
 
 % Determine values of wp and wd
-wp = cross(ap, tvec);
-% wp = wp / norm(wp);
-% wd = cross(ad, tvec);
-wd = cross(tvec, ad);
-% wd = wd / norm(wd);
+wp = cross(ap, tunit);
+wp = wp / norm(wp);
+
+wd = cross(tunit, ad);
+wd = wd / norm(wd);
 
 % Define bm
 [r_mat_p] = rotationalmatrix(wp, theta1);
@@ -71,7 +73,8 @@ infostruct(index).n = n;
 infostruct(index).type = dataFoldA;
 infostruct(index).name = "Elbow";
 infostruct(index).theta = theta1;
-infostruct(index).dw = r*tan(theta1 / 2);
+infostruct(index).dw = r*abs(tan(theta1 / 2));
+infostruct(index).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap;
 
 % Twist Fitting
 Tnorm = norm(t);
@@ -123,7 +126,8 @@ infostruct(index+3).n = n;
 infostruct(index+3).type = dataFoldD;
 infostruct(index+3).name = "Elbow";
 infostruct(index+3).theta = theta2;
-infostruct(index+3).dw = r*tan(theta2 / 2);
+infostruct(index+3).dw = r*abs(tan(theta2 / 2));
+infostruct(index+3).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap + t' +r*(abs(tan(theta1 / 2))+abs(tan(theta2 / 2)))*tunit';
 
 % If the height of any segment is 0, edit so that lines are not printed
 for i = index:index+3
