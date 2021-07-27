@@ -1,5 +1,5 @@
 % Dubins Tube Algorithm
-% Last Updated 6/27/2021 by Lucien Peach
+% Last Updated 7/22/2021 by Lucien Peach
 
 function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror)
 
@@ -25,6 +25,8 @@ bd = bd / norm(bd);
 [t, theta1, theta2] = solveDubins3d(r, Od, Op);
 
 tvec = t/norm(t);
+infostruct(index).t = t;
+infostruct(index).tvec = tvec;
 
 % Determine values of wp and wd
 wp = cross(ap, tvec);
@@ -69,6 +71,7 @@ infostruct(index).n = n;
 infostruct(index).type = dataFoldA;
 infostruct(index).name = "Elbow";
 infostruct(index).theta = theta1;
+infostruct(index).dw = r*tan(theta1 / 2);
 
 % Twist Fitting
 Tnorm = norm(t);
@@ -120,6 +123,7 @@ infostruct(index+3).n = n;
 infostruct(index+3).type = dataFoldD;
 infostruct(index+3).name = "Elbow";
 infostruct(index+3).theta = theta2;
+infostruct(index+3).dw = r*tan(theta2 / 2);
 
 % If the height of any segment is 0, edit so that lines are not printed
 for i = index:index+3
