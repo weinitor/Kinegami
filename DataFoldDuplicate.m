@@ -1,7 +1,8 @@
 % Duplicating Crease Pattern
 % Last Edited 6/22/2021 by Lucien Peach
 
-function [msum, lmax_sum] = DataFoldDuplicate(Struct1, infostruct, index, msum, lmax_sum, triple)
+function [msum, lmax_sum, infostruct, Struct1, Struct2] =  ...
+    DataFoldDuplicate(Struct1, Struct2, infostruct, index, msum, lmax_sum, triple)
 % infostruct is a data structure that includes all the information needed
 % for the construction of the full schematic
 
@@ -16,6 +17,13 @@ if strcmp(infostruct(index).name, "Twist") == 1
     name = 1;
 else
     name = 0;
+end
+
+% num will be used to prevent double lines for twists that become tubes
+if infostruct(index).m < 10^-4 || infostruct(index).m > infostruct(index).ls - 10^-4
+    num = 5;
+else
+    num = 4;
 end
 
 % Check will differ based on if index is final in array
@@ -62,7 +70,16 @@ if alert == 0 && strcmp(triple, 'triple') == 0
         
         % If appended to right (no twist)
         if infostruct(index).n * infostruct(index).ls <= 2*pi*infostruct(index).r ... 
-                && name == 0            
+                && name == 0
+            
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
             % Ignore left tube line
             for i = 6:size(Struct1, 2)
                 
@@ -82,6 +99,14 @@ if alert == 0 && strcmp(triple, 'triple') == 0
             Struct1(6).x = Struct1(5).x;
             Struct1(6).y = Struct1(5).y;
             
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
             for i = 6:size(Struct1, 2)
                 
                 Struct1(i).x = Struct1(i).x - (infostruct(index).n * infostruct(index).ls);
@@ -95,7 +120,15 @@ if alert == 0 && strcmp(triple, 'triple') == 0
         elseif infostruct(index).n * infostruct(index).ls <= 2*pi*infostruct(index).r ...
                 && name == 1
             
-            for i = 5:size(Struct1, 2)
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
+            for i = num+1:size(Struct1, 2)
                 
                 Struct1(i).x = Struct1(i).x + (infostruct(index).n * infostruct(index).ls);
                 Struct1(i).y = Struct1(i).y;
@@ -107,7 +140,15 @@ if alert == 0 && strcmp(triple, 'triple') == 0
         % If appended to left (twist)
         else
             
-            for i = 5:size(Struct1, 2)
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
+            for i = num+1:size(Struct1, 2)
                 
                 Struct1(i).x = Struct1(i).x - (infostruct(index).n * infostruct(index).ls);
                 Struct1(i).y = Struct1(i).y;
@@ -141,6 +182,14 @@ if alert == 0 && strcmp(triple, 'triple') == 0
         % If appended to right (not twist)
         if infostruct(index).n * infostruct(index).ls + msum <= 2*pi*infostruct(index).r ...
                 && name == 0
+            
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
 
             % Ignore left tube line
             for i = 6:size(Struct1, 2)
@@ -161,6 +210,14 @@ if alert == 0 && strcmp(triple, 'triple') == 0
             % Reassign left tube data to right tube index and specify offsets
              Struct1(6).x = Struct1(5).x;
              Struct1(6).y = Struct1(5).y; 
+             
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
 
              % Ignore the right tube line
              for i = 6:size(Struct1, 2)
@@ -177,8 +234,16 @@ if alert == 0 && strcmp(triple, 'triple') == 0
         % If appended to right (twist)
         elseif infostruct(index).n * infostruct(index).ls + msum <= 2*pi*infostruct(index).r ...
                 && name == 1
+            
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
 
-            for i = 5:size(Struct1, 2)
+            for i = num+1:size(Struct1, 2)
 
                 % Factor in offset for every location along the structure
                 Struct1(i).x = Struct1(i).x + msum + (infostruct(index).n * infostruct(index).ls);
@@ -192,7 +257,15 @@ if alert == 0 && strcmp(triple, 'triple') == 0
         % If appended to left (twist)
         else
             
-            for i = 5:size(Struct1, 2)
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
+            for i = num+1:size(Struct1, 2)
 
                 % Factor in offset for every location along the structure
                 Struct1(i).x = Struct1(i).x + msum - (infostruct(index).n * infostruct(index).ls);
@@ -223,6 +296,14 @@ if alert == 0 && strcmp(triple, 'triple') == 1
         % No twist
         if name == 0  
             
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
             % Ignore left tube line
             for i = 6:size(Struct1, 2)
                 
@@ -230,26 +311,30 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
-                
-                % Reset
-                Struct1(i).x = Struct1(i).x - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y;           
+                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)       
                 
             end
             
             % Reassign left tube data to right tube index and specify offsets
-            Struct1(6).x = Struct1(5).x;
-            Struct1(6).y = Struct1(5).y;
+            Struct2(6).x = Struct2(5).x;
+            Struct2(6).y = Struct2(5).y;
+            
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct2(i).x = [];
+                Struct2(i).y = [];
+                
+            end
             
             % Plot left component of triplet
-            for i = 6:size(Struct1, 2)
+            for i = 6:size(Struct2, 2)
                 
-                Struct1(i).x = Struct1(i).x - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y;
+                Struct2(i).x = Struct2(i).x - (infostruct(index).n * infostruct(index).ls);
+                Struct2(i).y = Struct2(i).y;
                 
                 % Plotting
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
             
@@ -258,8 +343,16 @@ if alert == 0 && strcmp(triple, 'triple') == 1
         % If appended to right (twist)
         if name == 1
             
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
             % Ignore boundary lines
-            for i = 5:size(Struct1, 2)
+            for i = num+1:size(Struct1, 2)
                 
                 Struct1(i).x = Struct1(i).x + (infostruct(index).n * infostruct(index).ls);
                 Struct1(i).y = Struct1(i).y;
@@ -267,20 +360,24 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 % Plot each segment as before, but with offset factored in
                 plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
                 
-                % Reset
-                Struct1(i).x = Struct1(i).x - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y;
+            end
+            
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct2(i).x = [];
+                Struct2(i).y = [];
                 
             end
             
             % Left triplet component
-            for i = 5:size(Struct1, 2)
+            for i = num+1:size(Struct2, 2)
                 
-                Struct1(i).x = Struct1(i).x - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y;
+                Struct2(i).x = Struct2(i).x - (infostruct(index).n * infostruct(index).ls);
+                Struct2(i).y = Struct2(i).y;
                 
                 % Plot each segment with offset
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
             
@@ -309,6 +406,14 @@ if alert == 0 && strcmp(triple, 'triple') == 1
         % If not twist
         if name == 0
             
+            for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
+            
             % Ignore left tube line
             for i = 6:size(Struct1, 2)
 
@@ -318,26 +423,30 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 
                 % Plot each segment as before, but with offset factored in
                 plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
-                
-                % Reset
-                Struct1(i).x = Struct1(i).x - msum - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y - infostruct(index-1).lmax - lmax_sum;
 
             end
             
             % Reassign left tube data to right tube index and specify offsets
-            Struct1(6).x = Struct1(5).x;
-            Struct1(6).y = Struct1(5).y;
+            Struct2(6).x = Struct2(5).x;
+            Struct2(6).y = Struct2(5).y;
             
+           for i = 1:5
+                
+                % Assign null values for purpose of DXF Generation
+                Struct2(i).x = [];
+                Struct2(i).y = [];
+                
+            end
+
             % Left triplet component
-            for i = 6:size(Struct1, 2)
+            for i = 6:size(Struct2, 2)
                 
                 % Factor in offset for every location along the structure
-                Struct1(i).x = Struct1(i).x + msum - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
+                Struct2(i).x = Struct2(i).x + msum - (infostruct(index).n * infostruct(index).ls);
+                Struct2(i).y = Struct2(i).y + infostruct(index-1).lmax + lmax_sum;
                  
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
             
@@ -345,9 +454,17 @@ if alert == 0 && strcmp(triple, 'triple') == 1
 
         % Twist
         if name == 1
+            
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct1(i).x = [];
+                Struct1(i).y = [];
+                
+            end
 
             % Plot on right side
-            for i = 5:size(Struct1, 2)
+            for i = num+1:size(Struct1, 2)
 
                 % Factor in offset for every location along the structure
                 Struct1(i).x = Struct1(i).x + msum + (infostruct(index).n * infostruct(index).ls);
@@ -356,21 +473,25 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 % Plot each segment as before, but with offset factored in
                 plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
                 
-                % Reset
-                Struct1(i).x = Struct1(i).x - msum - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y - infostruct(index-1).lmax - lmax_sum;
+            end
+            
+            for i = 1:num
+                
+                % Assign null values for purpose of DXF Generation
+                Struct2(i).x = [];
+                Struct2(i).y = [];
                 
             end
             
             % Plot left side of triplet
-            for i = 5:size(Struct1, 2)
+            for i = num+1:size(Struct2, 2)
                 
                 % Factor in left offset
-                Struct1(i).x = Struct1(i).x + msum - (infostruct(index).n * infostruct(index).ls);
-                Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
+                Struct2(i).x = Struct2(i).x + msum - (infostruct(index).n * infostruct(index).ls);
+                Struct2(i).y = Struct2(i).y + infostruct(index-1).lmax + lmax_sum;
                 
                 % Plot each segment with offset
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
         end     
