@@ -1,7 +1,7 @@
 % Appending Crease Pattern
 % Last Edited 6/22/2021 by Lucien Peach
 
-function [msum, lmax_sum, infostruct] = DataFoldAppend(Struct1, infostruct, index, msum, lmax_sum)
+function [msum, lmax_sum, infostruct, Struct1] = DataFoldAppend(Struct1, infostruct, index, msum, lmax_sum)
 % infostruct is a data structure that includes all the information needed
 % for the construction of the full schematic
 
@@ -51,6 +51,14 @@ if alert == 0
     % Include special case for the first block
     if index == 1
         
+        for i = 1:4
+
+            % Assign null values for purpose of DXF Generation
+            Struct1(i).x = [];
+            Struct1(i).y = [];
+
+        end
+        
         for i = 5:size(Struct1, 2)
             
             % No mod term needed
@@ -83,6 +91,14 @@ if alert == 0
 
         infostruct(index).lmaxnet = infostruct(index).lmax + ...
             infostruct(index-1).lmaxnet;
+        
+        for i = 1:4
+
+            % Assign null values for purpose of DXF Generation
+            Struct1(i).x = [];
+            Struct1(i).y = [];
+
+        end
 
         % First fold
         for i = 5:size(Struct1, 2)
