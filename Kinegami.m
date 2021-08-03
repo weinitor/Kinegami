@@ -93,7 +93,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     % This figure call has no purpose except to prevent previous figure
     % from closing
     figure()
-    for i = 1:N
+    for i = 1:N+1
         
         if JointStruct(i).type == 'R'
             
@@ -105,9 +105,10 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
+            nz = 1;
             
             [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, ...
-                infostruct(i).h1, infostruct(i).h2, r, theta_m);
+                infostruct(i).h1, infostruct(i).h2, r, theta_m, nz);
             
             infostruct(jointindex).m = m;
             infostruct(jointindex).lmax = lmax;
@@ -143,6 +144,25 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             
         else
             
+            % Fingertip "Joint"
+            theta_m = JointStruct(i).qm;
+            jointindex = (i-1)*5+2;
+            
+            % Use same calculation file as revolute joint
+            [lengths, ls] = D_creasedesign_updated(r, n, theta_m);
+            
+            infostruct(jointindex).r = r;
+            infostruct(jointindex).ls = ls;
+            
+            [FingertipFold, m, lmax] = Fingertip(lengths, ls, n, ...
+                infostruct(i).h1, r, theta_m);
+            
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).type = FingertipFold; 
+            infostruct(jointindex).name = "Fingertip";
+            
         end
         
         val = 1 + (i-1)*5; 
@@ -150,8 +170,11 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         newval = val+2;
 
         % Run Dubins Tube Analysis
-        [infostruct] = DubinsTube(r, n, TransformStruct(i).Od, ...
-            TransformStruct(i+1).Op, infostruct, newval, mirror);     
+        if i < N+1
+            
+            [infostruct] = DubinsTube(r, n, TransformStruct(i).Od, ...
+                TransformStruct(i+1).Op, infostruct, newval, mirror);   
+        end
       
     end
     
@@ -164,9 +187,12 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     % Indicate colors for a, b, c, for each frame
     colorvector = ['r'; 'g'; 'b'];
     
-    for i = 1:N
+    for i = 1:N+1
         
         for j = 1:3
+            
+            % Do not worry about printing fingertip distal
+            if i < N+1
             
             % Plotting "proximal" frame axes
             quiver3(TransformStruct(i).Od(1,4), TransformStruct(i).Od(2,4), ...
@@ -174,14 +200,16 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
                 TransformStruct(i).Od(2,j), TransformStruct(i).Od(3,j), ...
                 'AutoScaleFactor', 0.025, 'Linewidth', 3, 'Color', colorvector(j));
             
+            end
+            
         end
         
         for j = 1:3
 
             % Plotting "distal" frame axes
-            quiver3(TransformStruct(i+1).Op(1,4), TransformStruct(i+1).Op(2,4), ...
-                TransformStruct(i+1).Op(3,4), TransformStruct(i+1).Op(1,j), ...
-                TransformStruct(i+1).Op(2,j), TransformStruct(i+1).Op(3,j), ...
+            quiver3(TransformStruct(i).Op(1,4), TransformStruct(i).Op(2,4), ...
+                TransformStruct(i).Op(3,4), TransformStruct(i).Op(1,j), ...
+                TransformStruct(i).Op(2,j), TransformStruct(i).Op(3,j), ...
                 'AutoScaleFactor', 0.025, 'Linewidth', 3, 'Color', colorvector(j));
         end
               
@@ -192,10 +220,15 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     daspect([1, 1, 1])
     
     % Add frames to previous plot
-    for i = 1:N
+    for i = 1:N+1
         
-        plot1 = frameplot(TransformStruct(i).Od, 'black'); % Plotting "proximal"
-        plot2 = frameplot(TransformStruct(i+1).Op, 'black'); % Plotting "distal"
+        plot1 = frameplot(TransformStruct(i).Op, 'black', n); % Plotting "proximal"
+        
+        if i < N+1 % again, do not worry about fingertip distal
+            
+            plot2 = frameplot(TransformStruct(i).Od, 'black', n); % Plotting "distal"
+        
+        end
         
         % Ignore in legend
         plot1.Annotation.LegendInformation.IconDisplayStyle = 'off';
@@ -219,9 +252,9 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         proximalcenter(i, 2) = TransformStruct(i).Od(2, 4);
         proximalcenter(i, 3) = TransformStruct(i).Od(3, 4);
         
-        distalcenter(i+1, 1) = TransformStruct(i+1).Op(1, 4);
-        distalcenter(i+1, 2) = TransformStruct(i+1).Op(2, 4);
-        distalcenter(i+1, 3) = TransformStruct(i+1).Op(3, 4);
+        distalcenter(i, 1) = TransformStruct(i).Op(1, 4);
+        distalcenter(i, 2) = TransformStruct(i).Op(2, 4);
+        distalcenter(i, 3) = TransformStruct(i).Op(3, 4);
         
 %         x = [proximalcenter(i, 1), distalcenter(i+1, 1)];
 %         y = [proximalcenter(i, 2), distalcenter(i+1, 2)];
@@ -230,6 +263,61 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
 %         h = plot3(x, y, z, 'color', 'k', 'Linewidth', 1.5);
 %         h.Annotation.LegendInformation.IconDisplayStyle = 'off';
  
+    end
+    
+    % Add initial tube plotting. Take all 3 possible orientations into
+    % account for accurate point plotting.
+    
+    % a = [1; 0; 0]
+    if TransformStruct(1).Op(1, 1) == 1
+        
+        x = [distalcenter(1, 1) - infostruct(1).lmax, distalcenter(1, 1)];
+        y = [distalcenter(1, 2), distalcenter(1, 2)];
+        z = [distalcenter(1, 3), distalcenter(1, 3)];
+        
+        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
+        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+        
+    % a = [0; 1; 0]   
+    elseif TransformStruct(1).Op(2, 1) == 1
+        
+        x = [distalcenter(1, 1), distalcenter(1, 1)];
+        y = [distalcenter(1, 2) - infostruct(1).lmax, distalcenter(1, 2)];
+        z = [distalcenter(1, 3), distalcenter(1, 3)];
+        
+        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
+        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+        
+    % a = [0; 0; 1]    
+    else
+        
+        x = [distalcenter(1, 1), distalcenter(1, 1)];
+        y = [distalcenter(1, 2), distalcenter(1, 2)];
+        z = [distalcenter(1, 3) - infostruct(1).lmax, distalcenter(1, 3)];
+        
+        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
+        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+        
+    end
+    
+    % Colorvector data for joint spheres
+    red = [0.85, 0.325, 0.098];
+    yellow = [0.929, 0.694, 0.125];
+    green = [0.466, 0.674, 0.188];
+    blue = [0, 0.447, 0.741];
+
+    colorvector = [red; yellow; green; blue];
+    
+    % Add joint spheres
+    for i = 1:N+1
+        
+        % Run SphericalSampling on each joint
+        [TransformStruct(i).dubinsplot, handle] = SphericalSampling(TransformStruct(i).oinew, ...
+            TransformStruct(i).rs, colorvector(i, :));   
+        
+        % Turn off legend for appearance
+        handle.Annotation.LegendInformation.IconDisplayStyle = 'off';
+        
     end
     
     % Plot Settings
@@ -260,7 +348,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     infostruct(1).lmaxnet = infostruct(1).lmax;
     
     % Create duplicate structure fields for structure storage
-    for i = 1:init_size
+    for i = 1:init_size+1
         
         infostruct(i).duplicate = infostruct(i).type;
         
