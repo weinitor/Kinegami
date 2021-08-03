@@ -127,7 +127,8 @@ infostruct(index+3).type = dataFoldD;
 infostruct(index+3).name = "Elbow";
 infostruct(index+3).theta = theta2;
 infostruct(index+3).dw = r*abs(tan(theta2 / 2));
-infostruct(index+3).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap + t' +r*(abs(tan(theta1 / 2))+abs(tan(theta2 / 2)))*tunit';
+infostruct(index+3).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap + t' + ...
+    r*(abs(tan(theta1 / 2))+abs(tan(theta2 / 2)))*tunit';
 
 % If the height of any segment is 0, edit so that lines are not printed
 for i = index:index+3

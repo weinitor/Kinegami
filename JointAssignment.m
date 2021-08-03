@@ -52,7 +52,7 @@ TransformStruct(N+1).rs = r;
 % Assume value for beta to be constant
 beta = pi/4; % [rad]
 
-for i = 1:N
+for i = 1:N+1
     
     % Assign r fields for sphere calculations
     
@@ -67,10 +67,11 @@ for i = 1:N
         
         TransformStruct(i).rs = 1/4*JointStruct(i).q0*(2 + csc(beta));
     
-    % Otherwise
+    % Otherwise, for fingetip
     else
         
-        TransformStruct(i).rs = r;
+        TransformStruct(i).rs = r*sin(((n - 2)*pi) / (2*n))* ...
+            tan(JointStruct(i).qm/4);
         
     end
     
@@ -212,7 +213,7 @@ plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
     
 
 % Loop through joint coordinate reassignment
-for i = 1:N
+for i = 1:N+1
     
     % Redefine x y and z, as well as centroid, based on sphere reassignment
     Ox = TransformStruct(i).net(1:3, 1);
@@ -236,7 +237,22 @@ for i = 1:N
     % Other joints
     else
         
-        TransformStruct(i).Oc = [Ox, Oy, Oz, Oc];
+        % If fingertip assignment is x
+        if strcmp(fingertip, 'x') == 1
+            
+            TransformStruct(i).Oc = [Ox, Oy, Oz, Oc];
+        
+        % If fingertip assignment is y
+        elseif strcmp(fingertip, 'y') == 1
+            
+            TransformStruct(i).Oc = [Oy, Oz, Ox, Oc];
+        
+        % If fingertip assignment is z
+        else
+            
+            TransformStruct(i).Oc = [Oz, Ox, Oy, Oc];
+            
+        end
         
     end
     

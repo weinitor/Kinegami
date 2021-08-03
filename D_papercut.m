@@ -1,7 +1,7 @@
 % Cut graphing - Fold Type D (A.3)
 % Last edited 6/11/2021 by Lucien Peach
 
-function [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, h1, h2, r, theta_m)
+function [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, h1, h2, r, theta_m, nz)
 
 % Counter used for data structure indexing
 count = 1;
@@ -950,6 +950,51 @@ if n > 4
         end
     end
 end
+
+% Recursive Sink Gadget Addition
+% -----------------------------------------------------------------
+
+% if nz > 1 && n == 4
+    
+%     % First, determine the slope of the diagonal lines. This value is
+%     % important to know, as many of the points which will be added are
+%     % located along these lines
+%     lineslope = 2*max(lengths) / ls;
+%     
+%     % We also need to determine the diagonal slopes for the diamond
+%     % patterns. We can store these in the diamondslope array.
+%     diamondslope = zeros((n-4)*2, 1);
+%     
+%     % Populate diamondslope based on the values contained in slopes
+%     
+%     % First half of pattern
+%     for i = 1:n
+%         
+%         % Slopes for the first half of array
+%         diamondslope(i) = (lengths(i+1) - lengths(i)) / (ls/2);        
+%         
+%     end
+%     
+%     % Second half of pattern
+%     for i = n/2
+%         
+%         
+%     end
+%     
+%     % Initialize array to hold plot values
+%     recursion = zeros((nz*6)*(n-2), 2);
+%     
+%     % Loop through to assign the layered recursion values
+%     for i = 1:6:(nz*6)*(n-2)
+%         
+%         
+%         
+%         
+%     end
+%     
+%     
+%     
+% end
 
 % Add section for overlap fold
 % -----------------------------------------------------------------
