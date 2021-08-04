@@ -400,9 +400,9 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
 %     
 %     count = 1;
 %     
-     val = size(infostruct, 2) - 1;
+    val = size(infostruct, 2) - 2;
     
-    
+    % Add boundary boxes around individual components, split by tubes
     for i = 1:size(infostruct, 2)
         
         if strcmp(infostruct(i).name, "Tube") == 1 && i ~= 1
@@ -466,7 +466,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     
     % Consolidating the information for GenerateDXF into a single
     % structure. 
-    for i = 1:init_size
+    for i = 1:init_size+1
                 
         for j = 1:infostruct(i).size
             
@@ -494,7 +494,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     end
     
     % Adding the outline boxes, which only need to be printed once
-    for i = init_size+1:structsize
+    for i = init_size+2:structsize
         
         for j = 1:infostruct(i).size
             
