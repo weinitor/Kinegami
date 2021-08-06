@@ -42,7 +42,8 @@ wd = wd / norm(wd);
 bm = r_mat_p * bp;
 
 % Determine values of phi1
-phi1 = atan2(norm(cross(bp, wp)), dot(bp, wp));
+% phi1 = atan2(norm(cross(bp, wp)), dot(bp, wp));
+phi1 = SignedAngle(bp, wp, ap);
 
 [r_mat_d] = rotationalmatrix(wd, theta2);
 
@@ -51,12 +52,14 @@ phi1 = atan2(norm(cross(bp, wp)), dot(bp, wp));
 bu = r_mat_d * bm;
 
 % Use value of b_u to find alpha
-alpha = atan2(norm(cross(bu, bd)), dot(bu, bd));
+% alpha = atan2(norm(cross(bu, bd)), dot(bu, bd));
+alpha = SignedAngle(bu, bd, ad);
 
 disp(alpha)
 
 % Determine phi2
-phi2 = atan2(norm(cross(bm, wd)), dot(bm, wd)) - alpha;
+% phi2 = atan2(norm(cross(bm, wd)), dot(bm, wd)) - alpha;
+phi2 = SignedAngle(bm, wd, tunit) - alpha;
 
 % Elbow Fitting
 [lengths, ls] = A_creasedesign(r, n, phi1, theta1);

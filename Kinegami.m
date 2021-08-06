@@ -189,6 +189,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     
     % Identify red, green, blue, as a, b, c
     legend('a', 'b', 'c')
+    view(45, 45)
     daspect([1, 1, 1])
     
     % Add frames to previous plot
