@@ -11,4 +11,5 @@ n = n/norm(n);
 
 % find the signed angle
 theta = atan2(dot(cross(a,b),n),dot(a,b));
+end
 
