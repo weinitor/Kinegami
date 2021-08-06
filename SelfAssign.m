@@ -24,10 +24,11 @@ for i = 1:N+1
         
         TransformStruct(i).rs = 1/4*JointStruct(i).q0*(2 + csc(beta));
     
-    % Otherwise
+    % Otherwise, for fingertip
     else
         
-        TransformStruct(i).rs = r;
+        TransformStruct(i).rs = r*sin(((n - 2)*pi) / (2*n))* ...
+            tan(JointStruct(i).qm/ 4);
         
     end
     

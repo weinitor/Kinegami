@@ -29,7 +29,7 @@ mirror = 'on';
 triple = 'triple';
 theta_mod = [0, 0, 0, 0];
 fingertip = 'z';
-selfassign = 'true';
+selfassign = 'false';
 
 N = size(JointStruct, 2) - 1;
 
