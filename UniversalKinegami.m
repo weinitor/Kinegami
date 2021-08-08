@@ -5,50 +5,86 @@ clear
 close all
 clc
 
-D = [0, pi/2, 0, pi/2; ...
-    0, pi/2, 0, 0; ...
-    0.2, 0, 0, 0];
+selfassign = 'true';
 
-r = 0.02;
-n = 6;
+if strcmp(selfassign, 'false') == 1
 
-JointStruct(3) = struct();
+    D = [0, pi/2, 0, pi/2; ...
+        0, pi/2, 0, 0; ...
+        0.2, 0, 0, 0];
 
-for i = 1:3
-    JointStruct(i).qm = pi;
-    JointStruct(i).q0 = 0;
-    JointStruct(i).type = 'R';
+    r = 0.02;
+    n = 3;
+
+    JointStruct(n) = struct();
+
+    for i = 1:n
+        JointStruct(i).qm = pi;
+        JointStruct(i).q0 = 0;
+        JointStruct(i).type = 'R';
+    end
+
+    JointStruct(1).q0 = pi/2;
+    JointStruct(3).type = 'F';
+
+    mirror = 'on';
+    triple = 'triple';
+    theta_mod = [0, 0, 0, 0];
+    fingertip = 'x';
+
+    N = size(JointStruct, 2) - 1;
+    
 end
-
-JointStruct(1).q0 = pi/2;
-JointStruct(3).type = 0;
-
-mirror = 'on';
-triple = 'triple';
-theta_mod = [0, 0, 0, 0];
-fingertip = 'x';
-selfassign = 'false';
-
-N = size(JointStruct, 2) - 1;
 
 % If the selfassign tag is applied, provide Oc for each joint
 % Make sure that Oc(:,4) are all not equal to 0 (x.xxx * 10^-25, etc., is
 % acceptable)
 if strcmp(selfassign, 'true') == 1
     
+    r = 0.02;
+    n = 4;
+
+    JointStruct(n) = struct();
+
+    for i = 1:n
+        JointStruct(i).qm = pi;
+        JointStruct(i).q0 = 0;
+        JointStruct(i).type = 'R';
+    end
+
+    JointStruct(2).q0 = pi/2;
+    JointStruct(1).type = 'V';
+    JointStruct(4).type = 'F';
+
+    mirror = 'on';
+    triple = 'triple';
+    theta_mod = [0, 0, 0, 0];
+    fingertip = 'x';
+
+    N = size(JointStruct, 2) - 1;
+    
     TransformStruct(N+1) = struct();
     
-    TransformStruct(1).Oc = [0, -1, 0, 0; ...
-        0, 0, -1, 0.1843; ...
-        1, 0, 0, -1.1297*10^-17];
+    TransformStruct(1).Oc = [0, 0, 1, 0; ...
+        0, -1, 0, 0; ...
+        1, 0, 0, -4*r];
     
-    TransformStruct(2).Oc = [0, 0, 1, 6.9248*10^-9; ...
-        0, -1, 0, -4.2402*10^-25; ...
-        1, 0, 0, -4.2402*10^-25];
+    TransformStruct(2).Oc = [0, 0, 1, -2.5*r; ...
+        1, 0, 0, 0; ...
+        0, 1, 0, 0];
     
-    TransformStruct(3).Oc = [0, 0, 1, 1.12246*10^-17; ...
-        0, -1, 0, 1.12246*10^-17; ...
-        1, 0, 0, 0.2];    
+    TransformStruct(3).Oc = [1, 0, 0, 0; ...
+        0, 0, -1, 2.5*r; ...
+        0, 1, 0, 0];  
+    
+    TransformStruct(4).Oc = [0, 0, 1, 0; ...
+        0, -1, 0, 0; ...
+        1, 0, 0, 4*r];
+    
+    % Here solely to not mess up Kinegami running
+    D = [0, pi/2, 0, pi/2; ...
+        0, pi/2, 0, 0; ...
+        0.2, 0, 0, 0];
     
 else
     
@@ -59,4 +95,6 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct);
+
+
 

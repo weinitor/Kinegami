@@ -142,7 +142,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             infostruct(jointindex).type = dataFoldE;
             infostruct(jointindex).name = "Prismatic";
             
-        else
+        elseif JointStruct(i).type == 'F'
             
             % Fingertip "Joint"
             theta_m = JointStruct(i).qm;
@@ -162,6 +162,27 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             infostruct(jointindex).n = n;
             infostruct(jointindex).type = FingertipFold; 
             infostruct(jointindex).name = "Fingertip";
+            
+        else
+            
+            % Arbitrary Placeholder Joint V
+            jointindex = (i-1)*5+2;
+            height = 0.001;
+
+            [ls] = Default_creasedesign(r, n);
+
+            infostruct(jointindex).ls = ls;
+            infostruct(jointindex).r = r;
+
+            % Outputs default tube parameters
+            [dataFoldV, m, lmax] = Default_papercut(n, ls, height, r);
+
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).type = dataFoldV;
+            infostruct(jointindex).name = "V-Joint";
+            
             
         end
         
