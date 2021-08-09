@@ -1,5 +1,5 @@
 % Dissect Plot
-% Last Edited 6/30/2021 by Lucien Peach
+% Last Edited 8/8/2021 by Lucien Peach
 
 function [DissectPlot] = DissectPlot(n, ls, index, infostruct, val)
 
@@ -94,12 +94,12 @@ elseif index ~=5 && index ~= val
     axis off
     
 else
-    
+        
     % Address top and bottom height parameters for easy translation into
     % the boundary matrix
-    bottomheight = infostruct(index-6).lmaxnet + infostruct(index-5).lmax/2 ...
+    bottomheight = infostruct(index-3).lmaxnet + infostruct(index-2).lmax/2 ...
         - 0.02;
-    topheight = infostruct(index-1).lmaxnet + infostruct(index).lmax/2;
+    topheight = infostruct(index).lmaxnet;
     
     % Store subsequent tube information and boundary matrix
     boundary = [0, bottomheight; ...
@@ -121,39 +121,6 @@ else
     daspect([1, 1, 1])
     axis off
     hold on
-    
-    % Increase counter
-    count = count + 1;
-    
-    % Store information to boundary2
-    boundary2 = [0, topheight - 0.02; ...
-        (n+1)*ls, topheight - 0.02; ...
-        (n+1)*ls, infostruct(index+1).lmaxnet; ...
-        0, infostruct(index+1).lmaxnet; ...
-        0, topheight - 0.02];
-    
-    % Store to data structure and plot
-    DissectPlot(count).x = boundary2(:, 1);
-    DissectPlot(count).y = boundary2(:, 2);
-    DissectPlot(count).color = black;
-    
-    plot(DissectPlot(count).x, DissectPlot(count).y, 'color', ...
-        DissectPlot(count).color) 
-    
-    % Increase counter
-    count = count + 1;
-    
-    % Add overlap indicator line
-    overlap = [0, topheight; ...
-        (n+1)*ls, topheight];
-    
-    % Store to structure and plot
-    DissectPlot(count).x = overlap(:, 1);
-    DissectPlot(count).y = overlap(:, 2);
-    DissectPlot(count).color = blue;
-    
-    plot(DissectPlot(count).x, DissectPlot(count).y, 'color', ...
-        DissectPlot(count).color)
     
 end 
 

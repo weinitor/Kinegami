@@ -23,7 +23,7 @@ end
 
 JointStruct(2).q0 = pi/2;
 JointStruct(3).q0 = pi/2;
-JointStruct(4).type = 0;
+JointStruct(4).type = 'F';
 
 mirror = 'on';
 triple = 'triple';

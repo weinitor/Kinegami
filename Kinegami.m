@@ -422,15 +422,14 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
 %     
 %     count = 1;
 %     
-    val = size(infostruct, 2) - 2;
+    val = size(infostruct, 2);
     
     % Add boundary boxes around individual components, split by tubes
     for i = 1:size(infostruct, 2)
         
-        if strcmp(infostruct(i).name, "Tube") == 1 && i ~= 1
-            
-%             count = count + 1;
-            
+        if strcmp(infostruct(i).name, "Tube") == 1 && i ~= 1 ...
+                || strcmp(infostruct(i).name, "Fingertip") == 1 && i ~= 1
+                        
             [dataFoldDissect] = DissectPlot(n, ls, i, infostruct, val);
             
             infostruct(end+1).type = dataFoldDissect;
