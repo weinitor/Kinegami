@@ -1,10 +1,10 @@
 % Basic Crease Design - Fold Type A
-% Last edited 6/8/2021 by Lucien Peach
+% Last edited 8/14/2021 by Lucien Peach
 
 % Function declaration
 function [lengths, ls] = A_creasedesign(r, n, phi, theta)
 
-if theta > pi
+if theta > pi/2
     
     theta = theta/2;
     

@@ -438,7 +438,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
     end
     
-    %    
+    % Adding boundary box around entirety of printed region
     [dataFoldBoundary] = BoundaryPlot(n, ls, lmaxtotal);
     
     infostruct(end+1).type = dataFoldBoundary;

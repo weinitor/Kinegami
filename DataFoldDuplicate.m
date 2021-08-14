@@ -20,7 +20,7 @@ else
 end
 
 % num will be used to prevent double lines for twists that become tubes
-if infostruct(index).m < 10^-4 || infostruct(index).m > infostruct(index).ls - 10^-4
+if abs(infostruct(index).m) < 10^-4 || abs(infostruct(index).m) > infostruct(index).ls - 10^-4
     num = 5;
 else
     num = 4;

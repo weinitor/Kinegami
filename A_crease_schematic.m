@@ -8,7 +8,7 @@ clc
 r = 0.02; %[m]
 n = 4;
 phi = 3.14; %[rad]
-theta = 1.5*pi; %[rad] - restricted to theta < pi
+theta = pi; %[rad] - splits for greater than pi/2
 mirror = 'on';
 
 % Outputs array of lenghts and value of ls in [m]

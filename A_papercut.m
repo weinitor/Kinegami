@@ -6,8 +6,11 @@ function [dataFoldA, m, lmax] = A_papercut(lengths, ls, n, h1, h2, r, phi, theta
 % Create "duplicate" value
 duplicate = 1;
 
+% Define theta_original
+theta_original = theta;
+
 % Check value of theta
-if theta > pi
+if theta > pi/2
     
     theta = theta/2;
     duplicate = 2;
@@ -608,7 +611,7 @@ end
 % Label the plot for clarity
 title({
     ('Origami Schematic A for Provided Parameters:')
-    ['[r = ' num2str(r) ', n = ' num2str(n) ', phi = ' num2str(phi) ', theta = ' num2str(theta) ']']
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', phi = ' num2str(phi) ', theta = ' num2str(theta_original) ']']
     })
 
 daspect([1 1 1])
