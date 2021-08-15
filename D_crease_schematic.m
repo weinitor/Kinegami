@@ -8,7 +8,7 @@ clc
 % Specify inputs (3D Modeling will also consider w, but do not worry about
 % this value for the time being for 2D)
 r = 0.02; %[m]
-n = 8; % must be even, 4 or greater
+n = 4; % must be even, 4 or greater
 theta_m = (3/2)*pi; %[rad]
 
 % Outputs array of lengths and value of ls in [m]
@@ -19,7 +19,7 @@ theta_m = (3/2)*pi; %[rad]
 % Specify values for h1 and h2, the heights of the two tube sections
 h1 = 0.03; %[m]
 h2 = 0.03; %[m]
-nz = 1;
+nz = 3;
 
 % Outputs graphing for elbow fitting
 [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, h1, h2, r, theta_m, nz);

@@ -951,50 +951,144 @@ if n > 4
     end
 end
 
-% Recursive Sink Gadget Addition
+% Recursive Sink Gadget Addition (For n = 4)
 % -----------------------------------------------------------------
 
-% if nz > 1 && n == 4
+if nz > 1 && n == 4
     
-%     % First, determine the slope of the diagonal lines. This value is
-%     % important to know, as many of the points which will be added are
-%     % located along these lines
-%     lineslope = 2*max(lengths) / ls;
-%     
-%     % We also need to determine the diagonal slopes for the diamond
-%     % patterns. We can store these in the diamondslope array.
-%     diamondslope = zeros((n-4)*2, 1);
-%     
-%     % Populate diamondslope based on the values contained in slopes
-%     
-%     % First half of pattern
-%     for i = 1:n
-%         
-%         % Slopes for the first half of array
-%         diamondslope(i) = (lengths(i+1) - lengths(i)) / (ls/2);        
-%         
-%     end
-%     
-%     % Second half of pattern
-%     for i = n/2
-%         
-%         
-%     end
-%     
-%     % Initialize array to hold plot values
-%     recursion = zeros((nz*6)*(n-2), 2);
-%     
-%     % Loop through to assign the layered recursion values
-%     for i = 1:6:(nz*6)*(n-2)
-%         
-%         
-%         
-%         
-%     end
-%     
-%     
-%     
-% end
+    % Begin by determining the slope of the diagonal lines. 
+    lineslope = 2*max(lengths) / ls;
+    
+    % We know that the size of the recursion array will simply be 10x the
+    % value of nz (since it is simply a rectangle in each occurrence)
+    recursion = zeros(10*(nz-1), 2);
+    
+    % Determine points on x pattern where box outline will fall based on
+    % the value of nz 
+    
+    % First half
+    for i = 1:(nz-1)
+        
+        % Increase count initially
+        count = count + 1;
+        
+        % Index for iteration
+        index = 5*(i-1)+1;
+        
+        % Populate the values of recursion based on the value of lineslope
+        % and the respective position on the x axis
+        recursion(index, 1) = (i/nz)*(ls/2);
+        recursion(index, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index, 1));
+        
+        recursion(index+1, 1) = (i/nz)*(ls/2);
+        recursion(index+1, 2) = h1 + lineslope*recursion(index+1, 1);
+        
+        recursion(index+2, 1) = ls - (i/nz)*(ls/2);
+        recursion(index+2, 2) = h1 + 2*max(lengths) - lineslope*recursion(index+2, 1);
+        
+        recursion(index+3, 1) = ls - (i/nz)*(ls/2);
+        recursion(index+3, 2) = h1 + lineslope*recursion(index+3, 1);
+        
+        recursion(index+4, 1) = recursion(index, 1);
+        recursion(index+4, 2) = recursion(index, 2);
+        
+        % Storing information to dataFoldD
+        dataFoldD(count).x = recursion(index:index+4, 1);
+        dataFoldD(count).y = recursion(index:index+4, 2);
+        dataFoldD(count).color = blue;
+        
+        % Plotting
+        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+            dataFoldD(count).color);
+
+    end
+    
+    % Second half
+    for i = 1:(nz-1)
+
+        % Increase count initially
+        count = count + 1;
+
+        % Index for iteration
+        index = 5*(i-1)+(5*(nz-1))+1;
+        
+        % Determine vertical offset from slope and horizontal offset
+        vert_offset = lineslope*2*ls;
+
+        % Populate the values of recursion based on the value of lineslope
+        % and the respective position on the x axis
+        recursion(index, 1) = (2*ls) + (i/nz)*(ls/2);
+        recursion(index, 2) = vert_offset + h1 + 2*max(lengths) - (lineslope*recursion(index, 1));
+
+        recursion(index+1, 1) = (2*ls) + (i/nz)*(ls/2);
+        recursion(index+1, 2) = h1 - vert_offset + lineslope*recursion(index+1, 1);
+
+        recursion(index+2, 1) = (3*ls) - (i/nz)*(ls/2);
+        recursion(index+2, 2) = vert_offset + h1 + 2*max(lengths) - lineslope*recursion(index+2, 1);
+
+        recursion(index+3, 1) = (3*ls) - (i/nz)*(ls/2);
+        recursion(index+3, 2) = h1 - vert_offset + lineslope*recursion(index+3, 1);
+
+        recursion(index+4, 1) = recursion(index, 1);
+        recursion(index+4, 2) = recursion(index, 2);
+
+        % Storing information to dataFoldD
+        dataFoldD(count).x = recursion(index:index+4, 1);
+        dataFoldD(count).y = recursion(index:index+4, 2);
+        dataFoldD(count).color = blue;
+
+        % Plotting
+        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+            dataFoldD(count).color);
+
+    end    
+    
+end
+
+% Recursive Sink Gadget Addition (For all greater than n = 4)
+% -----------------------------------------------------------------
+
+if nz > 1 && n > 4
+    
+    % First, determine the slope of the diagonal lines. This value is
+    % important to know, as many of the points which will be added are
+    % located along these lines
+    lineslope = 2*max(lengths) / ls;
+    
+    % We also need to determine the diagonal slopes for the diamond
+    % patterns. We can store these in the diamondslope array.
+    diamondslope = zeros((n-4)*2, 1);
+    
+    % Populate diamondslope based on the values contained in slopes
+    
+    % First half of pattern
+    for i = 1:n
+        
+        % Slopes for the first half of array
+        diamondslope(i) = (lengths(i+1) - lengths(i)) / (ls/2);        
+        
+    end
+    
+    % Second half of pattern
+    for i = n/2
+        
+        
+    end
+    
+    % Initialize array to hold plot values
+    recursion = zeros((nz*6)*(n-2), 2);
+    
+    % Loop through to assign the layered recursion values
+    for i = 1:6:(nz*6)*(n-2)
+        
+        
+        
+        
+    end
+    
+    
+    
+end
 
 % Add section for overlap fold
 % -----------------------------------------------------------------
@@ -1108,7 +1202,8 @@ daspect([1 1 1])
 m = 0;
 lmax = h1 + 2*lmax + h2;
 
-close
+% Comment out for individual testing within D_crease_schematic
+% close
 
 
 end
