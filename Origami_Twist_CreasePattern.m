@@ -1,7 +1,7 @@
-% Midsection graphing - Fold Type B
+% Midsection graphing - Origami twist fitting
 % Last edited 6/7/2021 by Lucien Peach
 
-function [dataFoldB, m, lmax] = Origami_Twist_papercut(x, l, ls, n, h1, h2, r, h, alpha)
+function [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha)
 
 % Counter used for data structure indexing
 count = 1;
