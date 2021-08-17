@@ -1,4 +1,4 @@
-% Creating a Crease Schematic - Fold Type A
+% Creating a Crease Schematic - Origami elbow fitting
 % Last edited 6/8/2021 by Lucien Peach
 
 clear
