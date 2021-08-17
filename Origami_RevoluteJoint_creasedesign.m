@@ -1,8 +1,8 @@
-% Basic Crease Design - Fold Type D (A.3)
+% Basic Crease Design - Fold Type D (A.3) (Origami_RevoluteJoint)
 % Last edited 6/11/2021 by Lucien Peach
 
 % Function declaration
-function [lengths, ls] = D_creasedesign(r, n, theta_m)
+function [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m)
 
 % Specify delta value for side length and vertical lengths calculation
 delta = pi*((n-2)/(2*n));
