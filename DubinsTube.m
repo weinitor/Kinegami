@@ -62,12 +62,12 @@ disp(alpha)
 phi2 = SignedAngle(bm, wd, tunit) - alpha;
 
 % Elbow Fitting
-[lengths, ls] = A_creasedesign(r, n, phi1, theta1);
+[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi1, theta1);
 
 infostruct(index).ls = ls;
 infostruct(index).r = r;
 
-[dataFoldA, m, lmax] = A_papercut(lengths, ls, n, infostruct(index).h1, ...
+[dataFoldA, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, infostruct(index).h1, ...
     infostruct(index).h2, r, phi1, theta1, mirror);
 
 infostruct(index).m = m;
@@ -115,12 +115,12 @@ infostruct(index+2).name = "Tube";
 infostruct(index+2).h = 0.8*Tnorm;
 
 % Elbow Fitting pt. 2
-[lengths, ls] = A_creasedesign(r, n, phi2, theta2);
+[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi2, theta2);
 
 infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
 
-[dataFoldD, m, lmax] = A_papercut(lengths, ls, n, infostruct(index+3).h1, ...
+[dataFoldD, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, infostruct(index+3).h1, ...
     infostruct(index+3).h2, r, phi2, theta2, mirror);
 
 infostruct(index+3).m = m;
