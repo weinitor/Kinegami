@@ -101,13 +101,13 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             
             % Revolute Joint
-            [lengths, ls] = D_creasedesign_updated(r, n, theta_m);
+            [lengths, ls] = Origami_RevoluteJoint_creasedesig(r, n, theta_m);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
             nz = 1;
             
-            [dataFoldD, m, lmax] = D_papercut(lengths, ls, n, ...
+            [dataFoldD, m, lmax] = Origami_RevoluteJoint_papercut(lengths, ls, n, ...
                 infostruct(i).h1, infostruct(i).h2, r, theta_m, nz);
             
             infostruct(jointindex).m = m;
@@ -149,7 +149,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             
             % Use same calculation file as revolute joint
-            [lengths, ls] = D_creasedesign_updated(r, n, theta_m);
+            [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
