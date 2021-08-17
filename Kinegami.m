@@ -21,7 +21,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     infostruct(1).r = r;
 
     % Outputs default tube parameters
-    [dataFoldTube, m, lmax] = Origami_Tube_papercut(n, ls, tube_height, r);
+    [dataFoldTube, m, lmax] = Origami_Tube_CreasePattern(n, ls, tube_height, r);
 
     infostruct(1).m = m;
     infostruct(1).lmax = lmax;
@@ -107,7 +107,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             infostruct(jointindex).ls = ls;
             nz = 1;
             
-            [dataFoldD, m, lmax] = Origami_RevoluteJoint_papercut(lengths, ls, n, ...
+            [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, ...
                 infostruct(i).h1, infostruct(i).h2, r, theta_m, nz);
             
             infostruct(jointindex).m = m;
@@ -134,7 +134,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             infostruct(jointindex).PJ_alpha = PJ_alpha;
             
             
-            [dataFoldE, m, lmax] = Origami_PrismaticJoint_papercut(r, n, nl, ls, l1, dm, h0, ...
+            [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, dm, h0, ...
                 infostruct(i).h1, infostruct(i).h2, PJ_alpha, beta);
 
             infostruct(jointindex).m = m;
@@ -175,7 +175,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             infostruct(jointindex).r = r;
 
             % Outputs default tube parameters
-            [dataFoldV, m, lmax] = Origami_Tube_papercut(n, ls, height, r);
+            [dataFoldV, m, lmax] = Origami_Tube_CreasePattern(n, ls, height, r);
 
             infostruct(jointindex).m = m;
             infostruct(jointindex).lmax = lmax;
