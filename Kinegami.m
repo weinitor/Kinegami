@@ -15,13 +15,13 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     % Tube
     tube_height = 0.1;
     
-    [ls] = Default_creasedesign(r, n);
+    [ls] = Origami_Tube_creasedesign(r, n);
 
     infostruct(1).ls = ls;
     infostruct(1).r = r;
 
     % Outputs default tube parameters
-    [dataFoldTube, m, lmax] = Default_papercut(n, ls, tube_height, r);
+    [dataFoldTube, m, lmax] = Origami_Tube_papercut(n, ls, tube_height, r);
 
     infostruct(1).m = m;
     infostruct(1).lmax = lmax;
@@ -169,13 +169,13 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             height = 0.001;
 
-            [ls] = Default_creasedesign(r, n);
+            [ls] = Origami_Tube_creasedesign(r, n);
 
             infostruct(jointindex).ls = ls;
             infostruct(jointindex).r = r;
 
             % Outputs default tube parameters
-            [dataFoldV, m, lmax] = Default_papercut(n, ls, height, r);
+            [dataFoldV, m, lmax] = Origami_Tube_papercut(n, ls, height, r);
 
             infostruct(jointindex).m = m;
             infostruct(jointindex).lmax = lmax;
