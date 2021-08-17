@@ -99,13 +99,13 @@ infostruct(index+1).alpha = alpha;
 infostruct(index+1).h = 0.2*Tnorm;
 
 % Tube
-[ls] = Default_creasedesign(r, n);
+[ls] = Origami_Tube_creasedesign(r, n);
 
 infostruct(index+2).ls = ls;
 infostruct(index+2).r = r;
 
 % Outputs graphing for default tube
-[dataFoldTube, m, lmax] = Default_papercut(n, ls, 0.8*Tnorm, r);
+[dataFoldTube, m, lmax] = Origami_Tube_papercut(n, ls, 0.8*Tnorm, r);
 
 infostruct(index+2).m = m;
 infostruct(index+2).lmax = lmax;
