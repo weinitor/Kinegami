@@ -1,4 +1,4 @@
-% Creating a Crease Schematic - Fold Type E
+% Creating a Crease Schematic - Origami prismatic joint
 % Last edited 6/15/2021 by Lucien Peach
 % 
 % clear
