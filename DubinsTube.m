@@ -82,12 +82,12 @@ infostruct(index).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap;
 % Twist Fitting
 Tnorm = norm(t);
 
-[x, l, ls] = B_creasedesign_updated(r, n, 0.2*Tnorm, alpha);
+[x, l, ls] = Origami_Twist_creasedesign(r, n, 0.2*Tnorm, alpha);
 
 infostruct(index+1).ls = ls;
 infostruct(index+1).r = r;
 
-[dataFoldB, m, lmax] = B_papercut(x, l, ls, n, infostruct(index+1).h1, ...
+[dataFoldB, m, lmax] = Origami_Twist_papercut(x, l, ls, n, infostruct(index+1).h1, ...
     infostruct(index+1).h2, r, 0.2*Tnorm, alpha);
 
 infostruct(index+1).m = m;
