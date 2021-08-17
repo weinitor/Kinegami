@@ -19,7 +19,7 @@ d0 = 0.05;
 
 % Outputs ls, l1, alpha, and an alert message, if the parameter for l1 is
 % not in accordance with algorithmic requirements
-[ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_creasedesign(r, n, beta, d0, nl);
+[ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl);
 
 % req is output so that user can more easily adjust value of l2 to match
 % given specifications for algorithm
