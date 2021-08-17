@@ -2,7 +2,7 @@
 % Last edited 6/17/2021 by Lucien Peach and Wei-Hsi Chen
 
 % Function declaration
-function [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m)
+function [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m)
 
 % Specify delta value for side length and vertical lengths calculation
 delta = pi*((n-2)/(2*n));
