@@ -2,7 +2,7 @@
 % Last edited 8/14/2021 by Lucien Peach
 
 % Function declaration
-function [lengths, ls] = A_creasedesign(r, n, phi, theta)
+function [lengths, ls] = Origami_Elbow_CreaseDesign(r, n, phi, theta)
 
 if theta > pi/2
     
