@@ -3,7 +3,7 @@
 
 function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
-    TransformStruct)
+    TransformStruct, DXF)
 
     % Initialize infostruct
     num = 1 + 5*(size(JointStruct, 2) - 1);
@@ -529,7 +529,10 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
     end
     
-    filename = 'KinegamiTest.dxf';
-    GenerateDXF(filename, DataNet)
+    % If desired, generate a new DXF file
+    if strcmp(DXF, 'on') == 1
+        filename = 'KinegamiTest.dxf';
+        GenerateDXF(filename, DataNet)
+    end
     
 end

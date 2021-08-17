@@ -61,7 +61,9 @@ else
 
 end
 
+DXF = 'on';
+
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct);
+    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, DXF);
 
 

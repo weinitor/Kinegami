@@ -1048,7 +1048,7 @@ end
 % Recursive Sink Gadget Addition (For all greater than n = 4)
 % -----------------------------------------------------------------
 
-if nz > 1 && n > 4
+if nz > 1 && n >= 6
     
     % First, determine the slope of the diagonal lines. This value is
     % important to know, as many of the points which will be added are
@@ -1062,7 +1062,7 @@ if nz > 1 && n > 4
     % Populate diamondslope based on the values contained in slopes
     
     % First half of pattern
-    for i = 1:n
+    for i = 0:2:(n-4)
         
         % Slopes for the first half of array
         diamondslope(i) = (lengths(i+1) - lengths(i)) / (ls/2);        
