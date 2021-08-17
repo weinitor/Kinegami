@@ -1,7 +1,7 @@
 % Cut graphing - Fold Type C
 % Last edited 6/9/2021 by Lucien Peach
 
-function [dataFoldDefault, m, lmax] = Default_papercut(n, ls, h, r)
+function [dataFoldDefault, m, lmax] = Origami_Tube_papercut(n, ls, h, r)
 
 % Counter used for data structure indexing
 count = 1;
