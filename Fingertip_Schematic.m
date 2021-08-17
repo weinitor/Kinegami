@@ -12,7 +12,7 @@ n = 8; % must be even, 4 or greater
 theta_m = (3/2)*pi; %[rad]
 
 % Outputs array of lengths and value of ls in [m]
-[lengths, ls] = D_creasedesign_updated(r, n, theta_m);
+[lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
 
 % Create a figure that demonstrates the crease schematic
 
