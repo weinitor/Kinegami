@@ -1,4 +1,4 @@
-% Crease Design - Default Segment
+% Crease pattern parameters - Origami tube
 % Last edited 6/9/2021 by Lucien Peach
 
 % Function declaration

@@ -1,4 +1,4 @@
-% Cut graphing - Fold Type D (A.3)
+% Graph for crease pattern - Origami Revolute joint
 % Last edited 6/11/2021 by Lucien Peach
 
 function [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz)

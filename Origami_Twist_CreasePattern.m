@@ -1,4 +1,4 @@
-% Midsection graphing - Origami twist fitting
+% Graph for crease pattern - Origami twist fitting
 % Last edited 6/7/2021 by Lucien Peach
 
 function [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha)

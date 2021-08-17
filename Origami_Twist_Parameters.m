@@ -1,4 +1,4 @@
-% Basic Crease Design - Fold Type B
+% Crease pattern parameters - Fold Type B
 % Last edited 6/4/2021 by Lucien Peach
 % Modified by Wei-Hsi 06/22/2021
 

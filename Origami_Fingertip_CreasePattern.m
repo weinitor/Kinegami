@@ -1,4 +1,4 @@
-% Cut Graphing - Fingertip
+% Graph for crease pattern - Fingertip
 % Last edited 6/11/2021 by Lucien Peach
 
 function [FingertipFold, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m)

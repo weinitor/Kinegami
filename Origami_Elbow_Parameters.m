@@ -1,4 +1,4 @@
-% Basic Crease Design - Fold Type A
+% Crease pattern parameters - Origami elbow fitting
 % Last edited 8/14/2021 by Lucien Peach
 
 % Function declaration

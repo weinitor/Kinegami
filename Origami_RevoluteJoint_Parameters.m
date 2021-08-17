@@ -1,4 +1,4 @@
-% Basic Crease Design - Fold Type D (A.3)
+% Crease pattern parameters - Origami revolute joint
 % Last edited 6/17/2021 by Lucien Peach and Wei-Hsi Chen
 
 % Function declaration

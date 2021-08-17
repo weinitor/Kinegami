@@ -1,4 +1,4 @@
-% Cut graphing - Fold Type C
+% Graph for crease pattern - Origami prismatic joint
 % Last edited 6/15/2021 by Lucien Peach
 
 function [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, l2, h0, h1, h2, alpha, beta)

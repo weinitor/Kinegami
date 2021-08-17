@@ -1,4 +1,4 @@
-% Basic Crease Design - Fold Type E
+% Crease pattern parameters - Origami Prismatic joint
 % Last edited 6/15/2021 by Lucien Peach
 
 % Function declaration
