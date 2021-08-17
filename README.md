@@ -5,7 +5,8 @@ The numbering system of the D-H representations are show as:
 ![DH](https://user-images.githubusercontent.com/50150425/129768985-ef83cde7-f979-4d99-b40f-8e7e3fab6ecf.png)
 
 The origami modules used in this program are:
-![FittingCP2](https://user-images.githubusercontent.com/50150425/129769294-483909e7-8157-471a-84a9-f250a32967cb.png)
+![OrigamiModule](https://user-images.githubusercontent.com/50150425/129769452-96a78ed9-5819-4436-8d91-4290fb1ca38f.png)
+
 
 # User Guide:
 Run scripts SphericalKinegami.m, UniversalKinegami.m, PlanarKinegami.m, or CylindricalKinegami.m and change parameters if desired. For more comprehensive understanding, reference supporting functions.
