@@ -15,7 +15,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     % Tube
     tube_height = 0.1;
     
-    [ls] = Origami_Tube_creasedesign(r, n);
+    [ls] = Origami_Tube_Parameters(r, n);
 
     infostruct(1).ls = ls;
     infostruct(1).r = r;
@@ -101,7 +101,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             
             % Revolute Joint
-            [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
+            [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
@@ -125,7 +125,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             
             jointindex = (i-1)*5+2;
             
-            [ls, l1, h0, dm, PJ_alpha] = Origami_PrismaticJoint_creasedesign(r, n, beta, d0, nl);
+            [ls, l1, h0, dm, PJ_alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
@@ -149,7 +149,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             
             % Use same calculation file as revolute joint
-            [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
+            [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
@@ -169,7 +169,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             height = 0.001;
 
-            [ls] = Origami_Tube_creasedesign(r, n);
+            [ls] = Origami_Tube_Parameters(r, n);
 
             infostruct(jointindex).ls = ls;
             infostruct(jointindex).r = r;
