@@ -12,7 +12,7 @@ theta = pi; %[rad] - splits for greater than pi/2
 mirror = 'on';
 
 % Outputs array of lenghts and value of ls in [m]
-[lengths, ls] = A_creasedesign(r, n, phi, theta);
+[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi, theta);
 
 % Create a figure that demonstrates the crease schematic
 
@@ -21,7 +21,7 @@ h1 = 0.1; %[m]
 h2 = 0.1; %[m]
 
 % Outputs graphing for elbow fitting
-[dataFoldA, m, lmax] = A_papercut(lengths, ls, n, h1, h2, r, phi, theta, mirror);
+[dataFoldA, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, h1, h2, r, phi, theta, mirror);
 axis off
 
 % Convert to DXF

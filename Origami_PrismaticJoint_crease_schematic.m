@@ -19,7 +19,7 @@ d0 = 0.05;
 
 % Outputs ls, l1, alpha, and an alert message, if the parameter for l1 is
 % not in accordance with algorithmic requirements
-[ls, l1, h0, dm, alpha] = E_creasedesign(r, n, beta, d0, nl);
+[ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_creasedesign(r, n, beta, d0, nl);
 
 % req is output so that user can more easily adjust value of l2 to match
 % given specifications for algorithm
@@ -36,8 +36,8 @@ h2 = 0.3; %[m]
 % If no error is present (in requirement of l2), proceed with the
 % graphing of the schematic and saving the file as a .dxf
 
-% Outputs graphing for flange
-[dataFoldE, m, lmax] = E_papercut(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
+% Outputs graphing for prismatic joint
+[dataFoldE, m, lmax] = Origami_PrismaticJoint_papercut(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
 axis off
     
 %     % Convert to DXF

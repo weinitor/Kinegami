@@ -3,7 +3,7 @@
 % Modified by Wei-Hsi 06/22/2021
 
 % Function declaration
-function [x, l, ls] = B_creasedesign_updated(r, n, h, alpha)
+function [x, l, ls] = Origami_Twist_creasedesign(r, n, h, alpha)
 
 % Specify delta value for midsection height calculation
 delta = pi*((n-2)/(2*n));
