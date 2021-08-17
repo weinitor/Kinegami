@@ -1062,15 +1062,18 @@ if nz > 1 && n >= 6
     % Populate diamondslope based on the values contained in slopes
     
     % First half of pattern
-    for i = 0:2:(n-4)
+    for i = 0:2:(n-4)-2
+        
+        index = (i/2) + 2;
         
         % Slopes for the first half of array
-        diamondslope(i) = (lengths(i+1) - lengths(i)) / (ls/2);        
+        diamondslope(i+1) = (lengths(index) - max(lengths)) / (ls/2); 
+        diamondslope(i+2) = (max(lengths) - lengths(index)) / (ls/2);
         
     end
     
     % Second half of pattern
-    for i = n/2
+     for i = n/2
         
         
     end
