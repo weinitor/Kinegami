@@ -62,7 +62,7 @@ disp(alpha)
 phi2 = SignedAngle(bm, wd, tunit) - alpha;
 
 % Elbow Fitting
-[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi1, theta1);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi1, theta1);
 
 infostruct(index).ls = ls;
 infostruct(index).r = r;
@@ -82,7 +82,7 @@ infostruct(index).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap;
 % Twist Fitting
 Tnorm = norm(t);
 
-[x, l, ls] = Origami_Twist_creasedesign(r, n, 0.2*Tnorm, alpha);
+[x, l, ls] = Origami_Twist_Parameters(r, n, 0.2*Tnorm, alpha);
 
 infostruct(index+1).ls = ls;
 infostruct(index+1).r = r;
@@ -99,7 +99,7 @@ infostruct(index+1).alpha = alpha;
 infostruct(index+1).h = 0.2*Tnorm;
 
 % Tube
-[ls] = Origami_Tube_creasedesign(r, n);
+[ls] = Origami_Tube_Parameters(r, n);
 
 infostruct(index+2).ls = ls;
 infostruct(index+2).r = r;
@@ -115,7 +115,7 @@ infostruct(index+2).name = "Tube";
 infostruct(index+2).h = 0.8*Tnorm;
 
 % Elbow Fitting pt. 2
-[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi2, theta2);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi2, theta2);
 
 infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
