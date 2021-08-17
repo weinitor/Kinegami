@@ -38,14 +38,14 @@ wd = cross(tunit, ad);
 wd = wd / norm(wd);
 
 % Define bm
-[r_mat_p] = rotationalmatrix(wp, theta1);
+[r_mat_p] = RotationalMatrix(wp, theta1);
 bm = r_mat_p * bp;
 
 % Determine values of phi1
 % phi1 = atan2(norm(cross(bp, wp)), dot(bp, wp));
 phi1 = SignedAngle(bp, wp, ap);
 
-[r_mat_d] = rotationalmatrix(wd, theta2);
+[r_mat_d] = RotationalMatrix(wd, theta2);
 
 % Use results from rotational matrices, along with b_p and b_d, to
 % determine the twist angle, alpha. 
