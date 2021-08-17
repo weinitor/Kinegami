@@ -1,4 +1,4 @@
-% Cut graphing - Origami twist fitting
+% Cut graphing - Origami tube
 % Last edited 6/9/2021 by Lucien Peach
 
 function [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r)
