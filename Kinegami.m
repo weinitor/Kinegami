@@ -125,17 +125,17 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             
             jointindex = (i-1)*5+2;
             
-            [ls, l1, h0, dm, E_alpha] = E_creasedesign(r, n, beta, d0, nl);
+            [ls, l1, h0, dm, PJ_alpha] = Origami_PrismaticJoint_creasedesign(r, n, beta, d0, nl);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
             infostruct(jointindex).n = n;
             infostruct(jointindex).l1 = l1;
-            infostruct(jointindex).E_alpha = E_alpha;
+            infostruct(jointindex).PJ_alpha = PJ_alpha;
             
             
-            [dataFoldE, m, lmax] = E_papercut(r, n, nl, ls, l1, dm, h0, ...
-                infostruct(i).h1, infostruct(i).h2, E_alpha, beta);
+            [dataFoldE, m, lmax] = Origami_PrismaticJoint_papercut(r, n, nl, ls, l1, dm, h0, ...
+                infostruct(i).h1, infostruct(i).h2, PJ_alpha, beta);
 
             infostruct(jointindex).m = m;
             infostruct(jointindex).lmax = lmax;
