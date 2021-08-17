@@ -1,4 +1,4 @@
-% Creating a Crease Schematic - Fold Type B
+% Creating a Crease Schematic - Origami twist fitting
 % Last edited 6/7/2021 by Lucien Peach
 
 clear

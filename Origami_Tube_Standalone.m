@@ -1,4 +1,4 @@
-% Creating a Crease Schematic - Default Fold
+% Creating a Crease Schematic - Default origami tube
 % Last edited 6/9/2021 by Lucien Peach
 
 clear

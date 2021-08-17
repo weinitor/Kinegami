@@ -2,7 +2,7 @@
 % Last edited 6/16/2021 by Lucien Peach
 % Last edited 7/27/2021 by Wei-Hsi Chen, the input axis is normalised
 
-function [r_mat] = rotationalmatrix(w, theta)
+function [r_mat] = RotationalMatrix(w, theta)
 
 % The rotation axis must be a unit vector
 w = w/norm(w);

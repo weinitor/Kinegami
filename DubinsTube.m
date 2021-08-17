@@ -38,14 +38,14 @@ wd = cross(tunit, ad);
 wd = wd / norm(wd);
 
 % Define bm
-[r_mat_p] = rotationalmatrix(wp, theta1);
+[r_mat_p] = RotationalMatrix(wp, theta1);
 bm = r_mat_p * bp;
 
 % Determine values of phi1
 % phi1 = atan2(norm(cross(bp, wp)), dot(bp, wp));
 phi1 = SignedAngle(bp, wp, ap);
 
-[r_mat_d] = rotationalmatrix(wd, theta2);
+[r_mat_d] = RotationalMatrix(wd, theta2);
 
 % Use results from rotational matrices, along with b_p and b_d, to
 % determine the twist angle, alpha. 
@@ -62,12 +62,12 @@ disp(alpha)
 phi2 = SignedAngle(bm, wd, tunit) - alpha;
 
 % Elbow Fitting
-[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi1, theta1);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi1, theta1);
 
 infostruct(index).ls = ls;
 infostruct(index).r = r;
 
-[dataFoldA, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, infostruct(index).h1, ...
+[dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index).h1, ...
     infostruct(index).h2, r, phi1, theta1, mirror);
 
 infostruct(index).m = m;
@@ -82,12 +82,12 @@ infostruct(index).oc = Op(:, 4) + r*abs(tan(theta1 / 2))*ap;
 % Twist Fitting
 Tnorm = norm(t);
 
-[x, l, ls] = Origami_Twist_creasedesign(r, n, 0.2*Tnorm, alpha);
+[x, l, ls] = Origami_Twist_Parameters(r, n, 0.2*Tnorm, alpha);
 
 infostruct(index+1).ls = ls;
 infostruct(index+1).r = r;
 
-[dataFoldB, m, lmax] = Origami_Twist_papercut(x, l, ls, n, infostruct(index+1).h1, ...
+[dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, infostruct(index+1).h1, ...
     infostruct(index+1).h2, r, 0.2*Tnorm, alpha);
 
 infostruct(index+1).m = m;
@@ -99,13 +99,13 @@ infostruct(index+1).alpha = alpha;
 infostruct(index+1).h = 0.2*Tnorm;
 
 % Tube
-[ls] = Origami_Tube_creasedesign(r, n);
+[ls] = Origami_Tube_Parameters(r, n);
 
 infostruct(index+2).ls = ls;
 infostruct(index+2).r = r;
 
 % Outputs graphing for default tube
-[dataFoldTube, m, lmax] = Origami_Tube_papercut(n, ls, 0.8*Tnorm, r);
+[dataFoldTube, m, lmax] = Origami_Tube_CreasePattern(n, ls, 0.8*Tnorm, r);
 
 infostruct(index+2).m = m;
 infostruct(index+2).lmax = lmax;
@@ -115,12 +115,12 @@ infostruct(index+2).name = "Tube";
 infostruct(index+2).h = 0.8*Tnorm;
 
 % Elbow Fitting pt. 2
-[lengths, ls] = Origami_Elbow_creasedesign(r, n, phi2, theta2);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi2, theta2);
 
 infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
 
-[dataFoldD, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, infostruct(index+3).h1, ...
+[dataFoldD, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index+3).h1, ...
     infostruct(index+3).h2, r, phi2, theta2, mirror);
 
 infostruct(index+3).m = m;

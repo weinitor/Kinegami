@@ -1,4 +1,4 @@
-% Creating a Crease Schematic - Fold Type D (A.3)
+% Creating a Crease Schematic - Origami Revolute Joint
 % Last edited 6/17/2021 by Lucien Peach
 
 clear

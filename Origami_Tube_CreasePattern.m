@@ -1,7 +1,7 @@
-% Cut graphing - Fold Type C
+% Cut graphing - Origami tube
 % Last edited 6/9/2021 by Lucien Peach
 
-function [dataFoldDefault, m, lmax] = Origami_Tube_papercut(n, ls, h, r)
+function [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r)
 
 % Counter used for data structure indexing
 count = 1;
