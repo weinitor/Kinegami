@@ -1059,6 +1059,9 @@ if nz > 1 && n >= 6
     % patterns. We can store these in the diamondslope array.
     diamondslope = zeros((n-4)*2, 1);
     
+    % Determine vertical offset from slope and horizontal offset
+    vert_offset = lineslope*(n/2)*ls;
+    
     % Populate diamondslope based on the values contained in slopes
     
     % First half of pattern
@@ -1073,13 +1076,102 @@ if nz > 1 && n >= 6
     end
     
     % Second half of pattern
-     for i = n/2
-        
+     for i = (n-4):2:((n-4)*2)-2
+         
+         index = (i-(n-4))/2 + 2;
+         
+         % Slopes for the second half of array
+         diamondslope(i+1) = (lengths(index) - max(lengths)) / (ls/2);
+         diamondslope(i+2) = (max(lengths) - lengths(index)) / (ls/2);        
         
     end
     
     % Initialize array to hold plot values
-    recursion = zeros((nz*6)*(n-2), 2);
+    recursion = zeros((nz*9)*(n-2), 2);
+    
+    % Begin by defining and plotting "endcap" zones. Similar process to
+    % situation for n = 4
+    for i = 1:(nz-1)
+        
+        % Increase count initially
+        count = count + 1;
+        
+        % Left segments
+        index1 = 6*(i-1) + 1;
+        index2 = 6*(i-1) + 1 + (nz*9)*((n/2)-1);
+        
+        % Populate values of recursion based on index1 and index2
+        
+        % index1
+        recursion(index1, 1) = ls - (i/nz)*(ls/2);
+        recursion(index1, 2) = h1 + (lineslope*recursion(index1, 1));
+        
+        recursion(index1+1, 1) = (i/nz)*(ls/2);
+        recursion(index1+1, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+1, 1));
+        
+        recursion(index1+2, 1) = (i/nz)*(ls/2);
+        recursion(index1+2, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+2, 1));
+        
+        recursion(index1+3, 1) = (i/nz)*(ls/2);
+        recursion(index1+3, 2) = h1 + (lineslope*recursion(index1+3, 1));
+        
+        recursion(index1+4, 1) = (i/nz)*(ls/2);
+        recursion(index1+4, 2) = h1 + (lineslope*recursion(index1+4, 1));
+        
+        recursion(index1+5, 1) = ls - (i/nz)*(ls/2);
+        recursion(index1+5, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+5, 1));
+        
+        % Storing information to dataFoldD
+        dataFoldD(count).x = recursion(index1:index1+5, 1);
+        dataFoldD(count).y = recursion(index1:index1+5, 2);
+        dataFoldD(count).color = blue;
+
+        % Plotting
+        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+            dataFoldD(count).color);
+        
+        % Increase count
+        count = count + 1;
+        
+        % index2
+        recursion(index2, 1) = ls*((n/2)+1) - (i/nz)*(ls/2);
+        recursion(index2, 2) = -vert_offset + h1 + (lineslope*recursion(index2, 1));
+        
+        recursion(index2+1, 1) = (i/nz)*(ls/2) + ls*(n/2);
+        recursion(index2+1, 2) = vert_offset + h1 + 2*max(lengths) - (lineslope*recursion(index2+1, 1));
+        
+        recursion(index2+2, 1) = (i/nz)*(ls/2) + ls*(n/2);
+        recursion(index2+2, 2) = vert_offset + h1 + 2*max(lengths) - (lineslope*recursion(index2+2, 1));
+        
+        recursion(index2+3, 1) = (i/nz)*(ls/2) + ls*(n/2);
+        recursion(index2+3, 2) = -vert_offset + h1 + (lineslope*recursion(index2+3, 1));
+        
+        recursion(index2+4, 1) = (i/nz)*(ls/2) + ls*(n/2);
+        recursion(index2+4, 2) = -vert_offset + h1 + (lineslope*recursion(index2+4, 1));
+        
+        recursion(index2+5, 1) = ls*((n/2)+1) - (i/nz)*(ls/2);
+        recursion(index2+5, 2) = vert_offset + h1 + 2*max(lengths) - (lineslope*recursion(index2+5, 1));
+        
+        % Storing information to dataFoldD
+        dataFoldD(count).x = recursion(index2:index2+5, 1);
+        dataFoldD(count).y = recursion(index2:index2+5, 2);
+        dataFoldD(count).color = blue;
+
+        % Plotting
+        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+            dataFoldD(count).color); 
+        
+        % Increase count
+        count = count + 1;
+        
+        % Right segments
+        index3 = 4*(i-1) + 1;
+        index4 = 4*(i-1) + 1 + (nz*9)*((n/2)-1);
+        
+        % Populate values of recursion based on index3 and index4
+        
+    end
+    
     
     % Loop through to assign the layered recursion values
     for i = 1:6:(nz*6)*(n-2)
