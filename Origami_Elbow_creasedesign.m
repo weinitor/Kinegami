@@ -11,7 +11,7 @@ if theta > pi/2
 end
 
 % If theta is sufficiently small
-if theta <= 10^-4
+if theta <= 0.015
     
     lengths = zeros(n+1, 1);
    
@@ -24,7 +24,7 @@ if theta <= 10^-4
 end
 
 % Otherwise
-if theta > 10^-4
+if theta > 0.015
 
     % Determine values of delta_i and l_i for each iteration. Store in arrays.
 

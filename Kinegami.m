@@ -101,7 +101,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             jointindex = (i-1)*5+2;
             
             % Revolute Joint
-            [lengths, ls] = Origami_RevoluteJoint_creasedesig(r, n, theta_m);
+            [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
