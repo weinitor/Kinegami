@@ -1,8 +1,8 @@
-% Basic Crease Design - Fold Type A
+% Crease pattern parameters - Origami elbow fitting
 % Last edited 8/14/2021 by Lucien Peach
 
 % Function declaration
-function [lengths, ls] = Origami_Elbow_creasedesign(r, n, phi, theta)
+function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta)
 
 if theta > pi/2
     

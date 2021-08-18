@@ -1,7 +1,7 @@
-% Cut graphing - Fold Type A
+% Graph for crease pattern - Origami elbow fitting
 % Last edited 6/8/2021 by Lucien Peach
 
-function [dataFoldA, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, h1, h2, r, phi, theta, mirror)
+function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror)
 
 % Create "duplicate" value
 duplicate = 1;

@@ -1,8 +1,8 @@
-% Basic Crease Design - Fold Type E
+% Crease pattern parameters - Origami Prismatic joint
 % Last edited 6/15/2021 by Lucien Peach
 
 % Function declaration
-function [ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_creasedesign(r, n, beta, d0, nl)
+function [ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl)
 
 % Specify delta value for side length calculation
 delta = pi*((n-2)/(2*n));

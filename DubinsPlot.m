@@ -34,8 +34,8 @@ ap = ap/norm(ap);
 wp = cross(ap, tunit);
 wp = wp/norm(wp);
 
-% Use ap, rotationalmatrix, and w to determine ad for first elbow
-ad = rotationalmatrix(wp, infostruct(index).theta)*ap;
+% Use ap, RotationalMatrix, and w to determine ad for first elbow
+ad = RotationalMatrix(wp, infostruct(index).theta)*ap;
 ad = ad/norm(ad);
 
 % Factor in h1 and h2 offsets to determine positions for plotting
@@ -74,7 +74,7 @@ a_next = a_next/norm(a_next);
 % Determine new ad based on theta, (w must be a normal vector)
 wp2 = cross(ap2, a_next);
 wp2 = wp2/norm(wp2);
-ad2 = rotationalmatrix(wp2, infostruct(index+3).theta)*ap2;
+ad2 = RotationalMatrix(wp2, infostruct(index+3).theta)*ap2;
 ad2 = ad2/norm(ad2);
 
 % Factor in h1 and h2 offsets
