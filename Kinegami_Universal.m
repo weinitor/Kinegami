@@ -94,9 +94,11 @@ else
 end
 
 DXF = 'on';
+split = 'on';
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, DXF);
+    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    DXF, split);
 
 
 

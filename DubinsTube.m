@@ -3,7 +3,7 @@
 % Last Updated 7/27/2021 by Wei-Hsi Chen
 
 
-function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror)
+function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror, split)
 
 % Op and Od are both 3x4 matrices
 
@@ -68,7 +68,7 @@ infostruct(index).ls = ls;
 infostruct(index).r = r;
 
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index).h1, ...
-    infostruct(index).h2, r, phi1, theta1, mirror);
+    infostruct(index).h2, r, phi1, theta1, mirror, split);
 
 infostruct(index).m = m;
 infostruct(index).lmax = lmax;
@@ -121,7 +121,7 @@ infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
 
 [dataFoldD, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index+3).h1, ...
-    infostruct(index+3).h2, r, phi2, theta2, mirror);
+    infostruct(index+3).h2, r, phi2, theta2, mirror, split);
 
 infostruct(index+3).m = m;
 infostruct(index+3).lmax = lmax;

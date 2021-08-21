@@ -3,7 +3,7 @@
 
 function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
-    TransformStruct, DXF)
+    TransformStruct, DXF, split)
 
     % Initialize infostruct
     num = 1 + 5*(size(JointStruct, 2) - 1);
@@ -100,12 +100,8 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             theta_m = JointStruct(i).qm;
             jointindex = (i-1)*5+2;
             
-            % Revolute Joint
-<<<<<<< HEAD
-            [lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
-=======
+            % Revolute Joint       
             [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
->>>>>>> 5c96524c97281c33660d890b63308958e600a5b2
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
@@ -198,7 +194,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         if i < N+1
             
             [infostruct] = DubinsTube(r, n, TransformStruct(i).Od, ...
-                TransformStruct(i+1).Op, infostruct, newval, mirror);   
+                TransformStruct(i+1).Op, infostruct, newval, mirror, split);   
         end
       
     end

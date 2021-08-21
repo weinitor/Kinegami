@@ -11,7 +11,7 @@ phi = 3.14; %[rad]
 theta = pi; %[rad] - splits for greater than pi/2
 
 % Automatically @pi/2 split unless specified by user to not split
-
+split = 'on';
 mirror = 'on';
 
 % Outputs array of lenghts and value of ls in [m]
@@ -24,7 +24,7 @@ h1 = 0.1; %[m]
 h2 = 0.1; %[m]
 
 % Outputs graphing for elbow fitting
-[dataFoldA, m, lmax] = Origami_Elbow_papercut(lengths, ls, n, h1, h2, r, phi, theta, mirror);
+[dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror, split);
 axis off
 
 % Convert to DXF

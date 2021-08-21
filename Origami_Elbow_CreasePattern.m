@@ -1,7 +1,7 @@
 % Graph for crease pattern - Origami elbow fitting
 % Last edited 6/8/2021 by Lucien Peach
 
-function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror)
+function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror, split)
 
 % Create "duplicate" value
 duplicate = 1;
@@ -10,9 +10,8 @@ duplicate = 1;
 theta_original = theta;
 
 % Check value of theta
-if theta > pi/2
+if theta > pi/2 && strcmp(split, 'off') ~= 1
     
-    theta = theta/2;
     duplicate = 2;
     
 end
@@ -338,6 +337,9 @@ else
     plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
         dataFoldA(count).color)
     
+    % Increase count
+    count = count + 1;
+    
     % Store hidden2 to array
     hiddenx = [0; n*ls];
     hiddeny = [h1 + 3*lmax; h1 + 3*lmax];
@@ -624,6 +626,6 @@ else
     lmax = h1 + 4*lmax + h2;
 end
 
-% close
+close
 
 end
