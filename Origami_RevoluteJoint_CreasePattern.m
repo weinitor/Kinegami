@@ -1049,6 +1049,8 @@ end
 % -----------------------------------------------------------------
 
 if nz > 1 && n >= 6
+
+% --------------------- General Initialization -------------------------
     
     % First, determine the slope of the diagonal lines. This value is
     % important to know, as many of the points which will be added are
@@ -1059,7 +1061,7 @@ if nz > 1 && n >= 6
     % patterns. We can store these in the diamondslope array.
     diamondslope = zeros((n-4)*2, 1);
     
-    % Determine vertical offset from slope and horizontal offset
+    % Determine vertical offset from lineslope and horizontal offset
     vert_offset = lineslope*(n/2)*ls;
     
     % Populate diamondslope based on the values contained in slopes
@@ -1087,18 +1089,21 @@ if nz > 1 && n >= 6
     end
     
     % Initialize array to hold plot values
-    recursion = zeros((nz*9)*(n-2), 2);
+    recursion = zeros(((nz-1)*9)*(n-2), 2);
+
+% ----------------------- Left "Endcaps" -------------------------------
     
     % Begin by defining and plotting "endcap" zones. Similar process to
-    % situation for n = 4
+    % situation for n = 4. For cases of n = 6, this will essentially
+    % populate the entire recursive joint
     for i = 1:(nz-1)
         
         % Increase count initially
         count = count + 1;
         
         % Left segments
-        index1 = 6*(i-1) + 1;
-        index2 = 6*(i-1) + 1 + (nz*9)*((n/2)-1);
+        index1 = 9*(i-1) + 1;
+        index2 = 9*(i-1) + 1 + ((nz-1)*9)*((n/2)-1);
         
         % Populate values of recursion based on index1 and index2
         
@@ -1121,9 +1126,48 @@ if nz > 1 && n >= 6
         recursion(index1+5, 1) = ls - (i/nz)*(ls/2);
         recursion(index1+5, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+5, 1));
         
+        % For points 7 and 8, determine if the diamondslope value will
+        % correspond to a point that is less than the value of ls.
+        % otherwise, the value sets to ls.
+        
+        % Determine slope perp. to diamond region
+        ascslope = -1/diamondslope(1);
+        
+        % Determine horizontal intersection at ls
+        ascoffset = (recursion(index1+5, 2)) - recursion(index1+5, 1)*ascslope;
+        ascintersect = ((max(lengths) + h1)  - ascoffset) / ascslope;
+        
+        if ascintersect < ls
+            
+            % If the intersection occurs before frame limit, graph normally
+            % without factoring in cutoff.
+            recursion(index1+6, 1) = ascintersect;
+            recursion(index1+6, 2) = max(lengths) + h1;
+            
+            recursion(index1+7, 1) = ascintersect;
+            recursion(index1+7, 2) = max(lengths) + h1;            
+            
+        elseif ascintersect >= ls
+            
+            % If the intersection occurs after frame limit, graph only up
+            % to the frame limit, then graph vertical line. 
+            recursion(index1+6, 1) = ls;
+            recursion(index1+6, 2) = ascslope*ls + ascoffset;
+            
+            % Find offset from bottom line
+            differential = recursion(index1+6, 2) - recursion(index1+5, 2);
+            
+            recursion(index1+7, 1) = ls;
+            recursion(index1+7, 2) = recursion(index1, 2) - differential;
+            
+        end
+        
+        recursion(index1+8, 1) = recursion(index1, 1);
+        recursion(index1+8, 2) = recursion(index1, 2);
+        
         % Storing information to dataFoldD
-        dataFoldD(count).x = recursion(index1:index1+5, 1);
-        dataFoldD(count).y = recursion(index1:index1+5, 2);
+        dataFoldD(count).x = recursion(index1:index1+8, 1);
+        dataFoldD(count).y = recursion(index1:index1+8, 2);
         dataFoldD(count).color = blue;
 
         % Plotting
@@ -1152,26 +1196,221 @@ if nz > 1 && n >= 6
         recursion(index2+5, 1) = ls*((n/2)+1) - (i/nz)*(ls/2);
         recursion(index2+5, 2) = vert_offset + h1 + 2*max(lengths) - (lineslope*recursion(index2+5, 1));
         
+        % For points 7 and 8, determine if the diamondslope value will
+        % correspond to a point that is less than the value of ls.
+        % otherwise, the value sets to ls.
+        
+        % Determine slope perp. to diamond region
+        ascslope = -1/diamondslope(n-3);
+        
+        % Determine horizontal intersection at ls
+        ascoffset = (recursion(index2+5, 2)) - recursion(index2+5, 1)*ascslope;
+        ascintersect = ((max(lengths) + h1)  - ascoffset) / ascslope;
+        
+        if ascintersect < ((n/2)+1)*ls
+            
+            % If the intersection occurs before frame limit, graph normally
+            % without factoring in cutoff.
+            recursion(index2+6, 1) = ascintersect;
+            recursion(index2+6, 2) = max(lengths) + h1;
+            
+            recursion(index2+7, 1) = ascintersect;
+            recursion(index2+7, 2) = max(lengths) + h1;            
+            
+        elseif ascintersect >= ((n/2)+1)*ls
+            
+            % If the intersection occurs after frame limit, graph only up
+            % to the frame limit, then graph vertical line. 
+            recursion(index2+6, 1) = ((n/2)+1)*ls;
+            recursion(index2+6, 2) = ascslope*recursion(index2+6, 1) + ascoffset;
+            
+            % Find offset from bottom line
+            differential = recursion(index2+6, 2) - recursion(index2+5, 2);
+            
+            recursion(index2+7, 1) = ((n/2)+1)*ls;
+            recursion(index2+7, 2) = recursion(index2, 2) - differential;
+            
+        end
+        
+        recursion(index2+8, 1) = recursion(index2, 1);
+        recursion(index2+8, 2) = recursion(index2, 2);
+        
         % Storing information to dataFoldD
-        dataFoldD(count).x = recursion(index2:index2+5, 1);
-        dataFoldD(count).y = recursion(index2:index2+5, 2);
+        dataFoldD(count).x = recursion(index2:index2+8, 1);
+        dataFoldD(count).y = recursion(index2:index2+8, 2);
         dataFoldD(count).color = blue;
 
         % Plotting
         plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
             dataFoldD(count).color); 
         
+% ------------------------- Right "Endcaps" ------------------------------
+        
         % Increase count
         count = count + 1;
-        
-        % Right segments
-        index3 = 4*(i-1) + 1;
-        index4 = 4*(i-1) + 1 + (nz*9)*((n/2)-1);
+       
+        % Indexing for right endcaps 
+        index3 = 9*(i-1) + 9*(nz-1)*((n/2)-2) + 1;
+        index4 = 9*(i-1) + 9*(nz-1)*((n-3)) + 1;
         
         % Populate values of recursion based on index3 and index4
         
+        % The y intersect in the positive regime (for neg. slope)
+        index3offsetpos = (h1) + lineslope*((n/2)-1)*ls;
+        
+        % The y intersect in the negative regime (for pos. slope)
+        index3offsetneg = (h1 + 2*max(lengths)) - lineslope*((n/2)-1)*ls;
+        
+        % index3
+        recursion(index3, 1) = (i/nz)*(ls/2) + ((n/2)-2)*ls;
+        recursion(index3, 2) = index3offsetpos - (lineslope*recursion(index3, 1));
+        
+        recursion(index3+1, 1) = ((n/2)-1)*ls - (i/nz)*(ls/2);
+        recursion(index3+1, 2) = index3offsetneg + (lineslope*recursion(index3+1, 1));
+        
+        recursion(index3+2, 1) = ((n/2)-1)*ls - (i/nz)*(ls/2);
+        recursion(index3+2, 2) = index3offsetneg + (lineslope*recursion(index3+2, 1));
+        
+        recursion(index3+3, 1) = ((n/2)-1)*ls - (i/nz)*(ls/2);
+        recursion(index3+3, 2) = index3offsetpos - (lineslope*recursion(index3+3, 1));
+        
+        recursion(index3+4, 1) = ((n/2)-1)*ls - (i/nz)*(ls/2);
+        recursion(index3+4, 2) = index3offsetpos - (lineslope*recursion(index3+4, 1));
+        
+        recursion(index3+5, 1) = (i/nz)*(ls/2) + ((n/2)-2)*ls;
+        recursion(index3+5, 2) = index3offsetneg + (lineslope*recursion(index3+5, 1));
+               
+        % For points 7 and 8, determine if the value dictated by
+        % diamondslope will cross over the left-side ls border. 
+        
+        % Determine slope perp. to diamond region
+        descslope = -1/diamondslope(n-4);
+        
+        % Determine horizontal intersection at ls
+        descoffset = (recursion(index3+5, 2)) - recursion(index3+5, 1)*descslope;
+        descintersect = ((max(lengths) + h1)  - descoffset) / descslope;
+        
+        if descintersect > ((n/2)-2)*ls
+            
+            % If the intersection occurs before frame limit, graph normally
+            % without factoring in cutoff.
+            recursion(index3+6, 1) = descintersect;
+            recursion(index3+6, 2) = max(lengths) + h1;
+            
+            recursion(index3+7, 1) = descintersect;
+            recursion(index3+7, 2) = max(lengths) + h1;            
+            
+        elseif descintersect <= ((n/2)-2)*ls
+            
+            % If the intersection occurs after frame limit, graph only up
+            % to the frame limit, then graph vertical line. 
+            recursion(index3+6, 1) = ((n/2)-2)*ls;
+            recursion(index3+6, 2) = descslope*recursion(index3+6, 1) + descoffset;
+            
+            % Find offset from bottom line
+            differential = recursion(index3+6, 2) - recursion(index3+5, 2);
+            
+            recursion(index3+7, 1) = ((n/2)-2)*ls;
+            recursion(index3+7, 2) = recursion(index3, 2) - differential;
+            
+        end
+        
+        recursion(index3+8, 1) = recursion(index3, 1);
+        recursion(index3+8, 2) = recursion(index3, 2);
+        
+        % Storing information to dataFoldD
+        dataFoldD(count).x = recursion(index3:index3+8, 1);
+        dataFoldD(count).y = recursion(index3:index3+8, 2);
+        dataFoldD(count).color = blue;
+        
+         % Plotting
+        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+            dataFoldD(count).color);
+        
+        % Increase count
+        count = count + 1;
+        
+        % The y intersect in the positive regime (for neg. slope)
+        index4offsetpos = (h1) + lineslope*(n-1)*ls;
+        
+        % The y intersect in the negative regime (for pos. slope)
+        index4offsetneg = (h1 + 2*max(lengths)) - lineslope*(n-1)*ls;
+        
+        % index3
+        recursion(index4, 1) = (i/nz)*(ls/2) + (n-2)*ls;
+        recursion(index4, 2) = index4offsetpos - (lineslope*recursion(index4, 1));
+        
+        recursion(index4+1, 1) = (n-1)*ls - (i/nz)*(ls/2);
+        recursion(index4+1, 2) = index4offsetneg + (lineslope*recursion(index4+1, 1));
+        
+        recursion(index4+2, 1) = (n-1)*ls - (i/nz)*(ls/2);
+        recursion(index4+2, 2) = index4offsetneg + (lineslope*recursion(index4+2, 1));
+        
+        recursion(index4+3, 1) = (n-1)*ls - (i/nz)*(ls/2);
+        recursion(index4+3, 2) = index4offsetpos - (lineslope*recursion(index4+3, 1));
+        
+        recursion(index4+4, 1) = (n-1)*ls - (i/nz)*(ls/2);
+        recursion(index4+4, 2) = index4offsetpos - (lineslope*recursion(index4+4, 1));
+        
+        recursion(index4+5, 1) = (i/nz)*(ls/2) + (n-2)*ls;
+        recursion(index4+5, 2) = index4offsetneg + (lineslope*recursion(index4+5, 1));
+               
+        % For points 7 and 8, determine if the value dictated by
+        % diamondslope will cross over the left-side ls border. 
+        
+        % Determine slope perp. to diamond region
+        descslope = -1/diamondslope(end);
+        
+        % Determine horizontal intersection at ls
+        descoffset = (recursion(index4+5, 2)) - recursion(index4+5, 1)*descslope;
+        descintersect = ((max(lengths) + h1)  - descoffset) / descslope;
+        
+        if descintersect > (n-2)*ls
+            
+            % If the intersection occurs before frame limit, graph normally
+            % without factoring in cutoff.
+            recursion(index4+6, 1) = descintersect;
+            recursion(index4+6, 2) = max(lengths) + h1;
+            
+            recursion(index4+7, 1) = descintersect;
+            recursion(index4+7, 2) = max(lengths) + h1;            
+            
+        elseif descintersect <= (n-2)*ls
+            
+            % If the intersection occurs after frame limit, graph only up
+            % to the frame limit, then graph vertical line. 
+            recursion(index4+6, 1) = (n-2)*ls;
+            recursion(index4+6, 2) = descslope*recursion(index4+6, 1) + descoffset;
+            
+            % Find offset from bottom line
+            differential = recursion(index3+6, 2) - recursion(index3+5, 2);
+            
+            recursion(index4+7, 1) = (n-2)*ls;
+            recursion(index4+7, 2) = recursion(index4, 2) - differential;
+            
+        end
+        
+        recursion(index4+8, 1) = recursion(index4, 1);
+        recursion(index4+8, 2) = recursion(index4, 2);
+        
+        % Storing information to dataFoldD
+        dataFoldD(count).x = recursion(index4:index4+8, 1);
+        dataFoldD(count).y = recursion(index4:index4+8, 2);
+        dataFoldD(count).color = blue;
+        
+         % Plotting
+        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+            dataFoldD(count).color);
+
+        
     end
     
+    
+end
+
+% ----------------- Provisional Additions for n > 6 ----------------------
+
+if nz > 1 && nz >= 8
     
     % Loop through to assign the layered recursion values
     for i = 1:6:(nz*6)*(n-2)
