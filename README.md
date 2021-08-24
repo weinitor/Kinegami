@@ -12,6 +12,8 @@ The folded state of the origami module, its spacial operator representation, and
 # User Guide:
 Run scripts SphericalKinegami.m, UniversalKinegami.m, PlanarKinegami.m, or CylindricalKinegami.m and change parameters if desired. For more comprehensive understanding, reference supporting functions.
 
+# Laser cutting instructions:
+
 # Updates:
 7/5/2021:
 Edited JointAssignment.m to include correct value of rs for Prismatic Joints.
