@@ -224,8 +224,8 @@ for i = 1:N+1
     % If revolute
     if JointStruct(i).type == 'R'
         
-        ai = rotationalmatrix(Oz, theta_mod(i))*Ox;
-        bi = rotationalmatrix(Oz, theta_mod(i))*Oy;
+        ai = RotationalMatrix(Oz, theta_mod(i))*Ox;
+        bi = RotationalMatrix(Oz, theta_mod(i))*Oy;
         
         TransformStruct(i).Oc = [ai, bi, Oz, Oc];
     

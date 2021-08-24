@@ -1401,31 +1401,242 @@ if nz > 1 && n >= 6
          % Plotting
         plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
             dataFoldD(count).color);
-
-        
-    end
-    
+      
+    end   
     
 end
 
-% ----------------- Provisional Additions for n > 6 ----------------------
+% ----------------- Provisional Additions for n > 6 ---------------------
 
-if nz > 1 && nz >= 8
+if nz > 1 && n >= 8
     
-    % Loop through to assign the layered recursion values
-    for i = 1:6:(nz*6)*(n-2)
+    % Determine number of ls segments to iterate through
+    num = n - 6;
+    
+    % Loop through to assign the layered recursion values (left sect.)
+    for i = 1:(nz-1)
         
+        % ---------------- Left Half of Pattern ------------------------
         
+        for j = 1:num/2 % Iteration through first half of pattern
+            
+            index = (j-1)*9 + 10;
+            
+            % Determine y offsets (b values)
+            pos = (h1) + lineslope*(j+1)*ls;
         
+            % The y intersect in the negative regime (for pos. slope)
+            neg = (h1 + 2*max(lengths)) - lineslope*(j+1)*ls;
+            
+            
+            % Populate "corner" points first (on lineslope x)
+            recursion(index, 1) = (i/nz)*(ls/2) + j*ls;
+            recursion(index, 2) = neg + lineslope*recursion(index, 1);
+            
+            recursion(index+1, 1) = (j+1)*ls - (i/nz)*(ls/2);
+            recursion(index+1, 2) = pos - lineslope*recursion(index+1, 1);
+            
+            recursion(index+4, 1) = (j+1)*ls - (i/nz)*(ls/2);
+            recursion(index+4, 2) = neg + lineslope*recursion(index+4, 1);
+            
+            recursion(index+5, 1) = (i/nz)*(ls/2) + j*ls;
+            recursion(index+5, 2) = pos - lineslope*recursion(index+5, 1);
+            
+            recursion(index+8, 1) = recursion(index, 1);
+            recursion(index+8, 2) = recursion(index, 2);
+            
+            % New indexing for diamonds (as they scale by 2)
+            diamondindexeven = 2*j;
+            diamondindexodd = (2*j) + 1;
+            
+            % Determine metrics for left-side diamond
+            leftslope = -1/diamondslope(diamondindexeven);
+            leftoffset = (recursion(index, 2)) - recursion(index, 1)*leftslope;
+            leftintersect = ((max(lengths) + h1) - leftoffset) / leftslope;
+            
+            % Conditionals for left half diamond
+            if leftintersect > j*ls
+                
+                % If the intersection occurs before frame limit, graph
+                % normally without factoring in cutoff.
+                recursion(index+6, 1) = leftintersect;
+                recursion(index+6, 2) = max(lengths) + h1;
+                
+                recursion(index+7, 1) = leftintersect;
+                recursion(index+7, 2) = max(lengths) + h1;
+                
+            elseif leftintersect <= j*ls
+                
+                % If the intersection occurs after ls frame limit, graph
+                % only up until the ls frame boundary
+                recursion(index+7, 1) = j*ls;
+                recursion(index+7, 2) = leftoffset + leftslope*recursion(index+7, 1);
+                
+                % Find offset from bottom line
+                differential = recursion(index+7, 2) - recursion(index, 2);
+                
+                recursion(index+6, 1) = j*ls;
+                recursion(index+6, 2) = recursion(index+5, 2) - differential;
+                
+            end
+            
+            % Determine metrics for right-side diamond
+            rightslope = -1/diamondslope(diamondindexodd);
+            rightoffset = (recursion(index+1, 2)) - recursion(index+1, 1)*rightslope;
+            rightintersect = ((max(lengths) + h1) - rightoffset) / rightslope;
+            
+                        % Conditionals for left half diamond
+            if rightintersect < (j+1)*ls
+                
+                % If the intersection occurs before frame limit, graph
+                % normally without factoring in cutoff.
+                recursion(index+2, 1) = rightintersect;
+                recursion(index+2, 2) = max(lengths) + h1;
+                
+                recursion(index+3, 1) = rightintersect;
+                recursion(index+3, 2) = max(lengths) + h1;
+                
+            elseif rightintersect >= (j+1)*ls
+                
+                % If the intersection occurs after ls frame limit, graph
+                % only up until the ls frame boundary
+                recursion(index+2, 1) = (j+1)*ls;
+                recursion(index+2, 2) = rightoffset + rightslope*recursion(index+2, 1);
+                
+                % Find offset from bottom line
+                differential = recursion(index+2, 2) - recursion(index+1, 2);
+                
+                recursion(index+3, 1) = (j+1)*ls;
+                recursion(index+3, 2) = recursion(index+4, 2) - differential;
+                
+            end
+            
+            % Storing and Plotting
+            count = count + 1;
+            dataFoldD(count).x = recursion(index:index+8, 1);
+            dataFoldD(count).y = recursion(index:index+8, 2);
+            dataFoldD(count).color = blue;
         
+            plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+                dataFoldD(count).color);
+            
+        end 
+        
+        % ------------------ Right Half of Pattern ---------------------
+        
+        for j = 1:num/2 % Iteration through second half of pattern
+            
+            index = (j-1)*9 + (n/2)*9*(nz-1) + 1;
+            
+            % Determine ls offset value
+            offset = (n/2) + 1;
+            
+            % Determine y offsets (b values)
+            pos = (h1) + lineslope*(j+offset)*ls;
+        
+            % The y intersect in the negative regime (for pos. slope)
+            neg = (h1 + 2*max(lengths)) - lineslope*(j+offset)*ls;
+            
+            
+            % Populate "corner" points first (on lineslope x)
+            recursion(index, 1) = (i/nz)*(ls/2) + (j+offset-1)*ls;
+            recursion(index, 2) = neg + lineslope*recursion(index, 1);
+            
+            recursion(index+1, 1) = (j+offset)*ls - (i/nz)*(ls/2);
+            recursion(index+1, 2) = pos - lineslope*recursion(index+1, 1);
+            
+            recursion(index+4, 1) = (j+offset)*ls - (i/nz)*(ls/2);
+            recursion(index+4, 2) = neg + lineslope*recursion(index+4, 1);
+            
+            recursion(index+5, 1) = (i/nz)*(ls/2) + (j+offset-1)*ls;
+            recursion(index+5, 2) = pos - lineslope*recursion(index+5, 1);
+            
+            recursion(index+8, 1) = recursion(index, 1);
+            recursion(index+8, 2) = recursion(index, 2);
+            
+            % New indexing for diamonds (as they scale by 2)
+            diamondindexeven = 2*j + (n-4);
+            diamondindexodd = 2*j + (n-4) + 1;
+            
+            % Determine metrics for left-side diamond
+            leftslope = -1/diamondslope(diamondindexeven);
+            leftoffset = (recursion(index, 2)) - recursion(index, 1)*leftslope;
+            leftintersect = ((max(lengths) + h1) - leftoffset) / leftslope;
+            
+            % Conditionals for left half diamond
+            if leftintersect > (j+offset-1)*ls
+                
+                % If the intersection occurs before frame limit, graph
+                % normally without factoring in cutoff.
+                recursion(index+6, 1) = leftintersect;
+                recursion(index+6, 2) = max(lengths) + h1;
+                
+                recursion(index+7, 1) = leftintersect;
+                recursion(index+7, 2) = max(lengths) + h1;
+                
+            elseif leftintersect <= (j+offset-1)*ls
+                
+                % If the intersection occurs after ls frame limit, graph
+                % only up until the ls frame boundary
+                recursion(index+7, 1) = (j+offset-1)*ls;
+                recursion(index+7, 2) = leftoffset + leftslope*recursion(index+7, 1);
+                
+                % Find offset from bottom line
+                differential = recursion(index+7, 2) - recursion(index, 2);
+                
+                recursion(index+6, 1) = (j+offset-1)*ls;
+                recursion(index+6, 2) = recursion(index+5, 2) - differential;
+                
+            end
+            
+            % Determine metrics for right-side diamond
+            rightslope = -1/diamondslope(diamondindexodd);
+            rightoffset = (recursion(index+1, 2)) - recursion(index+1, 1)*rightslope;
+            rightintersect = ((max(lengths) + h1) - rightoffset) / rightslope;
+            
+                        % Conditionals for left half diamond
+            if rightintersect < (j+offset)*ls
+                
+                % If the intersection occurs before frame limit, graph
+                % normally without factoring in cutoff.
+                recursion(index+2, 1) = rightintersect;
+                recursion(index+2, 2) = max(lengths) + h1;
+                
+                recursion(index+3, 1) = rightintersect;
+                recursion(index+3, 2) = max(lengths) + h1;
+                
+            elseif rightintersect >= (j+offset)*ls
+                
+                % If the intersection occurs after ls frame limit, graph
+                % only up until the ls frame boundary
+                recursion(index+2, 1) = (j+offset)*ls;
+                recursion(index+2, 2) = rightoffset + rightslope*recursion(index+2, 1);
+                
+                % Find offset from bottom line
+                differential = recursion(index+2, 2) - recursion(index+1, 2);
+                
+                recursion(index+3, 1) = (j+offset)*ls;
+                recursion(index+3, 2) = recursion(index+4, 2) - differential;
+                
+            end
+            
+            % Storing and Plotting
+            count = count + 1;
+            dataFoldD(count).x = recursion(index:index+8, 1);
+            dataFoldD(count).y = recursion(index:index+8, 2);
+            dataFoldD(count).color = blue;
+        
+            plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+                dataFoldD(count).color);
+            
+        end 
+                
     end
-    
-    
-    
+  
 end
 
 % Add section for overlap fold
-% -----------------------------------------------------------------
+% -------------------------------------------------------------------
 
 % % Orange Shell
 % 
