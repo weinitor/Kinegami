@@ -5,15 +5,46 @@ clear
 close all
 clc
 
+% User Options - Change Prior to Running (if necessary)
+
+% Determines whether the user wishes to use DH parameters ('false') or
+% assign the Joint Parameters themselves ('true')
 selfassign = 'true';
+
+% Determines whether the user wishes to have elbow joints mirrored ('on')
+% or appear normally ('off')
+mirror = 'on';
+
+% Determines whether the user wishes to print 3 iterations of the print
+% pattern ('triple' - recommended) or 2 ('double')
+triple = 'triple';
+
+% Specify the angle modification utilized ([0, 0, 0, 0] recommended)
+theta_mod = [0, 0, 0, 0];
+
+% Specify the orientation of the fingertip: 'x', 'y', or 'z'
+fingertip = 'x';
+
+% Specify whether DXF generation and save file should occur ('on'/'off')
+DXF = 'on';
+
+% Specify whether elbow splitting should occur past pi/2 ('on'/'off')
+split = 'on';
+
+% Specify DH Parameters, if needed
+D = [0, pi/2, 0, pi/2; ...
+    0, pi/2, 0, 0; ...
+    0.2, 0, 0, 0];
+
+% Specify radius [m]
+r = 0.02;
+
+% Specify number of joints
+n = 4;
+
 
 if strcmp(selfassign, 'false') == 1
 
-    D = [0, pi/2, 0, pi/2; ...
-        0, pi/2, 0, 0; ...
-        0.2, 0, 0, 0];
-
-    r = 0.02;
     n = 3;
 
     JointStruct(n) = struct();
@@ -27,11 +58,6 @@ if strcmp(selfassign, 'false') == 1
     JointStruct(1).q0 = pi/2;
     JointStruct(3).type = 'F';
 
-    mirror = 'on';
-    triple = 'triple';
-    theta_mod = [0, 0, 0, 0];
-    fingertip = 'x';
-
     N = size(JointStruct, 2) - 1;
     
 end
@@ -41,9 +67,6 @@ end
 % acceptable)
 if strcmp(selfassign, 'true') == 1
     
-    r = 0.02;
-    n = 4;
-
     JointStruct(n) = struct();
 
     for i = 1:n
@@ -55,11 +78,6 @@ if strcmp(selfassign, 'true') == 1
     JointStruct(2).q0 = pi/2;
     JointStruct(1).type = 'V';
     JointStruct(4).type = 'F';
-
-    mirror = 'on';
-    triple = 'triple';
-    theta_mod = [0, 0, 0, 0];
-    fingertip = 'x';
 
     N = size(JointStruct, 2) - 1;
     
@@ -93,12 +111,7 @@ else
 
 end
 
-DXF = 'on';
-split = 'on';
-
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split);
-
-
 

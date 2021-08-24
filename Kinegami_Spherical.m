@@ -5,12 +5,42 @@ clear
 close all
 clc
 
+% User Options - Change Prior to Running (if necessary)
+
+% Determines whether the user wishes to use DH parameters ('false') or
+% assign the Joint Parameters themselves ('true')
+selfassign = 'false';
+
+% Determines whether the user wishes to have elbow joints mirrored ('on')
+% or appear normally ('off')
+mirror = 'on';
+
+% Determines whether the user wishes to print 3 iterations of the print
+% pattern ('triple' - recommended) or 2 ('double')
+triple = 'triple';
+
+% Specify the angle modification utilized ([0, 0, 0, 0] recommended)
+theta_mod = [0, 0, 0, 0];
+
+% Specify the orientation of the fingertip: 'x', 'y', or 'z'
+fingertip = 'z';
+
+% Specify whether DXF generation and save file should occur ('on'/'off')
+DXF = 'on';
+
+% Specify whether elbow splitting should occur past pi/2 ('on'/'off')
+split = 'on';
+
+% Specify DH Parameters, if needed
 D = [0, 0, 0.1, 0; ...
     0, pi/2, 0, pi/2; ...
     0, pi/2, 0, pi/2; ...
     0, pi/2, 0.1, 0];
 
-r = 0.03;
+% Specify radius [m]
+r = 0.02;
+
+% Specify number of sides of polygon
 n = 4;
 
 JointStruct(4) = struct();
@@ -24,12 +54,6 @@ end
 JointStruct(2).q0 = pi/2;
 JointStruct(3).q0 = pi/2;
 JointStruct(4).type = 'F';
-
-mirror = 'on';
-triple = 'triple';
-theta_mod = [0, 0, 0, 0];
-fingertip = 'z';
-selfassign = 'false';
 
 N = size(JointStruct, 2) - 1;
 
@@ -60,9 +84,6 @@ else
     TransformStruct(N+1) = struct();
 
 end
-
-DXF = 'on';
-split = 'on';
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
