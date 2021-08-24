@@ -21,7 +21,8 @@ for i = 1:4
     JointStruct(i).type = 'R';
 end
 
-JointStruct(4).type = 0;
+JointStruct(4).qm = pi;
+JointStruct(4).type = 'F';
 
 mirror = 'on';
 triple = 'triple';

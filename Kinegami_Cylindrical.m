@@ -21,8 +21,8 @@ JointStruct(2).qm = 0;
 JointStruct(2).type = 'P';
 
 JointStruct(3).q0 = 0;
-JointStruct(3).qm = 0;
-JointStruct(3).type = 0;
+JointStruct(3).qm = pi;
+JointStruct(3).type = 'F';
 
 mirror = 'on';
 triple = 'triple';
