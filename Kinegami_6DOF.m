@@ -1,5 +1,5 @@
-% Kinegami Test V1 (Universal)
-% Last Edited 7/21/2021 by Lucien Peach
+% Kinegami Test V1 (6 DOF)
+% Last Edited 7/21/2021 by Wei-Hsi Chen
 
 clear
 close all

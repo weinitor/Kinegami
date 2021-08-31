@@ -11,7 +11,7 @@ phi = 3.14/3; %[rad]
 theta = 3*pi/2; %[rad] - splits for greater than pi/2
 
 % Automatically @pi/2 split unless specified by user to not split
-split = 'off';
+split = 'on';
 mirror = 'on';
 
 % Outputs array of lenghts and value of ls in [m]
