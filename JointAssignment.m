@@ -153,12 +153,15 @@ figure()
 set(gcf, 'color', 'w')
 hold on
 
-red = [0.85, 0.325, 0.098];
+black = [0,0,0];
+red = [0.6350, 0.0780, 0.1840];
+orange = [0.8500, 0.3250, 0.0980];
 yellow = [0.929, 0.694, 0.125];
 green = [0.466, 0.674, 0.188];
 blue = [0, 0.447, 0.741];
+purple = [0.4940, 0.1840, 0.5560];
 
-colorvector = [red; yellow; green; blue];
+colorvector = [black; red; orange; yellow; green; blue; purple];
 
 for i = 1:N+1
     
