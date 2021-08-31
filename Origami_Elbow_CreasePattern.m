@@ -425,7 +425,7 @@ else
     hiddenmid(2*(n-1)+1:end, 1) = hiddenmid(1:2*(n-1), 1);
     hiddenmid(2*(n-1)+1:end, 2) = hiddenmid(1:2*(n-1), 2) + 2*lmax;
     
-    for i = 2*(n-1)+1:4*(n-1)-1
+    for i = 2*(n-1)+1:2:4*(n-1)-1
         
         % counter
         count = count + 1;
