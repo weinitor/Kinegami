@@ -2,9 +2,9 @@
 % Last edited 8/14/2021 by Lucien Peach
 
 % Function declaration
-function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta)
+function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split)
 
-if theta > pi/2
+if theta > pi/2 && strcmp(split, 'off') ~= 1
     
     theta = theta/2;
     

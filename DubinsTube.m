@@ -62,7 +62,7 @@ disp(alpha)
 phi2 = SignedAngle(bm, wd, tunit) - alpha;
 
 % Elbow Fitting
-[lengths, ls] = Origami_Elbow_Parameters(r, n, phi1, theta1);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi1, theta1, split);
 
 infostruct(index).ls = ls;
 infostruct(index).r = r;
@@ -103,7 +103,7 @@ infostruct(index+1).h = 0.2*Tnorm;
 
 infostruct(index+2).ls = ls;
 infostruct(index+2).r = r;
-
+ 
 % Outputs graphing for default tube
 [dataFoldTube, m, lmax] = Origami_Tube_CreasePattern(n, ls, 0.8*Tnorm, r);
 
@@ -115,7 +115,7 @@ infostruct(index+2).name = "Tube";
 infostruct(index+2).h = 0.8*Tnorm;
 
 % Elbow Fitting pt. 2
-[lengths, ls] = Origami_Elbow_Parameters(r, n, phi2, theta2);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi2, theta2, split);
 
 infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;

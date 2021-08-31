@@ -37,10 +37,70 @@ end
 for i = 1:N+1
     
     % Define the oinew field for later usage
-    TransformStruct(i).oinew = TransformStruct(i).Oc(:, 4);    
+    TransformStruct(i).oinew = TransformStruct(i).Oc(:, 4);  
+    
+    if i == N+1
+        
+        % Define oilarge for initial sphere (fingertip)
+        TransformStruct(i).oilarge = TransformStruct(i).oinew;        
+        
+    end
     
 end
 
+figure()
+set(gcf, 'color', 'w')
+hold on
+
+% Add section to enable individual sphere and cumulative sphere plotting
+for i = (N+1):-1:2
+    
+    for j = size(TransformStruct, 2):-1:i-1
+
+        [TransformStruct(j).demo] = SphericalSampling(TransformStruct(j).oinew, ...
+            TransformStruct(j).rs, 'none');
+
+        % If on the last index, the cumulative sphere points is just the final
+        % sphere itself
+        if j == size(TransformStruct, 2)
+
+            TransformStruct(j).democumul = TransformStruct(j).demo;  
+        else
+
+            TransformStruct(j).democumul = [TransformStruct(j).demo; TransformStruct(j+1).democumul];
+        end
+    
+    end
+    
+    if i == N+1
+        
+        % Define overlap sphere for fingertip
+        TransformStruct(i).rnew = TransformStruct(i).rs;
+        
+        [TransformStruct(i).spheresnet] = SphericalSampling(TransformStruct(i).oilarge, ...
+            TransformStruct(i).rnew, 'none');
+         
+    end
+
+    % Find new sphere center and store to index-1.optimized
+    [R, C, Xb] = ExactMinBoundSphere3D(TransformStruct(i-1).democumul);
+
+    TransformStruct(i-1).Xb = Xb;
+    TransformStruct(i-1).oilarge = C;
+    TransformStruct(i-1).rnew = R;
+
+    % Output new plot of cumulative sphere
+    [TransformStruct(i-1).spheresnet] = SphericalSampling(TransformStruct(i-1).oilarge, ...
+        TransformStruct(i-1).rnew, 'none');  
+    
+end
+
+hold off
+
+% After Intersection runs, oinew locations will be indicative of position
+% with no path overlaps
+
+% Sphere color assignment
 red = [0.85, 0.325, 0.098];
 yellow = [0.929, 0.694, 0.125];
 green = [0.466, 0.674, 0.188];
