@@ -1,10 +1,10 @@
-function [tuckangle] = TuckAngles(r, n, phi, theta)
+function [tuckangle] = TuckAngles(r, n, phi, theta, split)
 % Calculates the angle that needs to be fold away for the hidden part of
 % the elbow fitting. The inputs are the same as the elbow fitting, the out
 % put is an array of angles with the same size as "lengths".
 % Last edited 8/26/2021 by Wei-Hsi Chen
 
-[lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta);
+[lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split);
 tuckangle = zeros(n, 1);
 w = [cos(phi); sin(phi);0];
 lengthsTemp = [lengths(n);lengths];
