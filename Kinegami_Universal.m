@@ -31,17 +31,19 @@ DXF = 'on';
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
 
+% Specify number of sides (polygon)
+nsides = 4;
+
+% Specify radius [m]
+r = 0.02;
+
 % Specify DH Parameters, if needed
 D = [0, pi/2, 0, pi/2; ...
     0, pi/2, 0, 0; ...
     0.2, 0, 0, 0];
 
-% Specify radius [m]
-r = 0.02;
-
 % Specify number of joints
 n = 4;
-
 
 if strcmp(selfassign, 'false') == 1
 
@@ -111,7 +113,7 @@ else
 
 end
 
-[infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
+[infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split);
 

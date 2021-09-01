@@ -172,7 +172,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             [ls] = Origami_Tube_Parameters(r, n);
 
             infostruct(jointindex).ls = ls;
-            infostruct(jointindex).r = r;
+            infostruct(jointindex).r = 0.01;
 
             % Outputs default tube parameters
             [dataFoldV, m, lmax] = Origami_Tube_CreasePattern(n, ls, height, r);
@@ -327,8 +327,12 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     yellow = [0.929, 0.694, 0.125];
     green = [0.466, 0.674, 0.188];
     blue = [0, 0.447, 0.741];
+    lime = [0, 1, 0];
+    cyan = [0.45, 1, 1];
+    purple = [0.63, 0.125, 0.96];
+    
 
-    colorvector = [red; yellow; green; blue];
+    colorvector = [red; yellow; green; blue; lime; cyan; purple];
     
     % Add joint spheres
     for i = 1:N+1

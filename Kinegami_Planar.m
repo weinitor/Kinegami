@@ -37,6 +37,9 @@ D = [0.15, 0, 0, 0; ...
     0.15, 0, 0, 0; ...
     0.15, 0, 0, 0];
 
+% Specify number of sides (polygon)
+nsides = 4;
+
 % Specify radius [m]
 r = 0.02;
 
