@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'false';
+selfassign = 'true';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
