@@ -323,16 +323,15 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     end
     
     % Colorvector data for joint spheres
-    red = [0.85, 0.325, 0.098];
+    black = [0,0,0];
+    red = [0.6350, 0.0780, 0.1840];
+    orange = [0.8500, 0.3250, 0.0980];
     yellow = [0.929, 0.694, 0.125];
     green = [0.466, 0.674, 0.188];
     blue = [0, 0.447, 0.741];
-    lime = [0, 1, 0];
-    cyan = [0.45, 1, 1];
-    purple = [0.63, 0.125, 0.96];
-    
+    purple = [0.4940, 0.1840, 0.5560];
 
-    colorvector = [red; yellow; green; blue; lime; cyan; purple];
+    colorvector = [black; red; orange; yellow; green; blue; purple];
     
     % Add joint spheres
     for i = 1:N+1
