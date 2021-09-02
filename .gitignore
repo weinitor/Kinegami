@@ -1,1 +1,4 @@
 *.dxf
+*.fig
+*.png
+*.svg

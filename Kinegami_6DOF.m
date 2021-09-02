@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'false';
+selfassign = 'true';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
@@ -34,7 +34,7 @@ split = 'on';
 % Specify DH Parameters, if needed
 a3 = 0.2;
 d4 = 0.2;
-D = [0,     0,  0, 0; ...
+D = [0,     0,  0, pi/2; ...
      0, -pi/2,  0, 0; ...
      a3,    0,  0, 0; ...
      0, -pi/2, d4, 0; ...
@@ -61,6 +61,7 @@ if strcmp(selfassign, 'false') == 1
         JointStruct(i).type = 'R';
     end
 
+    JointStruct(1).q0 = pi/2;
     JointStruct(5).q0 = pi/2;
     JointStruct(6).q0 = pi/2;
     JointStruct(n).type = 'F';
