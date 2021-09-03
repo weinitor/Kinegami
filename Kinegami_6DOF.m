@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'true';
+selfassign = 'false';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
@@ -23,7 +23,7 @@ triple = 'triple';
 theta_mod = [0, 0, 0, 0, 0, 0, 0];
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = 'x';
+fingertip = 'z';
 
 % Specify whether DXF generation and save file should occur ('on'/'off')
 DXF = 'on';
@@ -32,15 +32,15 @@ DXF = 'on';
 split = 'on';
 
 % Specify DH Parameters, if needed
-a3 = 0.2;
-d4 = 0.2;
-D = [0,     0,  0, pi/2; ...
+a3 = 0.08;
+d4 = 0.08;
+D = [0,     0,  0, -pi/2; ...
      0, -pi/2,  0, 0; ...
      a3,    0,  0, 0; ...
      0, -pi/2, d4, 0; ...
      0,  pi/2,  0, pi/2; ...
      0, pi/2,  0, pi/2; ...
-     0,     0,  0, 0];
+     0,     0,  0.16, 0];
  
 % Specify number of sides (polygon)
 nsides = 4;
@@ -74,6 +74,7 @@ end
 % Make sure that Oc(:,4) are all not equal to 0 (x.xxx * 10^-25, etc., is
 % acceptable)
 if strcmp(selfassign, 'true') == 1
+    fingertip = 'x';
     
     JointStruct(n) = struct();
 
@@ -121,6 +122,33 @@ if strcmp(selfassign, 'true') == 1
                              0, 1, 0, 0; ...
                              0, 0, 1, 4*r];
                         
+%     TransformStruct(1).Oc = [-1, 0, 0, 0; ...
+%                              0, -1, 0, 0; ...
+%                              0, 0, -1, 6*r];
+%     
+%     TransformStruct(2).Oc = [1, 0, 0, 0; ...
+%                              0, 0, 1, 0; ...
+%                              0, -1, 0, 12*r];  
+%     
+%     TransformStruct(3).Oc = [0, -1, 0, a3; ...
+%                              0, 0, 1, 0; ...
+%                              -1, 0, 0, 12*r];
+%     
+%     TransformStruct(4).Oc = [0, -1, 0, a3; ...
+%                              -1, 0, 0, 0; ...
+%                              0, 0, -1, 12*r-d4+4*r];
+%     
+%     TransformStruct(5).Oc = [0, -1, 0, a3; ...
+%                              0, 0, 1, -4*r; ...
+%                              -1, 0, 0, 12*r-d4];  
+%     
+%     TransformStruct(6).Oc = [0, 0, 1, a3+4*r; ...
+%                              1, 0, 0, 0; ...
+%                              0, 1, 0, 12*r-d4];
+%                          
+%     TransformStruct(7).Oc = [1, 0, 0, a3+4*r; ...
+%                              0, 1, 0, 0; ...
+%                              0, 0, 1, 12*r-d4];
     
     % Here solely to not mess up Kinegami running
 %     D = [0, pi/2, 0, pi/2; ...
