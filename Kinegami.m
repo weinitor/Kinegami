@@ -105,7 +105,8 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
-            nz = 2;
+            infostruct(jointindex).nz = JointStruct(i).nz;
+            nz = infostruct(jointindex).nz;
             
             [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, ...
                 infostruct(i).h1, infostruct(i).h2, r, theta_m, nz);

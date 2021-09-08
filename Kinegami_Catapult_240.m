@@ -1,5 +1,5 @@
-% Catapult V1
-% Last Edited 9/3/2021 by Lucien Peach
+% Catapult V1.1 (theta_m = 240deg)
+% Last Edited 9/8/2021 by Lucien Peach
 
 clear
 close all
@@ -74,13 +74,14 @@ if strcmp(selfassign, 'true') == 1
     JointStruct(n) = struct();
 
     for i = 1:n
-        JointStruct(i).qm = pi;
+        JointStruct(i).qm = (4/3)*pi;
         JointStruct(i).q0 = 0;
         JointStruct(i).type = 'V';
     end
     
     JointStruct(5).type = 'R';
-    JointStruct(5).nz = 1;
+    JointStruct(5).nz = 3;
+    
     JointStruct(6).type = 'F';
 
     N = size(JointStruct, 2) - 1;
@@ -104,12 +105,19 @@ if strcmp(selfassign, 'true') == 1
         0, 1, 0, 0];
     
     TransformStruct(5).Oc = [0, -1, 0, 0.5*d; ...
-    0, 0, -1, 0; ...
-    1, 0, 0, d];
+        0, 0, -1, 0; ...
+        1, 0, 0, 2*d];
 
-    TransformStruct(6).Oc = [1/sqrt(2), -1/sqrt(2), 0, 2*d; ...
-    0, 0, -1, 0; ...
-    1/sqrt(2), 1/sqrt(2), 0, 2.5*d];
+    TransformStruct(6).Oc = [0, -1, 0, 0.51*d; ...
+        0, 0, -1, 0; ...
+        1, 0, 0, 5*d];
+
+    % Note in lines 112-114 an important specification. Due to singularity
+    % issues, TransformStruct(6).Oc(1,4) = 0.51*d instead of 0.5*d.
+    % Referencing the 2D Crease Pattern, we can see that this minor change
+    % creates an elbow joint outside of our tolerance range, and thus only
+    % a tube is generated. Therefore, the functionality of the final
+    % origami folded model is not impacted by this necessary change. 
     
     % Here solely to not mess up Kinegami running
     D = [0, pi/2, 0, pi/2; ...

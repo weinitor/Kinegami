@@ -48,6 +48,7 @@ n = 4;
 JointStruct(1).q0 = 0;
 JointStruct(1).qm = pi;
 JointStruct(1).type = 'R';
+JointStruct(1).nz = 1;
 
 JointStruct(2).q0 = 0.04;
 JointStruct(2).qm = 0;

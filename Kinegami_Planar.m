@@ -52,6 +52,7 @@ for i = 1:4
     JointStruct(i).qm = 4/3*pi;
     JointStruct(i).q0 = 0;
     JointStruct(i).type = 'R';
+    JointStruct(i).nz = 1;
 end
 
 JointStruct(4).qm = pi;
