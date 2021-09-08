@@ -105,7 +105,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             
             infostruct(jointindex).r = r;
             infostruct(jointindex).ls = ls;
-            nz = 1;
+            nz = 2;
             
             [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, ...
                 infostruct(i).h1, infostruct(i).h2, r, theta_m, nz);
@@ -172,7 +172,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
             [ls] = Origami_Tube_Parameters(r, n);
 
             infostruct(jointindex).ls = ls;
-            infostruct(jointindex).r = 0.01;
+            infostruct(jointindex).r = r;
 
             % Outputs default tube parameters
             [dataFoldV, m, lmax] = Origami_Tube_CreasePattern(n, ls, height, r);
@@ -389,6 +389,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     
     figure()
     set(gcf, 'color', 'w')
+    set(figure, 'renderer', 'painters');
     hold on
 
     % Loop through indices to plot 

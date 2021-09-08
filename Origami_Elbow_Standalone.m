@@ -8,9 +8,8 @@ clc
 % Specify inputs
 r = 0.02; %[m]
 n = 4;
-phi = pi/2; %[rad]
-phi = 3.14/3; %[rad]
-theta = 3*pi/2; %[rad] - splits for greater than pi/2
+phi = pi; %[rad]
+theta = 3*pi/3; %[rad] - splits for greater than pi/2
 
 % Automatically @pi/2 split unless specified by user to not split
 split = 'on';
@@ -18,7 +17,7 @@ mirror = 'on';
 
 % Outputs array of lenghts and value of ls in [m]
 [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split);
-TuckAngles(r, n, phi, theta, split)
+[tuckangle] = TuckAngles(r, n, phi, theta, split);
 
 % Create a figure that demonstrates the crease schematic
 
@@ -27,7 +26,8 @@ h1 = 0.1; %[m]
 h2 = 0.1; %[m]
 
 % Outputs graphing for elbow fitting
-[dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror, split);
+[dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, ...
+    r, phi, theta, mirror, split, tuckangle);
 axis off
 
 % Convert to DXF

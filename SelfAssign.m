@@ -25,11 +25,16 @@ for i = 1:N+1
         TransformStruct(i).rs = 1/4*JointStruct(i).q0*(2 + csc(beta));
     
     % Otherwise, for fingertip
-    else
+    elseif JointStruct(i).type == 'F'
         
         TransformStruct(i).rs = r*sin(((n - 2)*pi) / (2*n))* ...
             tan(JointStruct(i).qm/ 4);
+     
+    % For V Joint
+    else 
         
+        TransformStruct(i).rs = 0;
+           
     end
     
 end

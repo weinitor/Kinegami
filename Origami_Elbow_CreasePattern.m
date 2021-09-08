@@ -1,7 +1,7 @@
 % Graph for crease pattern - Origami elbow fitting
 % Last edited 6/8/2021 by Lucien Peach
 
-function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror, split)
+function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror, split, tuckangle)
 
 % Create "duplicate" value
 duplicate = 1;
@@ -610,6 +610,99 @@ else
     
 end
 
+% Tuck Angle Additions
+% -----------------------------------------------------------------------
+
+% First, find the tucklengths vector that will contain the tucklength
+% values, calculated using the value of max(lengths) as well as the
+% individual length segments.
+tucklengths = zeros(n+1, 1);
+
+for i = 1:n+1
+    
+    tucklengths(i, 1) = max(lengths) - lengths(i, 1);
+    
+end
+
+% Using this value as well as the values contained within tuckangle, we can
+% determine the "hidden region" of the schematic
+tuckoffsets = zeros(n, 1);
+
+for i = 1:n
+    
+    tuckoffsets(i, 1) = tan(tuckangle(i, 1))*tucklengths(i, 1);
+    
+end
+
+% We can now use this array to print the overlap region for the print
+% schematic for the elbow joint
+tuckarray = zeros(3*n, 2);
+
+
+for i = 1:n
+    
+    % Array index initialization
+    index = (i-1)*3 + 1;
+    
+    % Increase count
+    count = count + 1;
+    
+    % Storing plotting points to array
+    tuckarray(index, 1) = (i-1)*ls;
+    tuckarray(index, 2) = lengths(i, 1) + h1;
+    
+    tuckarray(index+1, 1) = ((i-1)*ls) + tuckoffsets(i);
+    tuckarray(index+1, 2) = max(lengths) + h1;
+    
+    tuckarray(index+2, 1) = (i-1)*ls;
+    tuckarray(index+2, 2) = 2*max(lengths) - lengths(i, 1) + h1;
+    
+    % Storing to DataStruct and plotting
+    dataFoldA(count).x = tuckarray(index:index+2, 1);
+    dataFoldA(count).y = tuckarray(index:index+2, 2);
+    dataFoldA(count).color = orange;
+
+    plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
+        dataFoldA(count).color)
+     
+end
+
+% Create the array for the secondary level, if needed, by adding
+% 2*max(lengths) to all values of the primary level
+if duplicate == 2
+    
+    % Initialize array
+    newtuckarray = zeros(size(tuckarray, 1), 2);
+    
+    % Populate new array 
+    for i = 1:size(tuckarray, 1)
+    
+        newtuckarray(i, 1) = tuckarray(i, 1);
+        newtuckarray(i, 2) = tuckarray(i, 2) + 2*max(lengths);
+    
+    end
+    
+    % Store array data to structure and plot
+    for i = 1:n
+        
+        count = count + 1;
+        
+        index = (i-1)*3 + 1;
+        
+        dataFoldA(count).x = newtuckarray(index:index+2, 1);
+        dataFoldA(count).y = newtuckarray(index:index+2, 2);
+        dataFoldA(count).color = orange;
+
+        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
+            dataFoldA(count).color)
+        
+    end
+     
+end
+
+% Plotting Options
+% ----------------------------------------------------------------------
+
 % Label the plot for clarity
 title({
     ('Origami Schematic A for Provided Parameters:')
@@ -626,6 +719,6 @@ else
     lmax = h1 + 4*lmax + h2;
 end
 
-% close
+close
 
 end

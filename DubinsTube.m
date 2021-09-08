@@ -63,12 +63,13 @@ phi2 = SignedAngle(bm, wd, tunit) - alpha;
 
 % Elbow Fitting
 [lengths, ls] = Origami_Elbow_Parameters(r, n, phi1, theta1, split);
+[tuckangle] = TuckAngles(r, n, phi1, theta1, split);
 
 infostruct(index).ls = ls;
 infostruct(index).r = r;
 
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index).h1, ...
-    infostruct(index).h2, r, phi1, theta1, mirror, split);
+    infostruct(index).h2, r, phi1, theta1, mirror, split, tuckangle);
 
 infostruct(index).m = m;
 infostruct(index).lmax = lmax;
@@ -116,12 +117,13 @@ infostruct(index+2).h = 0.8*Tnorm;
 
 % Elbow Fitting pt. 2
 [lengths, ls] = Origami_Elbow_Parameters(r, n, phi2, theta2, split);
+[tuckangle] = TuckAngles(r, n, phi2, theta2, split);
 
 infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
 
 [dataFoldD, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index+3).h1, ...
-    infostruct(index+3).h2, r, phi2, theta2, mirror, split);
+    infostruct(index+3).h2, r, phi2, theta2, mirror, split, tuckangle);
 
 infostruct(index+3).m = m;
 infostruct(index+3).lmax = lmax;
