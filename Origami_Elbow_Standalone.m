@@ -8,8 +8,14 @@ clc
 % Specify inputs
 r = 0.02; %[m]
 n = 4;
+<<<<<<< HEAD
 phi = pi; %[rad]
 theta = 3*pi/3; %[rad] - splits for greater than pi/2
+=======
+phi = pi/2; %[rad]
+% phi = 3.14/3; %[rad]
+theta = 3*pi/4; %[rad] - splits for greater than pi/2
+>>>>>>> c5e7b178fdebc68f1c108dd4a07061b2ff971e4f
 
 % Automatically @pi/2 split unless specified by user to not split
 split = 'on';
