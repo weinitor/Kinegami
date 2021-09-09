@@ -1,5 +1,5 @@
 % Kinegami Test V1 (6 DOF)
-% Last Edited 7/21/2021 by Wei-Hsi Chen
+% Last Edited 9/9/2021 by Wei-Hsi Chen
 
 clear
 close all
@@ -19,76 +19,68 @@ mirror = 'on';
 % pattern ('triple' - recommended) or 2 ('double')
 triple = 'triple';
 
-% Specify the angle modification utilized ([0, 0, 0, 0] recommended)
-theta_mod = [0, 0, 0, 0, 0, 0, 0];
-
-% Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = 'z';
-
 % Specify whether DXF generation and save file should occur ('on'/'off')
 DXF = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
 
-% Specify DH Parameters, if needed
+% Input the kinematic chain robot specifications
+% Specify DH Parameters, 
 a3 = 0.08;
 d4 = 0.08;
-D = [0,     0,  0, -pi/2; ...
-     0, -pi/2,  0, 0; ...
-     a3,    0,  0, 0; ...
-     0, -pi/2, d4, 0; ...
-     0,  pi/2,  0, pi/2; ...
-     0, pi/2,  0, pi/2; ...
-     0,     0,  0.16, 0];
+D = [0,      0,      0,  -pi/2; ...
+     0,  -pi/2,      0,      0; ...
+     a3,     0,      0,      0; ...
+     0,  -pi/2,     d4,      0; ...
+     0,   pi/2,      0,   pi/2; ...
+     0,   pi/2,      0,   pi/2; ...
+     0,      0,   0.16,      0];
+% Number of joints
+n = size(D,1);
+
+% Specify joint informations:
+% Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
+% 'F': Fingertip, 'V': Vertex (not a joint)
+TYPE = ['R', 'R', 'R', 'R', 'R', 'R', 'F']; 
+
+% Maximum joint range
+Qm = [pi, pi, pi, pi, pi, pi, pi];
+
+% Initial joint configuration (last column of the DH table)
+Q0 = D(:,end);
+
+% Specify the angle modification utilized (recommended: zeros(n))
+theta_mod = [0, 0, 0, 0, 0, 0, 0];
+
+% Layer of recursive sink gadget for revolute joint 
+Nz = [1, 1, 1, 1, 1, 1, 1];
+
+% Specify the orientation of the fingertip: 'x', 'y', or 'z'
+fingertip = 'z';
  
-% Specify number of sides (polygon)
+% Specify number of sides for the polygon base of the prism tube
 nsides = 4;
 
 % Specify radius [m]
 r = 0.02;
 
-% Specify number of joints
-n = 7;
-
-if strcmp(selfassign, 'false') == 1
-
-    JointStruct(n) = struct();
-
-    for i = 1:n
-        JointStruct(i).qm = pi;
-        JointStruct(i).q0 = 0;
-        JointStruct(i).type = 'R';
-    end
-
-    JointStruct(1).q0 = pi/2;
-    JointStruct(5).q0 = pi/2;
-    JointStruct(6).q0 = pi/2;
-    JointStruct(n).type = 'F';
-
-    N = size(JointStruct, 2) - 1;
-    
+% Initialize JointStruct
+JointStruct(n) = struct();
+for i = 1:n
+    JointStruct(i).qm = Qm(i);
+    JointStruct(i).q0 = Q0(i);
+    JointStruct(i).type = TYPE(i);
+    JointStruct(i).nz = Nz(i);
 end
+N = size(JointStruct, 2) - 1;
+TransformStruct(N+1) = struct();
 
 % If the selfassign tag is applied, provide Oc for each joint
-% Make sure that Oc(:,4) are all not equal to 0 (x.xxx * 10^-25, etc., is
-% acceptable)
 if strcmp(selfassign, 'true') == 1
+    
+    % Specify the orientation of the fingertip: 'x', 'y', or 'z'
     fingertip = 'x';
-    
-    JointStruct(n) = struct();
-
-    for i = 1:n
-        JointStruct(i).qm = pi;
-        JointStruct(i).q0 = 0;
-        JointStruct(i).type = 'R';
-    end
-
-    JointStruct(7).type = 'F';
-
-    N = size(JointStruct, 2) - 1;
-    
-    TransformStruct(N+1) = struct();
     
 %     TransformStruct(1).Oc = [0, 1, 0, 0; ...
 %                              0, 0, 1, 0; ...
@@ -102,71 +94,29 @@ if strcmp(selfassign, 'true') == 1
                              0, 0, 1, 0; ...
                              0, -1, 0, 12*r];  
     
-    TransformStruct(3).Oc = [0, -1, 0, 4*r; ...
+    TransformStruct(3).Oc = [0, -1, 0, a3; ...
                              0, 0, 1, 0; ...
                              -1, 0, 0, 12*r];
     
-    TransformStruct(4).Oc = [0, -1, 0, 4*r; ...
+    TransformStruct(4).Oc = [0, -1, 0, a3; ...
                              -1, 0, 0, 0; ...
-                             0, 0, -1, 8*r];
+                             0, 0, -1, 12*r-d4];
     
-    TransformStruct(5).Oc = [0, -1, 0, 4*r; ...
+    TransformStruct(5).Oc = [0, -1, 0, a3; ...
                              0, 0, 1, -4*r; ...
-                             -1, 0, 0, 4*r];  
+                             -1, 0, 0, 8*r-d4];  
     
-    TransformStruct(6).Oc = [0, 0, 1, 8*r; ...
+    TransformStruct(6).Oc = [0, 0, 1, a3+4*r; ...
                              1, 0, 0, 0; ...
-                             0, 1, 0, 4*r];
+                             0, 1, 0, 8*r-d4];
                          
-    TransformStruct(7).Oc = [1, 0, 0, 12*r; ...
+    TransformStruct(7).Oc = [1, 0, 0, a3+8*r; ...
                              0, 1, 0, 0; ...
-                             0, 0, 1, 4*r];
-                        
-%     TransformStruct(1).Oc = [-1, 0, 0, 0; ...
-%                              0, -1, 0, 0; ...
-%                              0, 0, -1, 6*r];
-%     
-%     TransformStruct(2).Oc = [1, 0, 0, 0; ...
-%                              0, 0, 1, 0; ...
-%                              0, -1, 0, 12*r];  
-%     
-%     TransformStruct(3).Oc = [0, -1, 0, a3; ...
-%                              0, 0, 1, 0; ...
-%                              -1, 0, 0, 12*r];
-%     
-%     TransformStruct(4).Oc = [0, -1, 0, a3; ...
-%                              -1, 0, 0, 0; ...
-%                              0, 0, -1, 12*r-d4+4*r];
-%     
-%     TransformStruct(5).Oc = [0, -1, 0, a3; ...
-%                              0, 0, 1, -4*r; ...
-%                              -1, 0, 0, 12*r-d4];  
-%     
-%     TransformStruct(6).Oc = [0, 0, 1, a3+4*r; ...
-%                              1, 0, 0, 0; ...
-%                              0, 1, 0, 12*r-d4];
-%                          
-%     TransformStruct(7).Oc = [1, 0, 0, a3+4*r; ...
-%                              0, 1, 0, 0; ...
-%                              0, 0, 1, 12*r-d4];
-    
-    % Here solely to not mess up Kinegami running
-D = [0,     0,  0, 0; ...
-     0, -pi/2,  0, 0; ...
-     a3,    0,  0, 0; ...
-     0, -pi/2, d4, 0; ...
-     0,  pi/2,  0, pi/2; ...
-     0, pi/2,  0, pi/2; ...
-     0,     0,  0, 0];
- 
-else
-    
-    % Otherwise, do nothing besides initialization
-    TransformStruct(N+1) = struct();
-
+                             0, 0, 1, 8*r-d4];
+else  
+    % Otherwise, do nothing new
 end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split);
-
