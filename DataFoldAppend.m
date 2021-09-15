@@ -1,7 +1,7 @@
 % Appending Crease Pattern
 % Last Edited 6/22/2021 by Lucien Peach
 
-function [msum, lmax_sum, infostruct, Struct1] = DataFoldAppend(Struct1, infostruct, index, msum, lmax_sum)
+function [msum, lmax_sum, infostruct, Struct1] = DataFoldAppend(a, Struct1, infostruct, index, msum, lmax_sum)
 % infostruct is a data structure that includes all the information needed
 % for the construction of the full schematic
 
@@ -68,7 +68,7 @@ if alert == 0
             Struct1(i).y = Struct1(i).y;
 
             % Plot each segment with offset factored in
-            plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+            plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
             
         end
         
@@ -108,7 +108,7 @@ if alert == 0
             Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
 
             % Plot each segment as before, but with offset factored in
-            plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+            plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
 
         end
 

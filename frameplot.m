@@ -66,13 +66,11 @@ else % Case for any other scenario
     
     D = normal(1)*center(1) + normal(2)*center(2) + normal(3)*center(3);
     
-    z = -1/C*(A*x + B*y + D);
-    
     x = x + center(1);
     y = y + center(2);
-    z = z + center(3);
-    
-%     z = (-normal(1)*x - normal(2)*y - (-center*normal')) / normal(3);   
+
+    % Use plane formula to determine x values
+    z = 1/C*(-A*x - B*y + D);  
           
 end
 
