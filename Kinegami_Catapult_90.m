@@ -29,7 +29,7 @@ fingertip = 'x';
 DXF = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
-split = 'on';
+split = 'off';
 
 % Specify number of sides (polygon)
 nsides = 4;
@@ -111,7 +111,7 @@ if strcmp(selfassign, 'true') == 1
 
     TransformStruct(6).Oc = [0, -1, 0, 0.51*d; ...
         0, 0, -1, 0; ...
-        1, 0, 0, 2.5*d];
+        1, 0, 0, 3*d];
     
     % Note in lines 112-114 an important specification. Due to singularity
     % issues, TransformStruct(6).Oc(1,4) = 0.51*d instead of 0.5*d.

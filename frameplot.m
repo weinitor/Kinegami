@@ -59,12 +59,20 @@ elseif normal(1) == 0 && normal(2) == 0 % Case for [0; 0; 1]
 else % Case for any other scenario
     
     [x, y] = meshgrid(-0.01:0.01:0.01);
+    
+    A = normal(1);
+    B = normal(2);
+    C = normal(3);
+    
+    D = normal(1)*center(1) + normal(2)*center(2) + normal(3)*center(3);
+    
+    z = -1/C*(A*x + B*y + D);
+    
     x = x + center(1);
     y = y + center(2);
+    z = z + center(3);
     
-    z = (-normal(1)*x - normal(2)*y - (-center*normal')) / normal(3);
-    
-    z = z + center(3);    
+%     z = (-normal(1)*x - normal(2)*y - (-center*normal')) / normal(3);   
           
 end
 
