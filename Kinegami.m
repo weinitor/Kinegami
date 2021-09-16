@@ -387,15 +387,19 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     msum = 0;
     lmax_sum = 0;
     
-    figure()
+    fig1 = figure();
     set(gcf, 'color', 'w')
-    set(figure, 'renderer', 'painters');
+    
+    % 'renderer' ensures that  the file will have the ability to be
+    % converted to an SVG upon completion
+    set(fig1, 'renderer', 'painters');
+    a = axes;
     hold on
 
     % Loop through indices to plot 
     for index = 1:size(infostruct, 2)
 
-        [msum, lmax_sum, infostruct, infostruct(index).type] = DataFoldAppend(infostruct(index).type, ...
+        [msum, lmax_sum, infostruct, infostruct(index).type] = DataFoldAppend(a, infostruct(index).type, ...
             infostruct, index, msum, lmax_sum);
 
     end
@@ -408,7 +412,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
 
         [msum, lmax_sum, infostruct, infostruct(index).duplicate, ...
             infostruct(index).triple] ...
-            = DataFoldDuplicate(infostruct(index).duplicate, ...
+            = DataFoldDuplicate(a, infostruct(index).duplicate, ...
             infostruct(index).triple, infostruct, index, msum, lmax_sum, triple);
 
     end
@@ -533,6 +537,9 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         offset = offset + infostruct(i).size;
         
     end
+    
+%     xlim([0, n+1*ls])
+%     ylim([0, infostruct(val).lmaxnet])
     
     % If desired, generate a new DXF file
     if strcmp(DXF, 'on') == 1

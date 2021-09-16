@@ -2,7 +2,7 @@
 % Last Edited 6/22/2021 by Lucien Peach
 
 function [msum, lmax_sum, infostruct, Struct1, Struct2] =  ...
-    DataFoldDuplicate(Struct1, Struct2, infostruct, index, msum, lmax_sum, triple)
+    DataFoldDuplicate(a, Struct1, Struct2, infostruct, index, msum, lmax_sum, triple)
 % infostruct is a data structure that includes all the information needed
 % for the construction of the full schematic
 
@@ -88,7 +88,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
             end
             
         % If appended to left (no twist)
@@ -114,7 +114,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
             end
         
         % If appended to right (twist)
@@ -135,7 +135,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
             end
         
         % If appended to left (twist)
@@ -155,7 +155,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
             end
             
         end
@@ -200,7 +200,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
 
             end
 
@@ -228,7 +228,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                  Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
                  
                  % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
 
              end
         
@@ -251,7 +251,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
 
             end
          
@@ -273,7 +273,7 @@ if alert == 0 && strcmp(triple, 'triple') == 0
                 Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
 
             end
         end
@@ -312,7 +312,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)       
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)       
                 
             end
             
@@ -335,7 +335,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct2(i).y = Struct2(i).y;
                 
                 % Plotting
-                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
+                plot(a, Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
             
@@ -359,7 +359,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct1(i).y = Struct1(i).y;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
                 
             end
             
@@ -378,7 +378,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct2(i).y = Struct2(i).y;
                 
                 % Plot each segment with offset
-                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
+                plot(a, Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
             
@@ -423,7 +423,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
                 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
 
             end
             
@@ -447,7 +447,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct2(i).y = Struct2(i).y + infostruct(index-1).lmax + lmax_sum;
                  
                 % Plot each segment as before, but with offset factored in
-                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
+                plot(a, Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
             
@@ -472,7 +472,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct1(i).y = Struct1(i).y + infostruct(index-1).lmax + lmax_sum;
 
                 % Plot each segment as before, but with offset factored in
-                plot(Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
+                plot(a, Struct1(i).x, Struct1(i).y, 'color', Struct1(i).color)
                 
             end
             
@@ -492,7 +492,7 @@ if alert == 0 && strcmp(triple, 'triple') == 1
                 Struct2(i).y = Struct2(i).y + infostruct(index-1).lmax + lmax_sum;
                 
                 % Plot each segment with offset
-                plot(Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
+                plot(a, Struct2(i).x, Struct2(i).y, 'color', Struct2(i).color)
                 
             end
         end     
