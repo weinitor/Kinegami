@@ -538,8 +538,17 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
     end
     
-%     xlim([0, n+1*ls])
-%     ylim([0, infostruct(val).lmaxnet])
+    % Set axis limits so that only print area is displayed
+%     axis([0, (n+1)*ls, 0, infostruct(val).lmaxnet])
+    
+    % Implement feature so that data outside of print area is discarded
+    fillx1 = [-(n+1)*ls, 0, 0, -(n+1)*ls];
+    filly1 = [0, 0, infostruct(val).lmaxnet + 0.01, infostruct(val).lmaxnet + 0.01];
+    patch(fillx1, filly1, 'w', 'EdgeColor', 'none');
+    
+    fillx2 = [(n+1)*ls, 2*(n+1)*ls, 2*(n+1)*ls, (n+1)*ls];
+    filly2 = [0, 0, infostruct(val).lmaxnet + 0.01, infostruct(val).lmaxnet + 0.01];
+    patch(fillx2, filly2, 'w', 'EdgeColor', 'none');
     
     % If desired, generate a new DXF file
     if strcmp(DXF, 'on') == 1

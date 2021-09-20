@@ -80,7 +80,7 @@ if strcmp(selfassign, 'true') == 1
     end
     
     JointStruct(5).type = 'R';
-    JointStruct(5).nz = 2;
+    JointStruct(5).nz = 4;
     
     JointStruct(6).type = 'F';
     
