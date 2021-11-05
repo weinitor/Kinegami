@@ -1,5 +1,5 @@
 % Kinegami Test V1 (6 DOF)
-% Last Edited 9/9/2021 by Wei-Hsi Chen
+% Last Edited 11/5/2021 by Shelly Wu and Wei-Hsi Chen
 
 clear
 close all
