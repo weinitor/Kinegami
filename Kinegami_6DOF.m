@@ -13,7 +13,7 @@ selfassign = 'true';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
-mirror = 'on';
+elbow_tuck = 'on';
 
 % Determines whether the user wishes to print 3 iterations of the print
 % pattern ('triple' - recommended) or 2 ('double')
@@ -24,6 +24,10 @@ DXF = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
+
+% Specify whether or not pre-segmentation (for printing) is enabled
+% ('on'/'off')
+segmentation = 'off';
 
 % Input the kinematic chain robot specifications
 % Specify DH Parameters, 
@@ -118,5 +122,5 @@ else
 end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split);
+    elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    DXF, split, segmentation);

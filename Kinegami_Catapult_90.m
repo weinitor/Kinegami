@@ -13,7 +13,7 @@ selfassign = 'true';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
-mirror = 'on';
+elbow_tuck = 'on';
 
 % Determines whether the user wishes to print 3 iterations of the print
 % pattern ('triple' - recommended) or 2 ('double')
@@ -30,6 +30,10 @@ DXF = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'off';
+
+% Specify whether or not pre-segmentation (for printing) is enabled
+% ('on'/'off')
+segmentation = 'off';
 
 % Specify number of sides (polygon)
 nsides = 4;
@@ -89,7 +93,8 @@ if strcmp(selfassign, 'true') == 1
     
     TransformStruct(N+1) = struct();
     
-    TransformStruct(1).Oc = [1, 0, 0, 0; ...
+    TransformStruct(1).Oc = ...
+        [1, 0, 0, 0; ...
         0, 0, -1, d; ...
         0, 1, 0, 0];
     
@@ -133,5 +138,5 @@ else
 end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split);
+    elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    DXF, split, segmentation);

@@ -3,7 +3,7 @@
 
 function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
-    TransformStruct, DXF, split)
+    TransformStruct, DXF, split, segmentation)
 
     % Initialize infostruct
     num = 1 + 5*(size(JointStruct, 2) - 1);
@@ -438,10 +438,14 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
         if strcmp(infostruct(i).name, "Tube") == 1 && i ~= 1 ...
                 || strcmp(infostruct(i).name, "Fingertip") == 1 && i ~= 1
-                        
-            [dataFoldDissect] = DissectPlot(n, ls, i, infostruct, val);
             
-            infostruct(end+1).type = dataFoldDissect;
+            if strcmp(segmentation, "on") == 1
+
+                [dataFoldDissect] = DissectPlot(n, ls, i, infostruct, val);
+
+                infostruct(end+1).type = dataFoldDissect;
+            
+            end
             
         end
         
@@ -542,11 +546,11 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
 %     axis([0, (n+1)*ls, 0, infostruct(val).lmaxnet])
     
     % Implement feature so that data outside of print area is discarded
-    fillx1 = [-(n+1)*ls, 0, 0, -(n+1)*ls];
+    fillx1 = [-2*(n+1)*ls, 0, 0, -2*(n+1)*ls];
     filly1 = [0, 0, infostruct(val).lmaxnet + 0.01, infostruct(val).lmaxnet + 0.01];
     patch(fillx1, filly1, 'w', 'EdgeColor', 'none');
     
-    fillx2 = [(n+1)*ls, 2*(n+1)*ls, 2*(n+1)*ls, (n+1)*ls];
+    fillx2 = [(n+1)*ls, 3*(n+1)*ls, 3*(n+1)*ls, (n+1)*ls];
     filly2 = [0, 0, infostruct(val).lmaxnet + 0.01, infostruct(val).lmaxnet + 0.01];
     patch(fillx2, filly2, 'w', 'EdgeColor', 'none');
     

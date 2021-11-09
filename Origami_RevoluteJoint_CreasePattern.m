@@ -7,9 +7,12 @@ function [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls,
 count = 1;
 
 % Identify colors
-orange = [1, 0.41, 0];
-blue = [0, 0, 1];
+% orange = [1, 0.41, 0];
+% blue = [0, 0, 1];
+orange = [0, 0, 1];
+blue = [1, 0, 0];
 black = [0, 0, 0];
+yellow = [1, 1, 0];
 
 % Begin by specifying sheet boundary
 % -------------------------------------------------------------------
@@ -1732,6 +1735,34 @@ end
 % plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
 %     dataFoldD(count).color)
 
+% ------------------ Yellow Lines for 3D Rendering ----------------------
+
+% Left Panel
+xcoordsL = [((n/2)-1)*ls, (n/2)*ls, ((n/2)-1)*ls];
+ycoordsL = [0, h1 + lmax, h1 + h2 + 2*lmax];
+
+% Increase count, store to data structure, and plot
+count = count + 1;
+dataFoldD(count).x = xcoordsL;
+dataFoldD(count).y = ycoordsL;
+dataFoldD(count).color = yellow;
+
+plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+    dataFoldD(count).color)
+
+
+% Right Panel
+xcoordsR = [(n-1)*ls, n*ls, (n-1)*ls];
+ycoordsR = [0, h1 + lmax, h1 + h2 + 2*lmax];
+
+% Increase count, store to data structure, and plot
+count = count + 1;
+dataFoldD(count).x = xcoordsR;
+dataFoldD(count).y = ycoordsR;
+dataFoldD(count).color = yellow;
+
+plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
+    dataFoldD(count).color)
 
 % Finally, plot labeling and adjustments
 % ------------------------------------------------------------------
