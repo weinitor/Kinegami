@@ -33,6 +33,10 @@ DXF = 'on';
 nsides = ??;
 r = ??;
 
+% Specify whether or not pre-segmentation (for printing) is enabled
+% ('on'/'off')
+segmentation = 'off';
+
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
 n = ??;
@@ -43,25 +47,25 @@ D = [??, ??, ??, ??;...
     ...
      ??, ??, ??, ??];
 
-% Specify joint informations:
+% Specify joint information as a row vector:
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
 % 'F': Fingertip, 'V': Spine Vertex (not a joint)
 TYPE = [??]; 
 
-% Maximum joint range
+% Maximum joint range (row vec.)
 Qm = [??];
 
-% Initial joint configuration
+% Initial joint configuration (col vec.)
 Q0 = [??];
 
-% Specify the angle modification utilized (recommended: zeros(n))
+% Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
 theta_mod = [??];
 
-% Layer of recursive sink gadget for revolute joint 
+% Layer of recursive sink gadget for revolute joint (row vec.)
 Nz = [??];
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = '??';
+fingertip = '?';
 
 
 % Initialize JointStruct
@@ -81,13 +85,19 @@ TransformStruct(N+1) = struct();
 if strcmp(selfassign, 'true') == 1
     
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-    fingertip = '??';
+    fingertip = '?';
     
     % Specify the frame (3X4) of each individul joint
     TransformStruct(1).Oc = [??, ??, ??, ??; ...
                              ??, ??, ??, ??; ...
                              ??, ??, ??, ??];
                          
+    TransformStruct(2).Oc = [??, ??, ??, ??; ...
+                             ??, ??, ??, ??; ...
+                             ??, ??, ??, ??];  
+                         
+    % etc...
+    
 else  
     % Otherwise, do nothing new
 end
@@ -97,4 +107,4 @@ end
 % Run Kinegami code
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split);
+    DXF, split, segmentation);
