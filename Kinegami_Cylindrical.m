@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'true';
+selfassign = 'false';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
@@ -19,18 +19,13 @@ elbow_tuck = 'on';
 % pattern ('triple' - recommended) or 2 ('double')
 triple = 'triple';
 
-% Specify the angle modification utilized ([0, 0, 0, 0] recommended)
-theta_mod = [0, 0, 0, 0];
-
-% Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = 'z';
-
 % Specify whether DXF generation and save file should occur ('on'/'off')
 DXF = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
 
+<<<<<<< HEAD
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'on';
@@ -39,36 +34,58 @@ segmentation = 'on';
 D = [0, 0.0001, 0.1, 0; ...
     0, 0, 0.08, 0; ...
     0, 0, 0.1, 0];
+=======
+% Input the kinematic chain robot specifications
+% Specify DH Parameters, 
+D = [0, 0.0001,    0.1,      0; ...
+     0,      0,   0.08,      0; ...
+     0,      0,    0.1,      0];
+% Number of joints
+n = size(D,1);
+>>>>>>> cf9ced24a7a699a6b1fdfaae1187f41304b9f8bb
 
-% Specify number of sides (polygon)
+% Specify joint informations:
+% Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
+% 'F': Fingertip, 'V': Vertex (not a joint)
+TYPE = ['R', 'P', 'F']; 
+
+% Maximum joint range
+Qm = [pi, 0, pi];
+
+% Initial joint configuration (last column of the DH table)
+Q0 = [0, 0.04, 0];
+
+% Specify the angle modification utilized (recommended: zeros(n))
+theta_mod = [0, 0, 0];
+
+% Layer of recursive sink gadget for revolute joint 
+Nz = [1, 1, 1];
+
+% Specify the orientation of the fingertip: 'x', 'y', or 'z'
+fingertip = 'z';
+ 
+% Specify number of sides for the polygon base of the prism tube
 nsides = 4;
 
 % Specify radius [m]
 r = 0.02;
 
-% Specify number of joints
-n = 4;
-
-JointStruct(1).q0 = 0;
-JointStruct(1).qm = pi;
-JointStruct(1).type = 'R';
-JointStruct(1).nz = 1;
-
-JointStruct(2).q0 = 0.04;
-JointStruct(2).qm = 0;
-JointStruct(2).type = 'P';
-
-JointStruct(3).q0 = 0;
-JointStruct(3).qm = pi;
-JointStruct(3).type = 'F';
-
+% Initialize JointStruct
+JointStruct(n) = struct();
+for i = 1:n
+    JointStruct(i).qm = Qm(i);
+    JointStruct(i).q0 = Q0(i);
+    JointStruct(i).type = TYPE(i);
+    JointStruct(i).nz = Nz(i);
+end
 N = size(JointStruct, 2) - 1;
+TransformStruct(N+1) = struct();
 
 % If the selfassign tag is applied, provide Oc for each joint
 if strcmp(selfassign, 'true') == 1
     
-    TransformStruct(N+1) = struct();
-    
+    % Specify the orientation of the fingertip: 'x', 'y', or 'z'
+    fingertip = 'x';
     TransformStruct(1).Oc = [1, 0, 0, 0; ...
         0, 1, -0.01, 0; ...
         0, 0.01, 1, 0.0176];
@@ -79,16 +96,18 @@ if strcmp(selfassign, 'true') == 1
     
     TransformStruct(3).Oc = [0, 1, 0, 0; ...
         -0.01, 0, 1, 0; ...
-        1, 0, 0.01, 0.28];    
-    
-else
-    
-    % Otherwise, do nothing besides initialization
-    TransformStruct(N+1) = struct();
-
+        1, 0, 0.01, 0.28];  
+else  
+    % Otherwise, do nothing new
 end
 
+<<<<<<< HEAD
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split, segmentation);
 
+=======
+[infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
+    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    DXF, split);
+>>>>>>> cf9ced24a7a699a6b1fdfaae1187f41304b9f8bb

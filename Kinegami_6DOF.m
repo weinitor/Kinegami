@@ -1,11 +1,11 @@
 % Kinegami Test V1 (6 DOF)
-% Last Edited 9/9/2021 by Wei-Hsi Chen
+% Last Edited 11/5/2021 by Wei-Hsi Chen
 
 clear
 close all
 clc
 
-% User Options - Change Prior to Running (if necessary)
+%% USER OPTIONS - Change Prior to Running (if necessary)
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
@@ -15,6 +15,9 @@ selfassign = 'true';
 % or appear normally ('off')
 elbow_tuck = 'on';
 
+% Specify whether elbow splitting should occur past pi/2 ('on'/'off')
+split = 'on';
+
 % Determines whether the user wishes to print 3 iterations of the print
 % pattern ('triple' - recommended) or 2 ('double')
 triple = 'triple';
@@ -22,15 +25,23 @@ triple = 'triple';
 % Specify whether DXF generation and save file should occur ('on'/'off')
 DXF = 'on';
 
-% Specify whether elbow splitting should occur past pi/2 ('on'/'off')
-split = 'on';
+%% KINEMATIC CHAIN SPECIFICATION
+
+% Specify number of sides and the circumradius [m] for the polygon base 
+% of the prism tube
+nsides = 4;
+r = 0.02;
 
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'off';
 
 % Input the kinematic chain robot specifications
-% Specify DH Parameters, 
+% Number of joints and initialize DH Parameter table D
+n = 7;
+D = zeros(n,4);
+
+% Specify DH Parameters nX4, 
 a3 = 0.08;
 d4 = 0.08;
 D = [0,      0,      0,  -pi/2; ...
@@ -40,12 +51,10 @@ D = [0,      0,      0,  -pi/2; ...
      0,   pi/2,      0,   pi/2; ...
      0,   pi/2,      0,   pi/2; ...
      0,      0,   0.16,      0];
-% Number of joints
-n = size(D,1);
 
 % Specify joint informations:
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
-% 'F': Fingertip, 'V': Vertex (not a joint)
+% 'F': Fingertip, 'V': Spine Vertex (not a joint)
 TYPE = ['R', 'R', 'R', 'R', 'R', 'R', 'F']; 
 
 % Maximum joint range
@@ -62,12 +71,6 @@ Nz = [1, 1, 1, 1, 1, 1, 1];
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
 fingertip = 'z';
- 
-% Specify number of sides for the polygon base of the prism tube
-nsides = 4;
-
-% Specify radius [m]
-r = 0.02;
 
 % Initialize JointStruct
 JointStruct(n) = struct();
@@ -79,6 +82,8 @@ for i = 1:n
 end
 N = size(JointStruct, 2) - 1;
 TransformStruct(N+1) = struct();
+ 
+%% SELF-ASSIGNED JOINT LOCATION
 
 % If the selfassign tag is applied, provide Oc for each joint
 if strcmp(selfassign, 'true') == 1
@@ -86,10 +91,7 @@ if strcmp(selfassign, 'true') == 1
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
     fingertip = 'x';
     
-%     TransformStruct(1).Oc = [0, 1, 0, 0; ...
-%                              0, 0, 1, 0; ...
-%                              1, 0, 0, 0];
-    
+    % Specify the frame (3X4) of each individul joint
     TransformStruct(1).Oc = [-1, 0, 0, 0; ...
                              0, -1, 0, 0; ...
                              0, 0, -1, 6*r];
@@ -121,6 +123,9 @@ else
     % Otherwise, do nothing new
 end
 
+%% RUN KINEGAMI
+
+% Run Kinegami code
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split, segmentation);
