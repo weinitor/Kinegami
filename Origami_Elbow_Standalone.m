@@ -15,7 +15,7 @@ theta = 3*pi/4; %[rad] - splits for greater than pi/2
 split = 'on';
 mirror = 'on';
 
-% Outputs array of lenghts and value of ls in [m]
+% Outputs array of lengths and value of ls in [m]
 [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split);
 [tuckangle] = TuckAngles(r, n, phi, theta, split);
 
