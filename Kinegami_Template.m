@@ -28,6 +28,7 @@ DXF = 'on';
 
 %% KINEMATIC CHAIN SPECIFICATION
 
+% Todo
 % Specify number of sides and the circumradius [m] for the polygon base 
 % of the prism tube
 nsides = ??;
