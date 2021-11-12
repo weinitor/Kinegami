@@ -39,6 +39,7 @@ segmentation = 'off';
 
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
+% n equals to the number of joints plus one fingertip
 n = ??;
 D = zeros(n,4);
 
