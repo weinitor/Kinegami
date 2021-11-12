@@ -43,7 +43,7 @@ segmentation = 'off';
 n = ??;
 D = zeros(n,4);
 
-% Specify DH Parameters nX4, 
+% Specify DH Parameters nX4, in the order of "Link length (a)", "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
 D = [??, ??, ??, ??;...
     ...
      ??, ??, ??, ??];
@@ -55,16 +55,16 @@ D = [??, ??, ??, ??;...
 TYPE = [??, ??, ??,...]; 
 
 % Maximum joint range (row vec.)
-Qm = [??];
+Qm = [??, ??, ??,...]; 
 
 % Initial joint configuration (col vec.)
-Q0 = [??];
+Q0 = [??, ??, ??,...]; 
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-theta_mod = [??];
+theta_mod = [??, ??, ??,...]; 
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
-Nz = [??];
+Nz = [??, ??, ??,...]; 
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
 fingertip = '?';
