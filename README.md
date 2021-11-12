@@ -1,7 +1,7 @@
 # Kinegami
 Given a D-H representation of a kinematic chain robot, the program generates a crease pattern that folds into a kinematically equivalent robot with compliant joints. The program takes in the D-H representation and assigns the corresponding joint to a location that is sufficiently far from other joints while keeping the same kinematic properties. Then an origami link inspired by the Dubin's path method is created to connect every two conseccutive joints. 
 
-To construct the D-H representation, follow the variable definitaion and numbering system of this kinematic chain mechanism schematic drawing to form a table:
+To construct the D-H representation, follow the variable definitaion ("Link length (a)", "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)") and numbering system of this kinematic chain mechanism schematic drawing to form a table:
 ![DH](https://user-images.githubusercontent.com/50150425/129768985-ef83cde7-f979-4d99-b40f-8e7e3fab6ecf.png?v=4&s=10)
 <!-- <img src="https://user-images.githubusercontent.com/50150425/129768985-ef83cde7-f979-4d99-b40f-8e7e3fab6ecf.png" width="400" height="200"> -->
 
