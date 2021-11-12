@@ -49,9 +49,10 @@ D = [??, ??, ??, ??;...
      ??, ??, ??, ??];
 
 % Specify joint information as a row vector:
+% Contains n elements for each vector
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
 % 'F': Fingertip, 'V': Spine Vertex (not a joint)
-TYPE = [??]; 
+TYPE = [??, ??, ??,...]; 
 
 % Maximum joint range (row vec.)
 Qm = [??];
