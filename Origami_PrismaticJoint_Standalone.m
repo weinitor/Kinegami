@@ -27,8 +27,8 @@ d0 = 0.05;
 % Create a figure that demonstrates the crease schematic
 
 % Specify values for h1 and h2, the heights of the two tube sections
-h1 = 0.3; %[m]
-h2 = 0.3; %[m]
+h1 = 0.05; %[m]
+h2 = 0.05; %[m]
 
 % h2 is defined as the region above the top orange line as in the Figure2.C
 % depiction. See paper for reference.
@@ -37,7 +37,7 @@ h2 = 0.3; %[m]
 % graphing of the schematic and saving the file as a .dxf
 
 % Outputs graphing for prismatic joint
-[dataFoldE, m, lmax] = Origami_PrismaticJoint_papercut(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
+[dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
 axis off
     
 %     % Convert to DXF

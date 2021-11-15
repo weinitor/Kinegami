@@ -26,17 +26,16 @@ triple = 'triple';
 % Specify whether DXF generation and save file should occur ('on'/'off')
 DXF = 'on';
 
+% Specify whether or not pre-segmentation (for printing) is enabled
+% ('on'/'off')
+segmentation = 'off';
+
 %% KINEMATIC CHAIN SPECIFICATION
 
-% Todo
 % Specify number of sides and the circumradius [m] for the polygon base 
 % of the prism tube
 nsides = ??;
 r = ??;
-
-% Specify whether or not pre-segmentation (for printing) is enabled
-% ('on'/'off')
-segmentation = 'off';
 
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
@@ -44,7 +43,8 @@ segmentation = 'off';
 n = ??;
 D = zeros(n,4);
 
-% Specify DH Parameters nX4, in the order of "Link length (a)", "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
+% Specify DH Parameters nX4, in the order of "Link length (a)", 
+% "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
 D = [??, ??, ??, ??;...
     ...
      ??, ??, ??, ??];
@@ -69,7 +69,6 @@ Nz = [??, ??, ??,...];
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
 fingertip = '?';
-
 
 % Initialize JointStruct
 JointStruct(n) = struct();

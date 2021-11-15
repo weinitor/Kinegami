@@ -8,7 +8,7 @@ clc
 r = 0.06; %[m]
 n = 6;
 h = 0.05; %[m]
-alpha = pi/3; %[rad]
+alpha = pi/4; %[rad]
 
 % Outputs values for x and l in [m]
 [x, l, ls] = Origami_Twist_Parameters(r, n, h, alpha);

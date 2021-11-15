@@ -12,7 +12,7 @@ n = 8; % must be even, 4 or greater
 theta_m = (3/2)*pi; %[rad]
 
 % Outputs array of lengths and value of ls in [m]
-[lengths, ls] = Origami_RevoluteJoint_creasedesign(r, n, theta_m);
+[lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
 
 % Create a figure that demonstrates the crease schematic
 
@@ -21,7 +21,7 @@ h1 = 0.03; %[m]
 nz = 1;
 
 % Outputs graphing for elbow fitting
-[dataFoldD, m, lmax] = Fingertip(lengths, ls, n, h1, r, theta_m);
+[dataFoldD, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m);
 axis off
 
 % Convert to DXF

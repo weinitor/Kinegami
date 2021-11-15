@@ -13,7 +13,7 @@ selfassign = 'false';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
-elbow_tuck = 'off';
+elbow_tuck = 'on';
 
 % Determines whether the user wishes to print 3 iterations of the print
 % pattern ('triple' - recommended) or 2 ('double')

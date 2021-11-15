@@ -1779,7 +1779,7 @@ m = 0;
 lmax = h1 + 2*lmax + h2;
 
 % Comment out for individual testing within D_crease_schematic
-% close
+close
 
 
 end

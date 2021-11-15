@@ -5,7 +5,7 @@ clear
 clc
 
 % Specify inputs
-r = 0.25; %[m]
+r = 0.2; %[m]
 n = 6;
 
 % Outputs ls, which will be used in graphing the default fold
