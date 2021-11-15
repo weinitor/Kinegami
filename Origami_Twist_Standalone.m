@@ -8,10 +8,10 @@ clc
 r = 0.06; %[m]
 n = 6;
 h = 0.05; %[m]
-alpha = 0; %[rad]
+alpha = pi/3; %[rad]
 
 % Outputs values for x and l in [m]
-[x, l, ls] = Origami_Twist_creasedesign(r, n, h, alpha);
+[x, l, ls] = Origami_Twist_Parameters(r, n, h, alpha);
 
 % Create a figure that demonstrates the crease schematic
 
@@ -20,7 +20,7 @@ h1 = 0.03; %[m]
 h2 = 0.03; %[m]
 
 % Outputs midsection for graphing
-[dataFoldB, m, lmax] = Origami_Twist_papercut(x, l, ls, n, h1, h2, r, h, alpha);
+[dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha);
 axis off
 
 % Convert to DXF

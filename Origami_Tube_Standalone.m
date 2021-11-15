@@ -9,7 +9,7 @@ r = 0.25; %[m]
 n = 6;
 
 % Outputs ls, which will be used in graphing the default fold
-[ls] = Origami_Tube_creasedesign(r, n);
+[ls] = Origami_Tube_Parameters(r, n);
 
 % Create a figure that demonstrates the crease schematic
 
@@ -17,7 +17,7 @@ n = 6;
 h = 0.3; %[m]
 
 % Outputs graphing for default tube
-[dataFoldDefault, m, lmax] = Origami_Tube_papercut(n, ls, h, r);
+[dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r);
 axis off
 
 % Convert to DXF
