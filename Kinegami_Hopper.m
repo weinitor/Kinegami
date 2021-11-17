@@ -25,6 +25,10 @@ DXF = 'on';
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
 
+% Specify whether or not pre-segmentation (for printing) is enabled
+% ('on'/'off')
+segmentation = 'off';
+
 % Input the kinematic chain robot specifications
 % Specify DH Parameters, 
 a3 = 0.08;
@@ -108,4 +112,4 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split);
+    DXF, split, segmentation);

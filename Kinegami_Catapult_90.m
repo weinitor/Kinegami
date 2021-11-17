@@ -33,7 +33,7 @@ split = 'off';
 
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
-segmentation = 'off';
+segmentation = 'on';
 
 % Specify number of sides (polygon)
 nsides = 4;

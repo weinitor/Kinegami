@@ -1,5 +1,5 @@
 % Kinegami Test V1 (Cylindrical)
-% Last Edited 7/20/2021 by Lucien Peach
+% Last Edited 11/17/2021 by Lucien Peach
 
 clear
 close all
@@ -25,24 +25,18 @@ DXF = 'on';
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
 
-<<<<<<< HEAD
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'on';
 
-% Specify DH Parameters, if needed
-D = [0, 0.0001, 0.1, 0; ...
-    0, 0, 0.08, 0; ...
-    0, 0, 0.1, 0];
-=======
 % Input the kinematic chain robot specifications
 % Specify DH Parameters, 
 D = [0, 0.0001,    0.1,      0; ...
      0,      0,   0.08,      0; ...
      0,      0,    0.1,      0];
+ 
 % Number of joints
 n = size(D,1);
->>>>>>> cf9ced24a7a699a6b1fdfaae1187f41304b9f8bb
 
 % Specify joint informations:
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
@@ -101,13 +95,7 @@ else
     % Otherwise, do nothing new
 end
 
-<<<<<<< HEAD
-[infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
+[infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split, segmentation);
 
-=======
-[infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split);
->>>>>>> cf9ced24a7a699a6b1fdfaae1187f41304b9f8bb
