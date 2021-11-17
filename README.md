@@ -11,10 +11,10 @@ The folded state of the origami module, its spacial operator representation, and
 # User Guide:
 Run scripts Kinegami_******.m for existing examples and change parameters if desired. 
 To create your kinematic chain robot, fill out the Kinegami_Template File in this order:
-1. design each joint, then first fill in the polygon shapefill in the DH parameters specifications for variable D
-2. according to the DH parameters, fill in the number of joints in n, and the joint type TYPE
-3. the rest variables that contain "?" should also be changed to match with your design.
-4. fill in the joint information, including TYPE, maximum joint range, ____
+1. design each joint, then first fill in the variable nside to specify the polygon shape. Then also fill in the number of joints plus one (the fingertip) in variable n.
+2. fill in the DH parameters specifications for variable D following the joint design.
+3. according to the DH parameters
+5. fill in the rest joint information, all variables that contain "?", including TYPE, maximum joint range, ____
 
 For more comprehensive understanding, reference supporting functions.The algorithm requires "fSolve" from the MatLab Optimization Toolbox. Please install the add-on Optimization Toolbox.
 
