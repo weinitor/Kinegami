@@ -27,39 +27,20 @@ FingertipFold(count).x = boundarybottom(:, 1);
 FingertipFold(count).y = boundarybottom(:, 2);
 FingertipFold(count).color = black;
 
-% Begin plot. Plot boundary
-figure()
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-hold on
-set(gcf, 'color', 'w');
-
 count = count + 1;
 FingertipFold(count).x = boundaryleft(:, 1);
 FingertipFold(count).y = boundaryleft(:, 2);
 FingertipFold(count).color = black;
-
-% Begin plot. Plot boundary
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 count = count + 1;
 FingertipFold(count).x = boundarytop(:, 1);
 FingertipFold(count).y = boundarytop(:, 2);
 FingertipFold(count).color = black;
 
-% Begin plot. Plot boundary
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 count = count + 1;
 FingertipFold(count).x = boundaryright(:, 1);
 FingertipFold(count).y = boundaryright(:, 2);
 FingertipFold(count).color = black;
-
-% Begin plot. Plot boundary
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Increase counter
 count = count + 1;
@@ -68,18 +49,10 @@ FingertipFold(count).x = boundaryleft(:, 1);
 FingertipFold(count).y = boundaryleft(:, 2);
 FingertipFold(count).color = blue;
 
-% Begin plot. Plot boundary
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 count = count + 1;
 FingertipFold(count).x = boundaryright(:, 1);
 FingertipFold(count).y = boundaryright(:, 2);
 FingertipFold(count).color = blue;
-
-% Begin plot. Plot boundary
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Increase counter
 count = count + 1;
@@ -93,10 +66,6 @@ FingertipFold(count).x = proximal(:, 1);
 FingertipFold(count).y = proximal(:, 2);
 FingertipFold(count).color = blue;
 
-% Plot proximal line
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 % Increase counter
 count = count + 1;
 
@@ -105,10 +74,6 @@ distal = [0, h1 + (2*lmax); n*ls, h1 + (2*lmax)];
 FingertipFold(count).x = distal(:, 1);
 FingertipFold(count).y = distal(:, 2);
 FingertipFold(count).color = blue;
-
-% Plot distal line
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Bottom tube folds
 % --------------------------------------------------------------------
@@ -136,8 +101,6 @@ for ii = 1:2:2*(n-1)
     FingertipFold(count).y = bottomtube(ii:ii+1, 2);
     FingertipFold(count).color = blue;
 
-    plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-        FingertipFold(count).color)
 end
 
 % Top tube folds
@@ -165,9 +128,7 @@ for jj = 1:2:2*(n-1)
     FingertipFold(count).x = toptube(jj:jj+1, 1);
     FingertipFold(count).y = toptube(jj:jj+1, 2);
     FingertipFold(count).color = blue;
-
-    plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-        FingertipFold(count).color)
+    
 end
 
 % Cross hatch pattern
@@ -207,8 +168,6 @@ for i = 1:2
                     FingertipFold(count).x = cross_hatch(j+1:j+2, 1);
                     FingertipFold(count).y = cross_hatch(j+1:j+2, 2);
                     FingertipFold(count).color = orange;
-                    plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                        FingertipFold(count).color)
                     
                 else
                     
@@ -224,8 +183,6 @@ for i = 1:2
                     FingertipFold(count).x = cross_hatch(j+3:j+4, 1);
                     FingertipFold(count).y = cross_hatch(j+3:j+4, 2);
                     FingertipFold(count).color = orange;
-                    plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                        FingertipFold(count).color)
                     
                 end
             end
@@ -258,8 +215,6 @@ for i = 1:2
                     FingertipFold(count).x = cross_hatch(j+1+offset:j+2+offset, 1);
                     FingertipFold(count).y = cross_hatch(j+1+offset:j+2+offset, 2);
                     FingertipFold(count).color = orange;
-                    plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                        FingertipFold(count).color)
                     
                 else
                     
@@ -275,8 +230,6 @@ for i = 1:2
                     FingertipFold(count).x = cross_hatch(j+3+offset:j+4+offset, 1);
                     FingertipFold(count).y = cross_hatch(j+3+offset:j+4+offset, 2);
                     FingertipFold(count).color = orange;
-                    plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                        FingertipFold(count).color)
                     
                 end
             end            
@@ -304,10 +257,6 @@ FingertipFold(count).x = weave2((o_val*4)+1:(o_val*4)+2, 1);
 FingertipFold(count).y = weave2((o_val*4)+1:(o_val*4)+2, 2);
 FingertipFold(count).color = orange;
 
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 % Increase count
 count = count + 1;
 
@@ -320,10 +269,6 @@ weave2((o_val*4)+4, 2) = h1 + lengths(1);
 FingertipFold(count).x = weave2((o_val*4)+3:(o_val*4)+4, 1);
 FingertipFold(count).y = weave2((o_val*4)+3:(o_val*4)+4, 2);
 FingertipFold(count).color = orange;
-
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Looping for horizontal segments within diamond regions
 % Segment 1
@@ -346,10 +291,6 @@ for ii = 1:2:(o_val*2)-1
         FingertipFold(count).x = weave2(ii:ii+1, 1);
         FingertipFold(count).y = weave2(ii:ii+1, 2);
         FingertipFold(count).color = orange;
-
-        % Plot segment
-        plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-            FingertipFold(count).color);
     
     end
     
@@ -375,10 +316,6 @@ for ii = (o_val*2):2:(o_val*4)-2
         FingertipFold(count).x = weave2(ii+1:ii+2, 1);
         FingertipFold(count).y = weave2(ii+1:ii+2, 2);
         FingertipFold(count).color = orange;
-
-        % Plot segment
-        plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-            FingertipFold(count).color);
         
     end
 end
@@ -406,10 +343,6 @@ FingertipFold(count).x = weave1(end-7:end-6, 1);
 FingertipFold(count).y = weave1(end-7:end-6, 2);
 FingertipFold(count).color = blue;
 
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 % Increase count
 count = count + 1;
 
@@ -422,10 +355,6 @@ weave1(end-2, 2) = h1 + lengths(1);
 FingertipFold(count).x = weave1(end-3:end-2, 1);
 FingertipFold(count).y = weave1(end-3:end-2, 2);
 FingertipFold(count).color = blue;
-
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Increase count
 count = count + 1;
@@ -440,10 +369,6 @@ FingertipFold(count).x = weave1(end-5:end-4, 1);
 FingertipFold(count).y = weave1(end-5:end-4, 2);
 FingertipFold(count).color = blue;
 
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 % Increase count
 count = count + 1;
 
@@ -456,11 +381,6 @@ weave1(end, 2) = h1 + lengths(1);
 FingertipFold(count).x = weave1((2*quant)-1:2*quant, 1);
 FingertipFold(count).y = weave1((2*quant)-1:2*quant, 2);
 FingertipFold(count).color = blue;
-
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 
 % Create "weave" pattern (pt.3) - ridge
 % ------------------------------------------------------------------
@@ -513,20 +433,12 @@ if n > 4
             FingertipFold(count).y = weave1(1:(quant-4), 2);
             FingertipFold(count).color = blue;
 
-            % Plot segment
-            plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                FingertipFold(count).color);
-
         else
             offset2 = (quant-3); % For horizontal shift
 
             FingertipFold(count).x = weave1(offset2:((2*quant)-8), 1);
             FingertipFold(count).y = weave1(offset2:((2*quant)-8), 2);
             FingertipFold(count).color = blue;
-
-            % Plot segment
-            plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                FingertipFold(count).color);
 
         end
     end
@@ -552,10 +464,6 @@ FingertipFold(count).x = vert_blue1(1:2, 1);
 FingertipFold(count).y = vert_blue1(1:2, 2);
 FingertipFold(count).color = blue;
 
-% Plot segment 1.2
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 % Increase count and proceed to second set (2.1 segment)
 count = count + 1;
 
@@ -568,10 +476,6 @@ vert_blue1(4, 2) = h1 + 2*max(lengths);
 FingertipFold(count).x = vert_blue1(3:4, 1);
 FingertipFold(count).y = vert_blue1(3:4, 2);
 FingertipFold(count).color = blue;
-
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Increase count and proceed to final full segment (2.2 segment)
 count = count + 1;
@@ -586,10 +490,6 @@ FingertipFold(count).x = vert_blue1(5:6, 1);
 FingertipFold(count).y = vert_blue1(5:6, 2);
 FingertipFold(count).color = blue;
 
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
-
 % Retrace to initial segment for use within overlap patterns
 count = count + 1;
 
@@ -602,10 +502,6 @@ vert_blue1(8, 2) = h1 + 2*max(lengths);
 FingertipFold(count).x = vert_blue1(7:8, 1);
 FingertipFold(count).y = vert_blue1(7:8, 2);
 FingertipFold(count).color = blue;
-
-% Plot segment
-plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-    FingertipFold(count).color);
 
 % Now, we need to move on the recurring half segments that are contained
 % within each of the cross hatches
@@ -631,10 +527,6 @@ if n > 4
                 FingertipFold(count).x = vert_blue2(j+1:j+2, 1);
                 FingertipFold(count).y = vert_blue2(j+1:j+2, 2);
                 FingertipFold(count).color = blue;
-
-                % Plot segment
-                plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                    FingertipFold(count).color);
                 
                 % Lengths index for varying values
                 lengthsindex = (j/4) + 2;
@@ -651,9 +543,6 @@ if n > 4
                 FingertipFold(count).y = vert_blue2(j+3:j+4, 2);
                 FingertipFold(count).color = blue;
 
-                % Plot segment
-                plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                    FingertipFold(count).color);
             end
         else
             for j = 2*(n-4):4:(4*(n-4))-4
@@ -672,10 +561,6 @@ if n > 4
                 FingertipFold(count).x = vert_blue2(j+1:j+2, 1);
                 FingertipFold(count).y = vert_blue2(j+1:j+2, 2);
                 FingertipFold(count).color = blue;
-
-                % Plot segment
-                plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                    FingertipFold(count).color);
                 
                 % Lengths index for varying values
                 lengthsindex = (n/2) + ((j-2*(n-4))/4) + 2;
@@ -691,10 +576,6 @@ if n > 4
                 FingertipFold(count).x = vert_blue2(j+3:j+4, 1);
                 FingertipFold(count).y = vert_blue2(j+3:j+4, 2);
                 FingertipFold(count).color = blue;
-
-                % Plot segment
-                plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                    FingertipFold(count).color);
 
             end
         end
@@ -730,9 +611,6 @@ if n > 4
                 FingertipFold(count).x = vert_orange(j+1:j+2, 1);
                 FingertipFold(count).y = vert_orange(j+1:j+2, 2);
                 FingertipFold(count).color = orange;
-                
-                plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                    FingertipFold(count).color);
 
             end
         else
@@ -755,9 +633,6 @@ if n > 4
                 FingertipFold(count).x = vert_orange(j+1:j+2, 1);
                 FingertipFold(count).y = vert_orange(j+1:j+2, 2);
                 FingertipFold(count).color = orange;
-                
-                plot(FingertipFold(count).x, FingertipFold(count).y, 'color', ...
-                    FingertipFold(count).color);
 
             end
         end
@@ -777,8 +652,5 @@ daspect([1 1 1])
 
 m = 0;
 lmax = h1 + 2*lmax;
-
-close
-
 
 end

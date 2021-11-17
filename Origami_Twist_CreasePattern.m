@@ -22,12 +22,6 @@ dataFoldB(count).x = boundarybottom(:, 1);
 dataFoldB(count).y = boundarybottom(:, 2);
 dataFoldB(count).color = black;
 
-figure()
-plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-    dataFoldB(count).color)
-hold on
-set(gcf, 'color', 'w')
-
 % Increase counter
 count = count + 1;
 
@@ -35,9 +29,6 @@ count = count + 1;
 dataFoldB(count).x = boundaryleft(:, 1);
 dataFoldB(count).y = boundaryleft(:, 2);
 dataFoldB(count).color = black;
-
-plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-    dataFoldB(count).color)
 
 % Increase counter
 count = count + 1;
@@ -47,9 +38,6 @@ dataFoldB(count).x = boundarytop(:, 1);
 dataFoldB(count).y = boundarytop(:, 2);
 dataFoldB(count).color = black;
 
-plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-    dataFoldB(count).color)
-
 % Increase counter
 count = count + 1;
 
@@ -57,9 +45,6 @@ count = count + 1;
 dataFoldB(count).x = boundaryright(:, 1);
 dataFoldB(count).y = boundaryright(:, 2);
 dataFoldB(count).color = black;
-
-plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-    dataFoldB(count).color)
 
 % Log data to structure and add to plot
 % dataFoldB(count).x = boundaryleft(:, 1);
@@ -97,9 +82,6 @@ if x > 10^-4 && x < ls - 10^-4
     dataFoldB(count).y = topsegmenty;
     dataFoldB(count).color = orange;
 
-    % Begin plot. Plot top boundary of midsection
-    plot(dataFoldB(count).x, dataFoldB(count).y, 'color', dataFoldB(count).color);
-
     % Increase counter
     count = count+1;
 
@@ -108,10 +90,6 @@ if x > 10^-4 && x < ls - 10^-4
     dataFoldB(count).x = bottomsegmentx;
     dataFoldB(count).y = bottomsegmenty;
     dataFoldB(count).color = orange;
-
-    % Plot bottom boundary of midsection
-    plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-        dataFoldB(count).color)
 
     % Increase counter
     count = count + 1;
@@ -140,19 +118,12 @@ if x > 10^-4 && x < ls - 10^-4
         dataFoldB(count).y = triangles(2:end, 2);
         dataFoldB(count).color = blue;
 
-        % Express midsection pattern
-        plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-            dataFoldB(count).color)
-
     else
         % Log data to structure
         dataFoldB(count).x = triangles(:, 1);
         dataFoldB(count).y = triangles(:, 2);
         dataFoldB(count).color = blue;
 
-        % Express midsection pattern
-        plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-            dataFoldB(count).color)
     end
     
 end
@@ -179,8 +150,6 @@ if x < 10^-4 || x > ls - 10^-4
         dataFoldB(count).y = middletube(i+1:i+2, 2);
         dataFoldB(count).color = blue;
 
-        plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-            dataFoldB(count).color)
     end  
     
 end
@@ -211,9 +180,7 @@ for ii = 0:2:(2*n)-4
     dataFoldB(count).x = bottomtube(ii+1:ii+2, 1);
     dataFoldB(count).y = bottomtube(ii+1:ii+2, 2);
     dataFoldB(count).color = blue;
-
-    plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-        dataFoldB(count).color)
+    
 end
 
 % disp(bottomtube)
@@ -238,8 +205,6 @@ if x == 0
         dataFoldB(count).y = toptube(jj+1:jj+2, 2);
         dataFoldB(count).color = blue;
 
-        plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-            dataFoldB(count).color)
     end
     
 else
@@ -259,9 +224,7 @@ else
         dataFoldB(count).x = toptube(jj+1:jj+2, 1);
         dataFoldB(count).y = toptube(jj+1:jj+2, 2);
         dataFoldB(count).color = blue;
-
-        plot(dataFoldB(count).x, dataFoldB(count).y, 'color', ...
-            dataFoldB(count).color)        
+       
     end
     
 end
@@ -277,9 +240,6 @@ daspect([1 1 1])
 % m = r*alpha;
 m = floor(alpha/((2*pi)/n))*ls + x;
 lmax = h1 + l + h2;
-% 
-
-% close
 
 
 end

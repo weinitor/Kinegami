@@ -50,40 +50,25 @@ else
     
 end
 
-% Log data to structure and add to plot
+% Log data to structure
 dataFoldA(count).x = boundarybottom(:, 1);
 dataFoldA(count).y = boundarybottom(:, 2);
 dataFoldA(count).color = black;
-
-figure()
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
-hold on
-set(gcf, 'color', 'w')
 
 count = count + 1;
 dataFoldA(count).x = boundaryleft(:, 1);
 dataFoldA(count).y = boundaryleft(:, 2);
 dataFoldA(count).color = black;
 
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
-
 count = count + 1;
 dataFoldA(count).x = boundarytop(:, 1);
 dataFoldA(count).y = boundarytop(:, 2);
 dataFoldA(count).color = black;
 
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
-
 count = count + 1;
 dataFoldA(count).x = boundaryright(:, 1);
 dataFoldA(count).y = boundaryright(:, 2);
 dataFoldA(count).color = black;
-
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
 
 % Increase count
 count = count + 1;
@@ -92,17 +77,11 @@ dataFoldA(count).x = boundaryleft(:, 1);
 dataFoldA(count).y = boundaryleft(:, 2);
 dataFoldA(count).color = blue;
 
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
-
 count = count + 1;
 
 dataFoldA(count).x = boundaryright(:, 1);
 dataFoldA(count).y = boundaryright(:, 2);
 dataFoldA(count).color = blue;
-
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
 
 % Begin by specifying proximal and distal horizontal lines
 % -------------------------------------------------------------------
@@ -199,10 +178,6 @@ dataFoldA(count).x = midsection(1:n+1, 1);
 dataFoldA(count).y = midsection(1:n+1, 2);
 dataFoldA(count).color = blue;
 
-% Express midsection pattern
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
-
 % Counter
 count = count + 1;
 
@@ -210,10 +185,6 @@ count = count + 1;
 dataFoldA(count).x = midsection(n+2:end, 1);
 dataFoldA(count).y = midsection(n+2:end, 2);
 dataFoldA(count).color = blue;
-
-% Express midsection pattern
-plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-    dataFoldA(count).color)
 
 % Mirror (Optional)
 % ------------------------------------------------------------------
@@ -248,10 +219,6 @@ if strcmp(mirror, 'on') == 1
         dataFoldA(count).x = mirrormid(:, 1);
         dataFoldA(count).y = mirrormid(:, 2);
         dataFoldA(count).color = blue;
-
-        % Express midsection pattern
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
         
     else
         
@@ -285,10 +252,6 @@ if strcmp(mirror, 'on') == 1
         dataFoldA(count).x = mirrormid(1:n+1, 1);
         dataFoldA(count).y = mirrormid(1:n+1, 2);
         dataFoldA(count).color = blue;
-
-        % Express midsection pattern
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
         
         % Increase count
         count = count + 1;
@@ -296,10 +259,6 @@ if strcmp(mirror, 'on') == 1
         dataFoldA(count).x = mirrormid(n+2:2*(n+1), 1);
         dataFoldA(count).y = mirrormid(n+2:2*(n+1), 2);
         dataFoldA(count).color = blue;
-        
-        % Plot duplication layer
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
         
     end
    
@@ -319,10 +278,6 @@ if duplicate == 1
     dataFoldA(count).x = hiddenx;
     dataFoldA(count).y = hiddeny;
     dataFoldA(count).color = orange;
-
-    % Plot bottom boundary of midsection
-    plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-        dataFoldA(count).color)
     
 else
 
@@ -332,10 +287,6 @@ else
     dataFoldA(count).x = hiddenx;
     dataFoldA(count).y = hiddeny;
     dataFoldA(count).color = orange;
-
-    % Plot bottom boundary of midsection
-    plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-        dataFoldA(count).color)
     
     % Increase count
     count = count + 1;
@@ -346,10 +297,6 @@ else
     dataFoldA(count).x = hiddenx;
     dataFoldA(count).y = hiddeny;
     dataFoldA(count).color = orange;
-
-    % Plot bottom boundary of midsection
-    plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-        dataFoldA(count).color)
     
 end
     
@@ -383,10 +330,6 @@ if duplicate == 1
         dataFoldA(count).y = hiddenmid(k+1:k+2, 2);
         dataFoldA(count).color = orange;
 
-        % Plot bottom boundary of midsection
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
-
     end
     
 else
@@ -416,10 +359,6 @@ else
         dataFoldA(count).y = hiddenmid(k+1:k+2, 2);
         dataFoldA(count).color = orange;
 
-        % Plot bottom boundary of midsection
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
-
     end
     
     hiddenmid(2*(n-1)+1:end, 1) = hiddenmid(1:2*(n-1), 1);
@@ -434,10 +373,6 @@ else
         dataFoldA(count).x = hiddenmid(i:i+1, 1);
         dataFoldA(count).y = hiddenmid(i:i+1, 2);
         dataFoldA(count).color = orange;
-        
-        % Plot
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
         
     end
     
@@ -471,8 +406,6 @@ if duplicate == 1
         dataFoldA(count).y = bottomtube(ii+1:ii+2, 2);
         dataFoldA(count).color = blue;
 
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
     end
 
 else
@@ -500,8 +433,6 @@ else
         dataFoldA(count).y = bottomtube(ii+1:ii+2, 2);
         dataFoldA(count).color = blue;
 
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
     end
     
     % For duplication
@@ -520,8 +451,6 @@ else
         dataFoldA(count).y = bottomtube(i:i+1, 2);
         dataFoldA(count).color = blue;
 
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
     end
     
 end
@@ -554,8 +483,6 @@ if duplicate == 1
         dataFoldA(count).y = toptube(jj+1:jj+2, 2);
         dataFoldA(count).color = blue;
 
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
     end
 
 
@@ -583,9 +510,7 @@ else
         dataFoldA(count).x = toptube(jj+1:jj+2, 1);
         dataFoldA(count).y = toptube(jj+1:jj+2, 2);
         dataFoldA(count).color = blue;
-
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
+        
     end
     
     % Add duplication data
@@ -604,8 +529,6 @@ else
         dataFoldA(count).y = toptube(i:i+1, 2);
         dataFoldA(count).color = blue;
 
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
     end
     
 end
@@ -672,9 +595,6 @@ if strcmp(mirror, 'on') == 1
         dataFoldA(count).y = tuckarray(index:index+2, 2);
         dataFoldA(count).color = orange;
 
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
-
     end
 
 % Case 2: duplicate = 1, mirror = 'off'
@@ -698,9 +618,6 @@ elseif strcmp(mirror, 'off') == 1
         dataFoldA(count).x = tuckarray_small(index:index+1, 1);
         dataFoldA(count).y = tuckarray_small(index:index+1, 2);
         dataFoldA(count).color = orange;
-
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
 
     end
     
@@ -732,9 +649,6 @@ if duplicate == 2 && strcmp(mirror, 'off') == 1
         dataFoldA(count).x = newtuckarray_small(index:index+1, 1);
         dataFoldA(count).y = newtuckarray_small(index:index+1, 2);
         dataFoldA(count).color = orange;
-
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
         
     end
     
@@ -764,9 +678,6 @@ elseif duplicate == 2 && strcmp(mirror, 'on') == 1
         dataFoldA(count).x = newtuckarray(index:index+2, 1);
         dataFoldA(count).y = newtuckarray(index:index+2, 2);
         dataFoldA(count).color = orange;
-
-        plot(dataFoldA(count).x, dataFoldA(count).y, 'color', ...
-            dataFoldA(count).color)
         
     end
      
@@ -790,7 +701,5 @@ if duplicate == 1
 else
     lmax = h1 + 4*lmax + h2;
 end
-
-close
 
 end

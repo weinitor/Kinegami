@@ -23,12 +23,6 @@ dataFoldDefault(count).x = leftboundaryx;
 dataFoldDefault(count).y = leftboundaryy;
 dataFoldDefault(count).color = black;
 
-figure()
-plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-    dataFoldDefault(count).color)
-hold on
-set(gcf, 'color', 'w')
-
 % Increase count
 count = count + 1;
 
@@ -40,9 +34,6 @@ rightboundaryy = [0; h];
 dataFoldDefault(count).x = rightboundaryx;
 dataFoldDefault(count).y = rightboundaryy;
 dataFoldDefault(count).color = black;
-
-plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-    dataFoldDefault(count).color)
 
 % Increse count
 count = count + 1;
@@ -59,9 +50,6 @@ dataFoldDefault(count).x = topboundaryx;
 dataFoldDefault(count).y = topboundaryy;
 dataFoldDefault(count).color = black;
 
-plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-    dataFoldDefault(count).color)
-
 % Increase count
 count = count + 1;
 
@@ -74,9 +62,6 @@ dataFoldDefault(count).x = bottomboundaryx;
 dataFoldDefault(count).y = bottomboundaryy;
 dataFoldDefault(count).color = black;
 
-plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-    dataFoldDefault(count).color)
-
 % Specify vertical line pattern
 % ------------------------------------------------------------------
 
@@ -88,9 +73,6 @@ dataFoldDefault(count).x = leftboundaryx;
 dataFoldDefault(count).y = leftboundaryy;
 dataFoldDefault(count).color = blue;
 
-plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-    dataFoldDefault(count).color)
-
 % Increase count
 count = count + 1;
 
@@ -98,9 +80,6 @@ count = count + 1;
 dataFoldDefault(count).x = rightboundaryx;
 dataFoldDefault(count).y = rightboundaryy;
 dataFoldDefault(count).color = blue;
-
-plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-    dataFoldDefault(count).color)
 
 % Tube folds and graphing
 tube = zeros(2*(n-1), 2);
@@ -125,8 +104,6 @@ for i = 1:2:2*(n-1)
     dataFoldDefault(count).y = tube(i:i+1, 2);
     dataFoldDefault(count).color = blue;
 
-    plot(dataFoldDefault(count).x, dataFoldDefault(count).y, 'color', ...
-        dataFoldDefault(count).color)
 end
 
 % Label the plot for clarity
@@ -139,7 +116,5 @@ daspect([1 1 1])
 
 m = 0;
 lmax = h;
-
-close
 
 end

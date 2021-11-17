@@ -33,12 +33,6 @@ dataFoldE(count).x = boundarybottom(:, 1);
 dataFoldE(count).y = boundarybottom(:, 2);
 dataFoldE(count).color = black;
 
-figure()
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
-hold on
-set(gcf, 'color', 'w')
-
 % Increase count
 count = count + 1;
 
@@ -46,9 +40,6 @@ count = count + 1;
 dataFoldE(count).x = boundaryleft(:, 1);
 dataFoldE(count).y = boundaryleft(:, 2);
 dataFoldE(count).color = black;
-
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
 
 % Increase count
 count = count + 1;
@@ -58,9 +49,6 @@ dataFoldE(count).x = boundarytop(:, 1);
 dataFoldE(count).y = boundarytop(:, 2);
 dataFoldE(count).color = black;
 
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
-
 % Increase count
 count = count + 1;
 
@@ -68,9 +56,6 @@ count = count + 1;
 dataFoldE(count).x = boundaryright(:, 1);
 dataFoldE(count).y = boundaryright(:, 2);
 dataFoldE(count).color = black;
-
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
 
 % Increase count
 count = count + 1;
@@ -80,9 +65,6 @@ dataFoldE(count).x = boundaryleft(:, 1);
 dataFoldE(count).y = boundaryleft(:, 2);
 dataFoldE(count).color = blue;
 
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
-
 % Increase count
 count = count + 1;
 
@@ -90,9 +72,6 @@ count = count + 1;
 dataFoldE(count).x = boundaryright(:, 1);
 dataFoldE(count).y = boundaryright(:, 2);
 dataFoldE(count).color = blue;
-
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
 
 % Increase count
 % count = count + 1;
@@ -128,10 +107,6 @@ dataFoldE(count).x = foldtopx;
 dataFoldE(count).y = foldtopy;
 dataFoldE(count).color = orange;
 
-% Plot top boundary
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
-
 % Increase counter
 count = count + 1;
 
@@ -141,10 +116,6 @@ foldbottomy = [h1 + 2*l2; h1 + 2*l2];
 dataFoldE(count).x = foldbottomx;
 dataFoldE(count).y = foldbottomy;
 dataFoldE(count).color = orange;
-
-% Plot bottom boundary of midsection
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color)
 
 % Specify intermediary horizontal lines for nl > 1
 % ------------------------------------------------------------------
@@ -169,10 +140,6 @@ if nl > 1
         dataFoldE(count).y = orange_horizon(i-1:i, 2);
         dataFoldE(count).color = orange;
         
-        % Plot each line
-        plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-            dataFoldE(count).color);
-        
     end
 end
 
@@ -188,10 +155,6 @@ lowerboundaryy = [h1 + l2; h1 + l2];
 dataFoldE(count).x = lowerboundaryx;
 dataFoldE(count).y = lowerboundaryy;
 dataFoldE(count).color = blue;
-
-% Begin plot. Plot line
-plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-    dataFoldE(count).color);
 
 % Specify vertical line pattern for non-folded region (blue lines)
 % ------------------------------------------------------------------
@@ -218,9 +181,7 @@ for ii = 1:2:2*(n-1)
     dataFoldE(count).x = bottomtube(ii:ii+1, 1);
     dataFoldE(count).y = bottomtube(ii:ii+1, 2);
     dataFoldE(count).color = blue;
-
-    plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-        dataFoldE(count).color)
+    
 end
 
 % Top tube folds and graphing
@@ -246,8 +207,6 @@ for jj = 1:2:2*(n-1)
     dataFoldE(count).y = toptube(jj:jj+1, 2);
     dataFoldE(count).color = blue;
 
-    plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-        dataFoldE(count).color)
 end
 
 % Specify vertical line pattern (orange)
@@ -276,8 +235,6 @@ for kk = 2:2:2*(n)
     dataFoldE(count).y = midvert(kk-1:kk, 2);
     dataFoldE(count).color = orange;
 
-    plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-        dataFoldE(count).color)
 end
 
 % Create triangular (blue)
@@ -325,9 +282,6 @@ for aa = 0:(1 + 2*nl):ridge - (1 + 2*nl)
     dataFoldE(count).y = trianglefolds(aa+1:aa+(1 + 2*nl), 2);
     dataFoldE(count).color = blue;
     
-    % Plotting
-    plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-        dataFoldE(count).color);
 end
 
 % Create horizontal segments (blue)
@@ -372,8 +326,6 @@ for bb = 0:2*nl:2*nl*(n-1)
         dataFoldE(count).y = h_blue(bb+j+1:bb+j+2, 2);
         dataFoldE(count).color = blue;
         
-        plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-            dataFoldE(count).color)
     end 
 end
 
@@ -418,9 +370,7 @@ for cc = 0:2*nl:2*nl*(n-1)
         dataFoldE(count).x = h_orange(cc+j+1:cc+j+2, 1);
         dataFoldE(count).y = h_orange(cc+j+1:cc+j+2, 2);
         dataFoldE(count).color = orange;
-        
-        plot(dataFoldE(count).x, dataFoldE(count).y, 'color', ...
-            dataFoldE(count).color)
+
     end 
 end
 
@@ -435,7 +385,5 @@ daspect([1 1 1])
 
 m = 0;
 lmax = h1 + 2*l2 + nl*2*l1 + h2 + l2;
-
-close
 
 end

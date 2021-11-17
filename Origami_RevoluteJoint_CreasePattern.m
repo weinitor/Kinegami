@@ -30,39 +30,20 @@ dataFoldD(count).x = boundarybottom(:, 1);
 dataFoldD(count).y = boundarybottom(:, 2);
 dataFoldD(count).color = black;
 
-% Begin plot. Plot boundary
-figure()
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-hold on
-set(gcf, 'color', 'w');
-
 count = count + 1;
 dataFoldD(count).x = boundaryleft(:, 1);
 dataFoldD(count).y = boundaryleft(:, 2);
 dataFoldD(count).color = black;
-
-% Begin plot. Plot boundary
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 count = count + 1;
 dataFoldD(count).x = boundarytop(:, 1);
 dataFoldD(count).y = boundarytop(:, 2);
 dataFoldD(count).color = black;
 
-% Begin plot. Plot boundary
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 count = count + 1;
 dataFoldD(count).x = boundaryright(:, 1);
 dataFoldD(count).y = boundaryright(:, 2);
 dataFoldD(count).color = black;
-
-% Begin plot. Plot boundary
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Increase counter
 count = count + 1;
@@ -71,18 +52,10 @@ dataFoldD(count).x = boundaryleft(:, 1);
 dataFoldD(count).y = boundaryleft(:, 2);
 dataFoldD(count).color = blue;
 
-% Begin plot. Plot boundary
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 count = count + 1;
 dataFoldD(count).x = boundaryright(:, 1);
 dataFoldD(count).y = boundaryright(:, 2);
 dataFoldD(count).color = blue;
-
-% Begin plot. Plot boundary
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Increase counter
 count = count + 1;
@@ -96,10 +69,6 @@ dataFoldD(count).x = proximal(:, 1);
 dataFoldD(count).y = proximal(:, 2);
 dataFoldD(count).color = blue;
 
-% Plot proximal line
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 % Increase counter
 count = count + 1;
 
@@ -108,10 +77,6 @@ distal = [0, h1 + (2*lmax); n*ls, h1 + (2*lmax)];
 dataFoldD(count).x = distal(:, 1);
 dataFoldD(count).y = distal(:, 2);
 dataFoldD(count).color = blue;
-
-% Plot distal line
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Bottom tube folds
 % --------------------------------------------------------------------
@@ -139,8 +104,6 @@ for ii = 1:2:2*(n-1)
     dataFoldD(count).y = bottomtube(ii:ii+1, 2);
     dataFoldD(count).color = blue;
 
-    plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-        dataFoldD(count).color)
 end
 
 % Top tube folds
@@ -169,8 +132,6 @@ for jj = 1:2:2*(n-1)
     dataFoldD(count).y = toptube(jj:jj+1, 2);
     dataFoldD(count).color = blue;
 
-    plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-        dataFoldD(count).color)
 end
 
 % Cross hatch pattern
@@ -210,8 +171,6 @@ for i = 1:2
                     dataFoldD(count).x = cross_hatch(j+1:j+2, 1);
                     dataFoldD(count).y = cross_hatch(j+1:j+2, 2);
                     dataFoldD(count).color = orange;
-                    plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                        dataFoldD(count).color)
                     
                 else
                     
@@ -227,8 +186,6 @@ for i = 1:2
                     dataFoldD(count).x = cross_hatch(j+3:j+4, 1);
                     dataFoldD(count).y = cross_hatch(j+3:j+4, 2);
                     dataFoldD(count).color = orange;
-                    plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                        dataFoldD(count).color)
                     
                 end
             end
@@ -261,8 +218,6 @@ for i = 1:2
                     dataFoldD(count).x = cross_hatch(j+1+offset:j+2+offset, 1);
                     dataFoldD(count).y = cross_hatch(j+1+offset:j+2+offset, 2);
                     dataFoldD(count).color = orange;
-                    plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                        dataFoldD(count).color)
                     
                 else
                     
@@ -278,8 +233,6 @@ for i = 1:2
                     dataFoldD(count).x = cross_hatch(j+3+offset:j+4+offset, 1);
                     dataFoldD(count).y = cross_hatch(j+3+offset:j+4+offset, 2);
                     dataFoldD(count).color = orange;
-                    plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                        dataFoldD(count).color)
                     
                 end
             end            
@@ -344,10 +297,6 @@ dataFoldD(count).x = weave2((o_val*4)+1:(o_val*4)+2, 1);
 dataFoldD(count).y = weave2((o_val*4)+1:(o_val*4)+2, 2);
 dataFoldD(count).color = orange;
 
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 % Increase count
 count = count + 1;
 
@@ -360,10 +309,6 @@ weave2((o_val*4)+4, 2) = h1 + lengths(1);
 dataFoldD(count).x = weave2((o_val*4)+3:(o_val*4)+4, 1);
 dataFoldD(count).y = weave2((o_val*4)+3:(o_val*4)+4, 2);
 dataFoldD(count).color = orange;
-
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Looping for horizontal segments within diamond regions
 % Segment 1
@@ -386,10 +331,6 @@ for ii = 1:2:(o_val*2)-1
         dataFoldD(count).x = weave2(ii:ii+1, 1);
         dataFoldD(count).y = weave2(ii:ii+1, 2);
         dataFoldD(count).color = orange;
-
-        % Plot segment
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
     
     end
     
@@ -415,10 +356,6 @@ for ii = (o_val*2):2:(o_val*4)-2
         dataFoldD(count).x = weave2(ii+1:ii+2, 1);
         dataFoldD(count).y = weave2(ii+1:ii+2, 2);
         dataFoldD(count).color = orange;
-
-        % Plot segment
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
         
     end
 end
@@ -446,10 +383,6 @@ dataFoldD(count).x = weave1(end-7:end-6, 1);
 dataFoldD(count).y = weave1(end-7:end-6, 2);
 dataFoldD(count).color = blue;
 
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 % Increase count
 count = count + 1;
 
@@ -462,10 +395,6 @@ weave1(end-2, 2) = h1 + lengths(1);
 dataFoldD(count).x = weave1(end-3:end-2, 1);
 dataFoldD(count).y = weave1(end-3:end-2, 2);
 dataFoldD(count).color = blue;
-
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Increase count
 count = count + 1;
@@ -480,10 +409,6 @@ dataFoldD(count).x = weave1(end-5:end-4, 1);
 dataFoldD(count).y = weave1(end-5:end-4, 2);
 dataFoldD(count).color = blue;
 
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 % Increase count
 count = count + 1;
 
@@ -496,11 +421,6 @@ weave1(end, 2) = h1 + lengths(1);
 dataFoldD(count).x = weave1((2*quant)-1:2*quant, 1);
 dataFoldD(count).y = weave1((2*quant)-1:2*quant, 2);
 dataFoldD(count).color = blue;
-
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 
 % Create "weave" pattern (pt.3) - ridge
 % ------------------------------------------------------------------
@@ -553,20 +473,12 @@ if n > 4
             dataFoldD(count).y = weave1(1:(quant-4), 2);
             dataFoldD(count).color = blue;
 
-            % Plot segment
-            plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                dataFoldD(count).color);
-
         else
             offset2 = (quant-3); % For horizontal shift
 
             dataFoldD(count).x = weave1(offset2:((2*quant)-8), 1);
             dataFoldD(count).y = weave1(offset2:((2*quant)-8), 2);
             dataFoldD(count).color = blue;
-
-            % Plot segment
-            plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                dataFoldD(count).color);
 
         end
     end
@@ -615,10 +527,6 @@ dataFoldD(count).x = vert_blue1(1:2, 1);
 dataFoldD(count).y = vert_blue1(1:2, 2);
 dataFoldD(count).color = blue;
 
-% Plot segment 1.2
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 % Increase count and proceed to second set (2.1 segment)
 count = count + 1;
 
@@ -631,10 +539,6 @@ vert_blue1(4, 2) = h1 + 2*max(lengths);
 dataFoldD(count).x = vert_blue1(3:4, 1);
 dataFoldD(count).y = vert_blue1(3:4, 2);
 dataFoldD(count).color = blue;
-
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Increase count and proceed to final full segment (2.2 segment)
 count = count + 1;
@@ -649,10 +553,6 @@ dataFoldD(count).x = vert_blue1(5:6, 1);
 dataFoldD(count).y = vert_blue1(5:6, 2);
 dataFoldD(count).color = blue;
 
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
-
 % Retrace to initial segment for use within overlap patterns
 count = count + 1;
 
@@ -665,10 +565,6 @@ vert_blue1(8, 2) = h1 + 2*max(lengths);
 dataFoldD(count).x = vert_blue1(7:8, 1);
 dataFoldD(count).y = vert_blue1(7:8, 2);
 dataFoldD(count).color = blue;
-
-% Plot segment
-plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-    dataFoldD(count).color);
 
 % Now, we need to move on the recurring half segments that are contained
 % within each of the cross hatches
@@ -694,10 +590,6 @@ if n > 4
                 dataFoldD(count).x = vert_blue2(j+1:j+2, 1);
                 dataFoldD(count).y = vert_blue2(j+1:j+2, 2);
                 dataFoldD(count).color = blue;
-
-                % Plot segment
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
                 
                 % Lengths index for varying values
                 lengthsindex = (j/4) + 2;
@@ -714,9 +606,6 @@ if n > 4
                 dataFoldD(count).y = vert_blue2(j+3:j+4, 2);
                 dataFoldD(count).color = blue;
 
-                % Plot segment
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
             end
         else
             for j = 2*(n-4):4:(4*(n-4))-4
@@ -735,10 +624,6 @@ if n > 4
                 dataFoldD(count).x = vert_blue2(j+1:j+2, 1);
                 dataFoldD(count).y = vert_blue2(j+1:j+2, 2);
                 dataFoldD(count).color = blue;
-
-                % Plot segment
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
                 
                 % Lengths index for varying values
                 lengthsindex = (n/2) + ((j-2*(n-4))/4) + 2;
@@ -754,10 +639,6 @@ if n > 4
                 dataFoldD(count).x = vert_blue2(j+3:j+4, 1);
                 dataFoldD(count).y = vert_blue2(j+3:j+4, 2);
                 dataFoldD(count).color = blue;
-
-                % Plot segment
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
 
             end
         end
@@ -793,9 +674,6 @@ if n > 4
                 dataFoldD(count).x = vert_orange(j+1:j+2, 1);
                 dataFoldD(count).y = vert_orange(j+1:j+2, 2);
                 dataFoldD(count).color = orange;
-                
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
 
             end
         else
@@ -818,9 +696,6 @@ if n > 4
                 dataFoldD(count).x = vert_orange(j+1:j+2, 1);
                 dataFoldD(count).y = vert_orange(j+1:j+2, 2);
                 dataFoldD(count).color = orange;
-                
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
 
             end
         end
@@ -856,9 +731,6 @@ if n > 4
                 dataFoldD(count).x = blue_shell(j+1:j+2, 1);
                 dataFoldD(count).y = blue_shell(j+1:j+2, 2);
                 dataFoldD(count).color = blue;
-                
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
 
             end
         else
@@ -881,9 +753,6 @@ if n > 4
                 dataFoldD(count).x = blue_shell(j+1:j+2, 1);
                 dataFoldD(count).y = blue_shell(j+1:j+2, 2);
                 dataFoldD(count).color = blue;
-                
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
 
             end
         end
@@ -921,9 +790,6 @@ if n > 4
                 dataFoldD(count).y = orange_shell(j+1:j+2, 2);
                 dataFoldD(count).color = orange;
                 
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
-
             end
         else
             for j = (n-4):2:2*(n-4)-2
@@ -945,9 +811,6 @@ if n > 4
                 dataFoldD(count).x = orange_shell(j+1:j+2, 1);
                 dataFoldD(count).y = orange_shell(j+1:j+2, 2);
                 dataFoldD(count).color = orange;
-                
-                plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                    dataFoldD(count).color);
 
             end
         end
@@ -1000,10 +863,6 @@ if nz > 1 && n == 4
         dataFoldD(count).y = recursion(index:index+4, 2);
         dataFoldD(count).color = blue;
         
-        % Plotting
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
-
     end
     
     % Second half
@@ -1039,10 +898,6 @@ if nz > 1 && n == 4
         dataFoldD(count).x = recursion(index:index+4, 1);
         dataFoldD(count).y = recursion(index:index+4, 2);
         dataFoldD(count).color = blue;
-
-        % Plotting
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
 
     end    
     
@@ -1172,10 +1027,6 @@ if nz > 1 && n >= 6
         dataFoldD(count).x = recursion(index1:index1+8, 1);
         dataFoldD(count).y = recursion(index1:index1+8, 2);
         dataFoldD(count).color = blue;
-
-        % Plotting
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
         
         % Increase count
         count = count + 1;
@@ -1241,11 +1092,7 @@ if nz > 1 && n >= 6
         % Storing information to dataFoldD
         dataFoldD(count).x = recursion(index2:index2+8, 1);
         dataFoldD(count).y = recursion(index2:index2+8, 2);
-        dataFoldD(count).color = blue;
-
-        % Plotting
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color); 
+        dataFoldD(count).color = blue; 
         
 % ------------------------- Right "Endcaps" ------------------------------
         
@@ -1326,10 +1173,6 @@ if nz > 1 && n >= 6
         dataFoldD(count).y = recursion(index3:index3+8, 2);
         dataFoldD(count).color = blue;
         
-         % Plotting
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
-        
         % Increase count
         count = count + 1;
         
@@ -1400,10 +1243,6 @@ if nz > 1 && n >= 6
         dataFoldD(count).x = recursion(index4:index4+8, 1);
         dataFoldD(count).y = recursion(index4:index4+8, 2);
         dataFoldD(count).color = blue;
-        
-         % Plotting
-        plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-            dataFoldD(count).color);
       
     end   
     
@@ -1519,9 +1358,6 @@ if nz > 1 && n >= 8
             dataFoldD(count).x = recursion(index:index+8, 1);
             dataFoldD(count).y = recursion(index:index+8, 2);
             dataFoldD(count).color = blue;
-        
-            plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                dataFoldD(count).color);
             
         end 
         
@@ -1628,9 +1464,6 @@ if nz > 1 && n >= 8
             dataFoldD(count).x = recursion(index:index+8, 1);
             dataFoldD(count).y = recursion(index:index+8, 2);
             dataFoldD(count).color = blue;
-        
-            plot(dataFoldD(count).x, dataFoldD(count).y, 'color', ...
-                dataFoldD(count).color);
             
         end 
                 
@@ -1777,9 +1610,5 @@ daspect([1 1 1])
 
 m = 0;
 lmax = h1 + 2*lmax + h2;
-
-% Comment out for individual testing within D_crease_schematic
-close
-
 
 end
