@@ -25,6 +25,10 @@ triple = 'triple';
 % Specify whether DXF generation and save file should occur ('on'/'off')
 DXF = 'on';
 
+% Specify whether or not pre-segmentation (for printing) is enabled
+% ('on'/'off')
+segmentation = 'off';
+
 %% KINEMATIC CHAIN SPECIFICATION
 
 % Specify number of sides and the circumradius [m] for the polygon base 
@@ -32,16 +36,14 @@ DXF = 'on';
 nsides = 4;
 r = 0.02;
 
-% Specify whether or not pre-segmentation (for printing) is enabled
-% ('on'/'off')
-segmentation = 'off';
-
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
+% n equals to the number of joints plus one fingertip
 n = 7;
 D = zeros(n,4);
 
-% Specify DH Parameters nX4, 
+% Specify DH Parameters nX4, in the order of "Link length (a)", 
+% "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
 a3 = 0.08;
 d4 = 0.08;
 D = [0,      0,      0,  -pi/2; ...
@@ -52,21 +54,22 @@ D = [0,      0,      0,  -pi/2; ...
      0,   pi/2,      0,   pi/2; ...
      0,      0,   0.16,      0];
 
-% Specify joint informations:
+% Specify joint information as a row vector:
+% Contains n elements for each vector
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
 % 'F': Fingertip, 'V': Spine Vertex (not a joint)
 TYPE = ['R', 'R', 'R', 'R', 'R', 'R', 'F']; 
 
-% Maximum joint range
+% Maximum joint range (row vec.)
 Qm = [pi, pi, pi, pi, pi, pi, pi];
 
 % Initial joint configuration (last column of the DH table)
 Q0 = D(:,end);
 
-% Specify the angle modification utilized (recommended: zeros(n))
+% Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
 theta_mod = [0, 0, 0, 0, 0, 0, 0];
 
-% Layer of recursive sink gadget for revolute joint 
+% Layer of recursive sink gadget for revolute joint (row vec.)
 Nz = [1, 1, 1, 1, 1, 1, 1];
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'

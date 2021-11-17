@@ -25,7 +25,7 @@ nz = 1;
 [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz);
 axis off
 
-% Convert to DXF
-filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...
-    '.dxf']);
-GenerateDXF(filename, dataFoldD)
+% % Convert to DXF
+% filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...
+%     '.dxf']);
+% GenerateDXF(filename, dataFoldD)
