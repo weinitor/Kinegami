@@ -5,6 +5,8 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
     TransformStruct, DXF, split, segmentation)
 
+    addpath('DXFLib_v0.9.1')
+
     % Initialize infostruct
     num = 1 + 5*(size(JointStruct, 2) - 1);
     infostruct(num) = struct();
