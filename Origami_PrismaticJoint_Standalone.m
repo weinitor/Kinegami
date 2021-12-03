@@ -38,7 +38,26 @@ h2 = 0.05; %[m]
 
 % Outputs graphing for prismatic joint
 [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
+
+% Plotting
+figure()
+hold on
+for i = 1:size(dataFoldE, 2)
+    
+    plot(dataFoldE(i).x, dataFoldE(i).y, 'color', dataFoldE(i).color)    
+    
+end
+
+% Label the plot for clarity
+title({
+    ('Origami Schematic C for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', beta = ' num2str(beta) ...
+    ', h0 = ' num2str(h0) ', nl = ' num2str(nl) ', dm = ' num2str(l2) ']']
+    })
+
+daspect([1 1 1])
 axis off
+set(gcf, 'color', 'w')
     
 %     % Convert to DXF
 %     filename = (['FoldC_r' num2str(r) '_n' num2str(n) '_l1_' num2str(l1) ...

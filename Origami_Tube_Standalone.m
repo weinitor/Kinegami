@@ -18,7 +18,26 @@ h = 0.3; %[m]
 
 % Outputs graphing for default tube
 [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r);
+
+% Plotting
+figure()
+hold on
+for i = 1:size(dataFoldDefault, 2)
+    
+    plot(dataFoldDefault(i).x, dataFoldDefault(i).y, 'color', ...
+        dataFoldDefault(i).color)    
+    
+end
+
+% Label the plot for clarity
+title({
+    ('Default Origami Schematic for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', h = ' num2str(h) ']']
+    })
+
+daspect([1 1 1])
 axis off
+set(gcf, 'color', 'w')
 
 % Convert to DXF
 % filename = (['FoldDefault_r' num2str(r) '_n' num2str(n) '_h' num2str(h) ...

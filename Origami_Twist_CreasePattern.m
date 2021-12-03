@@ -230,12 +230,12 @@ else
 end
 
 % Label the plot for clarity
-title({
-    ('Origami Schematic B for Provided Parameters:')
-    ['[r = ' num2str(r) ', n = ' num2str(n) ', h = ' num2str(h) ', alpha = ' num2str(alpha) ']']
-    })
-
-daspect([1 1 1])
+% title({
+%     ('Origami Schematic B for Provided Parameters:')
+%     ['[r = ' num2str(r) ', n = ' num2str(n) ', h = ' num2str(h) ', alpha = ' num2str(alpha) ']']
+%     })
+% 
+% daspect([1 1 1])
 
 % m = r*alpha;
 m = floor(alpha/((2*pi)/n))*ls + x;

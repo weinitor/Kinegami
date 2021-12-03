@@ -375,13 +375,13 @@ for cc = 0:2*nl:2*nl*(n-1)
 end
 
 % Label the plot for clarity
-title({
-    ('Origami Schematic C for Provided Parameters:')
-    ['[r = ' num2str(r) ', n = ' num2str(n) ', beta = ' num2str(beta) ...
-    ', h0 = ' num2str(h0) ', nl = ' num2str(nl) ', dm = ' num2str(l2) ']']
-    })
-
-daspect([1 1 1])
+% title({
+%     ('Origami Schematic C for Provided Parameters:')
+%     ['[r = ' num2str(r) ', n = ' num2str(n) ', beta = ' num2str(beta) ...
+%     ', h0 = ' num2str(h0) ', nl = ' num2str(nl) ', dm = ' num2str(l2) ']']
+%     })
+% 
+% daspect([1 1 1])
 
 m = 0;
 lmax = h1 + 2*l2 + nl*2*l1 + h2 + l2;

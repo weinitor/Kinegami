@@ -24,13 +24,27 @@ nz = 1;
 % Outputs graphing for elbow fitting
 [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz);
 
-% Plot from standalone ````````````````
+% Plotting
+figure()
+hold on
+for i = 1:size(dataFoldD, 2)
+    
+    plot(dataFoldD(i).x, dataFoldD(i).y, 'color', dataFoldD(i).color)    
+    
+end
 
+% Label the plot for clarity
+title({
+    ('Origami Schematic 2.A for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', theta = ', num2str(theta_m) ']']
+    })
 
-% axis off
-
+daspect([1 1 1])
+axis off
+set(gcf, 'color', 'w')
 
 % % Convert to DXF
 % filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...
 %     '.dxf']);
 % GenerateDXF(filename, dataFoldD)
+

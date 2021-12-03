@@ -107,12 +107,12 @@ for i = 1:2:2*(n-1)
 end
 
 % Label the plot for clarity
-title({
-    ('Default Origami Schematic for Provided Parameters:')
-    ['[r = ' num2str(r) ', n = ' num2str(n) ', h = ' num2str(h) ']']
-    })
-
-daspect([1 1 1])
+% title({
+%     ('Default Origami Schematic for Provided Parameters:')
+%     ['[r = ' num2str(r) ', n = ' num2str(n) ', h = ' num2str(h) ']']
+%     })
+% 
+% daspect([1 1 1])
 
 m = 0;
 lmax = h;

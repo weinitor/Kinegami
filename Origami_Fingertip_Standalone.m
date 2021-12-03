@@ -21,8 +21,26 @@ h1 = 0.03; %[m]
 nz = 1;
 
 % Outputs graphing for elbow fitting
-[dataFoldD, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m);
+[dataFoldF, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m);
+
+% Plotting
+figure()
+hold on
+for i = 1:size(dataFoldF, 2)
+    
+    plot(dataFoldF(i).x, dataFoldF(i).y, 'color', dataFoldF(i).color)    
+    
+end
+
+% Label the plot for clarity
+title({
+    ('Origami Schematic 2.A for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', theta = ', num2str(theta_m) ']']
+    })
+
+daspect([1 1 1])
 axis off
+set(gcf, 'color', 'w')
 
 % Convert to DXF
 % filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...

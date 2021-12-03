@@ -21,7 +21,25 @@ h2 = 0.03; %[m]
 
 % Outputs midsection for graphing
 [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha);
+
+% Plotting
+figure()
+hold on
+for i = 1:size(dataFoldD, 2)
+    
+    plot(dataFoldB(i).x, dataFoldB(i).y, 'color', dataFoldB(i).color)    
+    
+end
+
+% Label the plot for clarity
+title({
+    ('Origami Schematic B for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', h = ' num2str(h) ', alpha = ' num2str(alpha) ']']
+    })
+
+daspect([1 1 1])
 axis off
+set(gcf, 'color', 'w')
 
 % Convert to DXF
 % filename = (['FoldB_r' num2str(r) '_n' num2str(n) '_h' num2str(h) ...

@@ -28,7 +28,25 @@ h2 = 0.1; %[m]
 % Outputs graphing for elbow fitting
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, ...
     r, phi, theta, mirror, split, tuckangle);
+
+% Plotting
+figure()
+hold on
+for i = 1:size(dataFoldA, 2)
+    
+    plot(dataFoldA(i).x, dataFoldA(i).y, 'color', dataFoldA(i).color)    
+    
+end
+
+% Label the plot for clarity
+title({
+    ('Origami Schematic A for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', phi = ' num2str(phi) ', theta = ' num2str(theta_original) ']']
+    })
+
+daspect([1 1 1])
 axis off
+set(gcf, 'color', 'w')
 
 % Convert to DXF
 % filename = (['FoldA_r' num2str(r) '_n' num2str(n) '_phi' num2str(phi) ...
