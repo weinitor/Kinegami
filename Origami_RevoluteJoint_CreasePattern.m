@@ -1601,12 +1601,12 @@ end
 % ------------------------------------------------------------------
 
 % Label the plot for clarity
-title({
-    ('Origami Schematic 2.A for Provided Parameters:')
-    ['[r = ' num2str(r) ', n = ' num2str(n) ', theta = ', num2str(theta_m) ']']
-    })
+% title({
+%     ('Origami Schematic 2.A for Provided Parameters:')
+%     ['[r = ' num2str(r) ', n = ' num2str(n) ', theta = ', num2str(theta_m) ']']
+%     })
 
-daspect([1 1 1])
+% daspect([1 1 1])
 
 m = 0;
 lmax = h1 + 2*lmax + h2;

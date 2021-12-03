@@ -27,7 +27,7 @@ split = 'on';
 
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
-segmentation = 'on';
+segmentation = 'off';
 
 % Input the kinematic chain robot specifications
 % Specify DH Parameters, 

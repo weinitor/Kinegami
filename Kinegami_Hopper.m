@@ -53,7 +53,7 @@ TYPE = ['V', 'R', 'F'];
 Qm = [pi, pi, pi];
 
 % Initial joint configuration (last column of the DH table)
-Q0 = D(:,end);
+Q0 = D(:,end)';
 
 % Specify the angle modification utilized (recommended: zeros(n))
 theta_mod = [0, 0, 0];

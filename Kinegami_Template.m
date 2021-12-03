@@ -58,7 +58,7 @@ TYPE = [??, ??, ??,...];
 % Maximum joint range (row vec.)
 Qm = [??, ??, ??,...]; 
 
-% Initial joint configuration (col vec.)
+% Initial joint configuration (row vec.)
 Q0 = [??, ??, ??,...]; 
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
