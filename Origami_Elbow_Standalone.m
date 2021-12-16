@@ -5,6 +5,8 @@ clear
 close all
 clc
 
+addpath('DXFLib_v0.9.1')
+
 % Specify inputs
 r = 0.02; %[m]
 n = 4;
@@ -29,19 +31,22 @@ h2 = 0.1; %[m]
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, ...
     r, phi, theta, mirror, split, tuckangle);
 
+% Create Duplication for Overlap Slide
+[dataFoldNew] = StandaloneDuplication(dataFoldA, ls, n, lmax);
+
 % Plotting
 figure()
 hold on
-for i = 1:size(dataFoldA, 2)
+for i = 1:size(dataFoldNew, 2)
     
-    plot(dataFoldA(i).x, dataFoldA(i).y, 'color', dataFoldA(i).color)    
+    plot(dataFoldNew(i).x, dataFoldNew(i).y, 'color', dataFoldNew(i).color)    
     
 end
 
 % Label the plot for clarity
 title({
-    ('Origami Schematic A for Provided Parameters:')
-    ['[r = ' num2str(r) ', n = ' num2str(n) ', phi = ' num2str(phi) ', theta = ' num2str(theta_original) ']']
+    ('Elbow Joint for Provided Parameters:')
+    ['[r = ' num2str(r) ', n = ' num2str(n) ', phi = ' num2str(phi) ', theta = ' num2str(theta) ']']
     })
 
 daspect([1 1 1])
@@ -49,6 +54,6 @@ axis off
 set(gcf, 'color', 'w')
 
 % Convert to DXF
-% filename = (['FoldA_r' num2str(r) '_n' num2str(n) '_phi' num2str(phi) ...
-%     '_theta' num2str(theta) '.dxf']);
-% GenerateDXF(filename, dataFoldA)
+filename = (['Elbow_r' num2str(r) '_n' num2str(n) '_phi' num2str(phi) ...
+    '_theta' num2str(theta) '.dxf']);
+GenerateDXF(filename, dataFoldA)
