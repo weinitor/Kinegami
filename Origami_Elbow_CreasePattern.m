@@ -1,13 +1,10 @@
 % Graph for crease pattern - Origami elbow fitting
 % Last edited 6/8/2021 by Lucien Peach
 
-function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, mirror, split, tuckangle)
+function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, tuck, split, tuckangle)
 
 % Create "duplicate" value
 duplicate = 1;
-
-% Define theta_original
-theta_original = theta;
 
 % Check value of theta
 if theta > pi/2 && strcmp(split, 'off') ~= 1
@@ -189,7 +186,7 @@ dataFoldA(count).color = blue;
 % Mirror (Optional)
 % ------------------------------------------------------------------
 
-if strcmp(mirror, 'on') == 1
+if strcmp(tuck, 'on') == 1
     
     if duplicate == 1
 
@@ -561,17 +558,14 @@ end
 % schematic for the elbow joint
 tuckarray = zeros(3*n, 2);
 
-% Also create "small" array for the instance of no mirroring
-tuckarray_small = zeros(2*n, 2);
-
 % There are 4 cases to address here.
 % Note that the execution of Case 1 must precede the execution of Case 4,
 % and that the execution of Case 2 must precede the execution of Case 3.
 % This is why the duplicate value is not included in the conditional
 % statements for Case 1 and Case 2.
 
-% Case 1: mirror = 'on'
-if strcmp(mirror, 'on') == 1
+% Case 1: tuck = 'on'
+if strcmp(tuck, 'on') == 1
     for i = 1:n
 
         % Array index initialization
@@ -597,63 +591,20 @@ if strcmp(mirror, 'on') == 1
 
     end
 
-% Case 2: duplicate = 1, mirror = 'off'
-elseif strcmp(mirror, 'off') == 1
-    for i = 1:n
+% Case 2: duplicate = 1, tuck = 'off'
+elseif strcmp(tuck, 'off') == 1
 
-        % Array index initialization
-        index = (i-1)*2 + 1;
-
-        % Increase count
-        count = count + 1;
-
-        % Storing plotting points to array
-        tuckarray_small(index, 1) = (i-1)*ls;
-        tuckarray_small(index, 2) = lengths(i, 1) + h1;
-
-        tuckarray_small(index+1, 1) = ((i-1)*ls) + tuckoffsets(i);
-        tuckarray_small(index+1, 2) = max(lengths) + h1;
-
-        % Storing to DataStruct and plotting
-        dataFoldA(count).x = tuckarray_small(index:index+1, 1);
-        dataFoldA(count).y = tuckarray_small(index:index+1, 2);
-        dataFoldA(count).color = orange;
-
-    end
+    % No tuck lines necessary
     
 end
         
 % Case 3: duplicate = 2, mirror = 'off'        
-if duplicate == 2 && strcmp(mirror, 'off') == 1
-% Create the array for the secondary level, if needed, by adding
-% 2*max(lengths) to all values of the primary level
-   
-    % Initialize array for small array (no mirroring)
-    newtuckarray_small = zeros(size(tuckarray_small, 1), 2);
-    
-    % Populate new array 
-    for i = 1:size(tuckarray_small, 1)
-    
-        newtuckarray_small(i, 1) = tuckarray_small(i, 1);
-        newtuckarray_small(i, 2) = tuckarray_small(i, 2) + 2*max(lengths);
-    
-    end
-    
-    % Store array data to structure and plot
-    for i = 1:n
-        
-        count = count + 1;
-        
-        index = (i-1)*2 + 1;
-        
-        dataFoldA(count).x = newtuckarray_small(index:index+1, 1);
-        dataFoldA(count).y = newtuckarray_small(index:index+1, 2);
-        dataFoldA(count).color = orange;
-        
-    end
+if duplicate == 2 && strcmp(tuck, 'off') == 1
+
+    % No tuck lines necessary
     
 % Case 4: duplicate = 2, mirror = 'on'
-elseif duplicate == 2 && strcmp(mirror, 'on') == 1
+elseif duplicate == 2 && strcmp(tuck, 'on') == 1
 % Create the array for the secondary level, if needed, by adding
 % 2*max(lengths) to all values of the primary level
    
@@ -683,16 +634,8 @@ elseif duplicate == 2 && strcmp(mirror, 'on') == 1
      
 end
 
-% Plotting Options
+% Final Modifications
 % ----------------------------------------------------------------------
-
-% Label the plot for clarity
-% title({
-%     ('Origami Schematic A for Provided Parameters:')
-%     ['[r = ' num2str(r) ', n = ' num2str(n) ', phi = ' num2str(phi) ', theta = ' num2str(theta_original) ']']
-%     })
-% 
-% daspect([1 1 1])
 
 m = 0;
 

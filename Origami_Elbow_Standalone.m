@@ -15,7 +15,7 @@ theta = 3*pi/4; %[rad] - splits for greater than pi/2
 
 % Automatically @pi/2 split unless specified by user to not split
 split = 'on';
-mirror = 'on';
+tuck = 'on';
 
 % Outputs array of lengths and value of ls in [m]
 [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split);
@@ -29,7 +29,7 @@ h2 = 0.1; %[m]
 
 % Outputs graphing for elbow fitting
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, ...
-    r, phi, theta, mirror, split, tuckangle);
+    r, phi, theta, tuck, split, tuckangle);
 
 % Create Duplication for Overlap Slide
 [dataFoldNew] = StandaloneDuplication(dataFoldA, ls, n, lmax);
