@@ -27,7 +27,7 @@ nz = 2;
 [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz);
 
 % Create Duplication for Overlap Slide
-[dataFoldNew] = StandaloneDuplication(dataFoldD, ls, n, lmax, 'revolute', h1);
+[dataFoldNew] = StandaloneDuplication(dataFoldD, ls, n, lmax, 'revolute', h1, max(lengths));
 
 % Plotting
 figure()

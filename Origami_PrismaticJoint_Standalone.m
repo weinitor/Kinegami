@@ -42,7 +42,7 @@ h2 = 0.02; %[m]
 [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
 
 % Create Duplication for Overlap Slide
-[dataFoldNew] = StandaloneDuplication(dataFoldE, ls, n, lmax);
+[dataFoldNew] = StandaloneDuplication(dataFoldE, ls, n, lmax, 'prismatic', h1);
 
 % Plotting
 figure()
