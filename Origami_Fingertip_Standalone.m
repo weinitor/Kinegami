@@ -23,12 +23,15 @@ nz = 1;
 % Outputs graphing for elbow fitting
 [dataFoldF, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m);
 
+% Create Duplication for Overlap Slide
+[dataFoldNew] = StandaloneDuplication(dataFoldF, ls, n, lmax, 'fingertip', h1);
+
 % Plotting
 figure()
 hold on
-for i = 1:size(dataFoldF, 2)
+for i = 1:size(dataFoldNew, 2)
     
-    plot(dataFoldF(i).x, dataFoldF(i).y, 'color', dataFoldF(i).color)    
+    plot(dataFoldNew(i).x, dataFoldNew(i).y, 'color', dataFoldNew(i).color)    
     
 end
 

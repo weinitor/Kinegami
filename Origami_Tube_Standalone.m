@@ -1,5 +1,5 @@
 % Creating a Crease Schematic - Default origami tube
-% Last edited 6/9/2021 by Lucien Peach
+% Last edited 12/30/2021 by Lucien Peach
 
 clear
 clc
@@ -19,13 +19,15 @@ h = 0.3; %[m]
 % Outputs graphing for default tube
 [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r);
 
+% Create Duplication for Overlap Slide
+[dataFoldNew] = StandaloneDuplication(dataFoldDefault, ls, n, lmax, 'tube', h);
+
 % Plotting
 figure()
 hold on
-for i = 1:size(dataFoldDefault, 2)
+for i = 1:size(dataFoldNew, 2)
     
-    plot(dataFoldDefault(i).x, dataFoldDefault(i).y, 'color', ...
-        dataFoldDefault(i).color)    
+    plot(dataFoldNew(i).x, dataFoldNew(i).y, 'color', dataFoldNew(i).color)    
     
 end
 

@@ -26,7 +26,7 @@ h2 = 0.03; %[m]
 [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha);
 
 % Create Duplication for Overlap Slide
-[dataFoldNew] = StandaloneDuplication(dataFoldB, ls, n, lmax);
+[dataFoldNew] = StandaloneDuplication(dataFoldB, ls, n, lmax, 'twist', h1);
 
 % Plotting
 figure()

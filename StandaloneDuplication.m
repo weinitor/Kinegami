@@ -4,7 +4,7 @@
 % The aim of this program will be to add the additional frame to each
 % xxx_xxx_Standalone.m file, which is needed for overlap 
 
-function [DataFoldNew] = StandaloneDuplication(DataFoldOld, ls, n, lmax)
+function [DataFoldNew] = StandaloneDuplication(DataFoldOld, ls, n, lmax, type, h1)
 
 % Determine total size of structure
 maxsize = size(DataFoldOld, 2);
@@ -80,6 +80,16 @@ for index = 1:(2*maxsize)
         end
         
     end
+    
+end
+
+% For instance of twist, which does not have initial vertical line, insert
+% this vertical line into dataFoldNew
+if strcmp(type, 'twist') == 1
+    
+    DataFoldNew(end+1).x = [n*ls, n*ls];
+    DataFoldNew(end).y = [0; h1];
+    DataFoldNew(end).color = [0, 0, 1];
     
 end
     

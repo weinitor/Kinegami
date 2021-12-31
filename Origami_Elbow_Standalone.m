@@ -32,7 +32,7 @@ h2 = 0.1; %[m]
     r, phi, theta, tuck, split, tuckangle);
 
 % Create Duplication for Overlap Slide
-[dataFoldNew] = StandaloneDuplication(dataFoldA, ls, n, lmax);
+[dataFoldNew] = StandaloneDuplication(dataFoldA, ls, n, lmax, 'elbow', h1);
 
 % Plotting
 figure()
