@@ -1,5 +1,5 @@
 % Kinegami Test V1 (Cylindrical)
-% Last Edited 11/17/2021 by Lucien Peach
+% Last Edited 1/1/2022 by Lucien Peach
 
 clear
 close all
@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'false';
+selfassign = 'true';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
@@ -28,6 +28,11 @@ split = 'on';
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'off';
+
+% Specify whether intermediary plots should be run ('on'/'off'). 'off' is
+% recommended for faster computational time, 'on' is recommended for more
+% in-depth analysis.
+plotoption = 'off';
 
 % Input the kinematic chain robot specifications
 % Specify DH Parameters, 
@@ -97,5 +102,5 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split, segmentation);
+    DXF, split, segmentation, plotoption);
 

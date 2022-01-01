@@ -3,7 +3,7 @@
 
 function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
-    TransformStruct, DXF, split, segmentation)
+    TransformStruct, DXF, split, segmentation, plotoption)
 
     addpath('DXFLib_v0.9.1')
 
@@ -34,12 +34,12 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     if strcmp(selfassign, 'true') == 1
         
         % Run if Joint Assignment has been pre-assigned
-        [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N); 
+        [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, plotoption); 
         
     else
     
         % Joint Assignment and Sphere Analysis for DH specs
-        [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip);
+        [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption);
         
     end
 
@@ -94,7 +94,10 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
     % This figure call has no purpose except to prevent previous figure
     % from closing
-    figure()
+    if strcmp(plotoption, 'on') == 1
+        figure()
+    end
+    
     for i = 1:N+1
         
         if JointStruct(i).type == 'R'
@@ -337,11 +340,16 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     colorvector = [black; red; orange; yellow; green; blue; purple];
     
     % Add joint spheres
+    % For this specific instance of SphericalSampling, we require the
+    % assignment of handle and thus must set plotoption to 'on' regardless
+    % of its assignment.
+    plotoption = 'on';
+    
     for i = 1:N+1
         
         % Run SphericalSampling on each joint
         [TransformStruct(i).dubinsplot, handle] = SphericalSampling(TransformStruct(i).oinew, ...
-            TransformStruct(i).rs, colorvector(i, :));   
+            TransformStruct(i).rs, colorvector(i, :), plotoption);   
         
         % Turn off legend for appearance
         handle.Annotation.LegendInformation.IconDisplayStyle = 'off';

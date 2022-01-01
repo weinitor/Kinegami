@@ -1,6 +1,6 @@
 % Kinegami Template V1
 % Fill in the Kinematic parameters '??' and specify the user options.
-% Last Edited 11/5/2021 by Wei-Hsi Chen
+% Last Edited 1/1/2022 by Lucien Peach
 
 clear
 close all
@@ -29,6 +29,11 @@ DXF = 'on';
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'off';
+
+% Specify whether intermediary plots should be run ('on'/'off'). 'off' is
+% recommended for faster computational time, 'on' is recommended for more
+% in-depth analysis.
+plotoption = 'off';
 
 %% KINEMATIC CHAIN SPECIFICATION
 
@@ -109,4 +114,4 @@ end
 % Run Kinegami code
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split, segmentation);
+    DXF, split, segmentation, plotoption);

@@ -1,7 +1,7 @@
 % Sphere Distance Minimization
 % Last Edited 6/24/2021 by Lucien Peach 
 
-function [DataStruct] = SphereMinimization(DataStruct, index, r, colorinput)
+function [DataStruct] = SphereMinimization(DataStruct, index, r, colorinput, plotoption)
 
 % DataStruct is the array which contains information about the origins of
 % each of the joints as well as the radius associated with each joint. We
@@ -109,7 +109,7 @@ DataStruct(index-1).oinew = DataStruct(index-1).oi + zzz*delta_opt;
 for i = size(DataStruct, 2):-1:index-1
     
     [DataStruct(i).demo] = SphericalSampling(DataStruct(i).oinew, ...
-        DataStruct(i).rs, colorinput);
+        DataStruct(i).rs, colorinput, plotoption);
     
     % If on the last index, the cumulative sphere points is just the final
     % sphere itself
@@ -132,7 +132,7 @@ DataStruct(index-1).rnew = R;
 
 % Output new plot of cumulative sphere
 [DataStruct(index-1).spheresnet] = SphericalSampling(DataStruct(index-1).oilarge, ...
-    DataStruct(index-1).rnew, colorinput);
+    DataStruct(index-1).rnew, colorinput, plotoption);
 
       
 end

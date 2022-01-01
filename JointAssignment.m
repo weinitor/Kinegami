@@ -7,7 +7,7 @@
 % Both of the above will be fields of JointStruct
 % Make JointStruct.type = {R; R; R; P; 0}
 
-function [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip)
+function [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption)
 
 for i = (N+1):-1:1
     
@@ -105,25 +105,29 @@ for i = N:-1:1
 end
 
 % Initial visualization of spheres
-figure()
-set(gcf, 'color', 'w')
-hold on
+if strcmp(plotoption, 'on') == 1
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+end
 
 for i = 1:N+1
     
     [TransformStruct(i).demo] = SphericalSampling(TransformStruct(i).oi, ...
-        TransformStruct(i).rs, 'none'); 
+        TransformStruct(i).rs, 'none', plotoption); 
 end
 
 % Sphere bounding fundamentals for (N+1) ---------------------------
 
 % Sphere bounding data
-figure()
-set(gcf, 'color', 'w')
-hold on
+if strcmp(plotoption, 'on') == 1
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+end
 
 [TransformStruct(N+1).demo] = SphericalSampling(TransformStruct(N+1).oi, ...
-    TransformStruct(N+1).rs, 'none');
+    TransformStruct(N+1).rs, 'none', plotoption);
 
 % Concatenate to express array of spheres
 TransformStruct(N+1).democumul = TransformStruct(N+1).demo;
@@ -137,21 +141,23 @@ TransformStruct(N+1).rnew = R;
 
 % Output new plot of cumulative sphere
 [TransformStruct(N+1).democumul] = SphericalSampling(TransformStruct(N+1).oinew, ...
-    TransformStruct(N+1).rnew, 'none');
+    TransformStruct(N+1).rnew, 'none', plotoption);
 
 TransformStruct(N+1).oilarge = TransformStruct(N+1).oi;
 
 % Loop through sphere bounding and minimization (Fun!)
 for i = (N+1):-1:2
     
-    [TransformStruct] = SphereMinimization(TransformStruct, i, r, 'none');  
+    [TransformStruct] = SphereMinimization(TransformStruct, i, r, 'none', plotoption);  
      
 end
 
 % Final sphere ("joint") visualization
-figure()
-set(gcf, 'color', 'w')
-hold on
+if strcmp(plotoption, 'on') == 1
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+end
 
 black = [0,0,0];
 red = [0.6350, 0.0780, 0.1840];
@@ -176,22 +182,24 @@ for i = 1:N+1
     
     % Plot final new sphere locations
     [TransformStruct(i).demonew] = SphericalSampling(TransformStruct(i).oinew, ...
-        TransformStruct(i).rs, colorvector(i, :)); 
+        TransformStruct(i).rs, colorvector(i, :), plotoption); 
     
     
     % Plot vectors which demonstrate the axis along which each sphere is
     % restricted to move
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).zaxis(1), ...
-        TransformStruct(i).zaxis(2), TransformStruct(i).zaxis(3), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 0.8*colorvector(i, :));
-    
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).xaxis(1), ...
-        TransformStruct(i).xaxis(2), TransformStruct(i).xaxis(3), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'k');
-    
-    grid on
+    if strcmp(plotoption, 'on') == 1
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).zaxis(1), ...
+            TransformStruct(i).zaxis(2), TransformStruct(i).zaxis(3), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 0.8*colorvector(i, :));
+
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).xaxis(1), ...
+            TransformStruct(i).xaxis(2), TransformStruct(i).xaxis(3), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'k');
+
+        grid on
+    end
 end
 
 % Plot lines connecting consecutive spheres
@@ -211,8 +219,10 @@ for i = 1:N+1
 end
 
 % Plot
-plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
-    'Linewidth', 4)
+if strcmp(plotoption, 'on') == 1
+    plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
+        'Linewidth', 4)
+end
     
 
 % Loop through joint coordinate reassignment
@@ -265,38 +275,44 @@ end
 % on the new centroids of all of these spheres (joints)
 
 % New visualization
-hold off
-figure()
-set(gcf, 'color', 'w')
-hold on
+if strcmp(plotoption, 'on') == 1
+    hold off
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+end
 
 for i = 1:N+1  
     
     [TransformStruct(i).demonew] = SphericalSampling(TransformStruct(i).oinew, ...
-    TransformStruct(i).rs, colorvector(i, :)); 
+    TransformStruct(i).rs, colorvector(i, :), plotoption); 
     
-    % Plot vectors which demonstrate the new Oc 
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,1), ...
-        TransformStruct(i).Oc(2,1), TransformStruct(i).Oc(3,1), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'red');
-    
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,2), ...
-        TransformStruct(i).Oc(2,2), TransformStruct(i).Oc(3,2), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'green');
-    
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,3), ...
-        TransformStruct(i).Oc(2,3), TransformStruct(i).Oc(3,3), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'blue');
-    
-    grid on
+    if strcmp(plotoption, 'on') == 1
+        % Plot vectors which demonstrate the new Oc 
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,1), ...
+            TransformStruct(i).Oc(2,1), TransformStruct(i).Oc(3,1), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'red');
+
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,2), ...
+            TransformStruct(i).Oc(2,2), TransformStruct(i).Oc(3,2), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'green');
+
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,3), ...
+            TransformStruct(i).Oc(2,3), TransformStruct(i).Oc(3,3), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'blue');
+
+        grid on
+    end
     
 end
 
 % Plot
-plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
-    'Linewidth', 4)
+if strcmp(plotoption, 'on') == 1
+    plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
+        'Linewidth', 4)
+end
 
 end

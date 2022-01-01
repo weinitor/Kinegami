@@ -1,7 +1,7 @@
 % Self Assign
 % Last Edited 7/20/2021 by Lucien Peach
 
-function [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N)
+function [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, plotoption)
 
 % Inputs: Necessary parameters as well as center locations and frame
 % information for each "sphere"
@@ -53,9 +53,11 @@ for i = 1:N+1
     
 end
 
-figure()
-set(gcf, 'color', 'w')
-hold on
+if strcmp(plotoption, 'on') == 1
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+end
 
 % Add section to enable individual sphere and cumulative sphere plotting
 for i = (N+1):-1:2
@@ -63,7 +65,7 @@ for i = (N+1):-1:2
     for j = size(TransformStruct, 2):-1:i-1
 
         [TransformStruct(j).demo] = SphericalSampling(TransformStruct(j).oinew, ...
-            TransformStruct(j).rs, 'none');
+            TransformStruct(j).rs, 'none', plotoption);
 
         % If on the last index, the cumulative sphere points is just the final
         % sphere itself
@@ -83,7 +85,7 @@ for i = (N+1):-1:2
         TransformStruct(i).rnew = TransformStruct(i).rs;
         
         [TransformStruct(i).spheresnet] = SphericalSampling(TransformStruct(i).oilarge, ...
-            TransformStruct(i).rnew, 'none');
+            TransformStruct(i).rnew, 'none', plotoption);
          
     end
 
@@ -96,11 +98,13 @@ for i = (N+1):-1:2
 
     % Output new plot of cumulative sphere
     [TransformStruct(i-1).spheresnet] = SphericalSampling(TransformStruct(i-1).oilarge, ...
-        TransformStruct(i-1).rnew, 'none');  
+        TransformStruct(i-1).rnew, 'none', plotoption);  
     
 end
 
-hold off
+if strcmp(plotoption, 'on') == 1
+    hold off
+end
 
 % After Intersection runs, oinew locations will be indicative of position
 % with no path overlaps
@@ -136,37 +140,43 @@ end
 % on the new centroids of all of these spheres (joints)
 
 % New visualization
-figure()
-set(gcf, 'color', 'w')
-hold on
+if strcmp(plotoption, 'on') == 1
+    figure()
+    set(gcf, 'color', 'w')
+    hold on
+end
 
 for i = 1:N+1  
     
     [TransformStruct(i).demonew] = SphericalSampling(TransformStruct(i).oinew, ...
-    TransformStruct(i).rs, colorvector(i, :)); 
+    TransformStruct(i).rs, colorvector(i, :), plotoption); 
     
-    % Plot vectors which demonstrate the new Oc 
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,1), ...
-        TransformStruct(i).Oc(2,1), TransformStruct(i).Oc(3,1), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'red');
-    
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,2), ...
-        TransformStruct(i).Oc(2,2), TransformStruct(i).Oc(3,2), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'green');
-    
-    quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
-        TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,3), ...
-        TransformStruct(i).Oc(2,3), TransformStruct(i).Oc(3,3), ...
-        'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'blue');
-    
-    grid on
+    if strcmp(plotoption, 'on') == 1
+        % Plot vectors which demonstrate the new Oc 
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,1), ...
+            TransformStruct(i).Oc(2,1), TransformStruct(i).Oc(3,1), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'red');
+
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,2), ...
+            TransformStruct(i).Oc(2,2), TransformStruct(i).Oc(3,2), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'green');
+
+        quiver3(TransformStruct(i).oinew(1), TransformStruct(i).oinew(2), ...
+            TransformStruct(i).oinew(3), TransformStruct(i).Oc(1,3), ...
+            TransformStruct(i).Oc(2,3), TransformStruct(i).Oc(3,3), ...
+            'AutoScaleFactor', 0.05, 'Linewidth', 1.1, 'Color', 'blue');
+
+        grid on
+    end
     
 end
 
 % Plot
-plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
-    'Linewidth', 4)
+if strcmp(plotoption, 'on') == 1 
+    plot3(xcenters(:, 1), ycenters(:, 1), zcenters(:, 1), 'Color', 'k', ...
+        'Linewidth', 4)
+end
 
 end

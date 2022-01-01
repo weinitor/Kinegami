@@ -1,5 +1,5 @@
 % Catapult V1.2 (theta_m = 90deg)
-% Last Edited 9/8/2021 by Lucien Peach
+% Last Edited 1/1/2022 by Lucien Peach
 
 clear
 close all
@@ -34,6 +34,11 @@ split = 'off';
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'on';
+
+% Specify whether intermediary plots should be run ('on'/'off'). 'off' is
+% recommended for faster computational time, 'on' is recommended for more
+% in-depth analysis.
+plotoption = 'off';
 
 % Specify number of sides (polygon)
 nsides = 4;
@@ -139,4 +144,4 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split, segmentation);
+    DXF, split, segmentation, plotoption);

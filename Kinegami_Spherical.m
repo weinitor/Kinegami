@@ -1,5 +1,5 @@
 % Kinegami Test V1 (Spherical Wrist)
-% Last Edited 7/21/2021 by Lucien Peach
+% Last Edited 1/1/2022 by Lucien Peach
 
 clear
 close all
@@ -34,6 +34,11 @@ split = 'on';
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
 segmentation = 'on';
+
+% Specify whether intermediary plots should be run ('on'/'off'). 'off' is
+% recommended for faster computational time, 'on' is recommended for more
+% in-depth analysis.
+plotoption = 'off';
 
 % Specify DH Parameters, if needed
 D = [0, 0, 0.1, 0; ...
@@ -95,4 +100,4 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split, segmentation);
+    DXF, split, segmentation, plotoption);

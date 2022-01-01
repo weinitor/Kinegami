@@ -1,7 +1,7 @@
 % Spherical Sampling
 % Last Edited 6/23/2021 by Lucien Peach
 
-function [Concat, handle] = SphericalSampling(oi, r, colorinput)
+function [Concat, handle] = SphericalSampling(oi, r, colorinput, plotoption)
 
 % Specify colorinput as 'none' if random color is desired
 
@@ -32,22 +32,27 @@ TF = strcmp(colorinput, 'none');
 
 if TF == 1
     
-    % 3D Plot (can comment out if no visualization needed)
-    handle = plot3(X, Y, Z, '.', 'markersize', 1);
-    axis equal vis3d
-     
-    xlabel('x')
-    ylabel('y')
-    zlabel('z')
+    if strcmp(plotoption, 'on') == 1
+        % 3D Plot (can comment out if no visualization needed)
+        handle = plot3(X, Y, Z, '.', 'markersize', 1);
+        axis equal vis3d
+
+        xlabel('x')
+        ylabel('y')
+        zlabel('z')
+    end
 
 else
-   % 3D Plot (can comment out if no visualization needed)
-    handle = plot3(X, Y, Z, '.', 'markersize', 1, 'color', colorinput);
-    axis equal vis3d
     
-    xlabel('x')
-    ylabel('y')
-    zlabel('z')
+    if strcmp(plotoption, 'on') == 1
+        % 3D Plot (can comment out if no visualization needed)
+        handle = plot3(X, Y, Z, '.', 'markersize', 1, 'color', colorinput);
+        axis equal vis3d
+
+        xlabel('x')
+        ylabel('y')
+        zlabel('z')
+    end
  
 end
 
