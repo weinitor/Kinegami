@@ -11,9 +11,9 @@ clc
 % assign the Joint Parameters themselves ('true')
 selfassign = 'true';
 
-% Determines whether the user wishes to have elbow joints mirrored ('on')
-% or appear normally ('off')
-mirror = 'on';
+% Determines whether the user wishes their elbow fittings to have visible
+% tucks ('on' - recommended) or appear with only the lower outlines ('off')
+elbow_tuck = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
@@ -135,5 +135,5 @@ end
 
 % Run Kinegami code
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split, segmentation, plotoption);
