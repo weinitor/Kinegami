@@ -1,7 +1,5 @@
-% Kinegami Template V1
-% Fill in the Kinematic parameters '??' and specify the user options.
+% Kinegami Test V1 (Planar)
 % Last Edited 1/1/2022 by Lucien Peach
-
 clear
 close all
 clc
