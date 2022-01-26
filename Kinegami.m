@@ -55,8 +55,8 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     for i = 1:N
         
         % Extract a and c vectors for frame being adjusted
-        a = TransformStruct(i+1).Oc(:, 1);
-        c = TransformStruct(i+1).Oc(:, 3);
+        a = TransformStruct(i).Oc(:, 1);
+        c = TransformStruct(i).Oc(:, 3);
         
         % Find distance vector between initial point and subsequent
         Vd = TransformStruct(i+1).Oc(:, 4) - TransformStruct(i).Oc(:, 4); 
@@ -64,10 +64,10 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         % If dot product is less than 0, flip direction of a
         if dot(Vd, a) < 0
             
-            TransformStruct(i+1).Oc(:, 1) = -a;
+            TransformStruct(i).Oc(:, 1) = -a;
             
             % Also flip c to keep consistent with RHR
-            TransformStruct(i+1).Oc(:, 3) = -c;
+            TransformStruct(i).Oc(:, 3) = -c;
             
         end
         
@@ -293,6 +293,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
  
     end
     
+    % WEI: TO BE EDITED
     % Add initial tube plotting. Take all 3 possible orientations into
     % account for accurate point plotting.
     
