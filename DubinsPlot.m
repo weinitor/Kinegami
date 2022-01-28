@@ -38,6 +38,11 @@ wp = wp/norm(wp);
 ad = RotationalMatrix(wp, infostruct(index).theta)*ap;
 ad = ad/norm(ad);
 
+% Find the first elbow arc center
+o2c1 = -cross(ap,wp);
+o2c1 = o2c1/norm(o2c1);
+center1 = TransformStruct(i).path(:, 1) + infostruct(index).r*o2c1;
+
 % Factor in h1 and h2 offsets to determine positions for plotting
 TransformStruct(i).path(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
     + TransformStruct(i).path(:, 1);
@@ -76,6 +81,11 @@ wp2 = cross(ap2, a_next);
 wp2 = wp2/norm(wp2);
 ad2 = RotationalMatrix(wp2, infostruct(index+3).theta)*ap2;
 ad2 = ad2/norm(ad2);
+
+% Find the second elbow arc center
+o2c2 = -cross(ap2,wp2);
+o2c2 = o2c2/norm(o2c2);
+center2 =  + infostruct(index).r*o2c1;
 
 % Factor in h1 and h2 offsets
 TransformStruct(i).path(:, 6) = (infostruct(index+3).h1 + infostruct(index+3).dw)*ap2 ...

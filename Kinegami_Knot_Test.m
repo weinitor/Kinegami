@@ -50,42 +50,42 @@ r = 0.02;
 % "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
 
 % 2 R arm
-n = 3;
-D = [12*0.02,      0,      0,      0; ...
-     10*0.02,  -pi/2,      0,     pi; ...
-     0,           0,  6*0.02,     0];
-fingertip = 'z';
-TYPE = ['R', 'R', 'F']; 
-Qm = [pi, pi, pi]; 
-Q0 = [0, 0, 0]; 
-theta_mod = [0, 0, 0];
-Nz = [1, 1, 1]; 
+% n = 3;
+% D = [12*0.02,      0,      0,      0; ...
+%      10*0.02,  -pi/2,      0,     pi; ...
+%      0,           0,  6*0.02,     0];
+% fingertip = 'z';
+% TYPE = ['R', 'R', 'F']; 
+% Qm = [pi, pi, pi]; 
+% Q0 = [0, 0, 0]; 
+% theta_mod = [0, 0, 0];
+% Nz = [1, 1, 1]; 
 
 % % Universal joint
-% n = 4;
-% D = [0,           0,    8*0.02,          0; ...
-%      0,        pi/2,         0,      -pi/2; ...
-%      0,       -pi/2,         0,       0*pi; ...
-%      -6*0.02,  pi/2,         0,        pi];
-% fingertip = 'x';
-% 
-% % Specify joint information as a row vector:
-% % Contains n elements for each vector
-% % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
-% % 'F': Fingertip, 'V': Spine Vertex (not a joint)
-% TYPE = ['R', 'R', 'R', 'F']; 
-% 
-% % Maximum joint range (row vec.)
-% Qm = [pi, pi, pi, pi]; 
-% 
-% % Initial joint configuration (row vec.)
-% Q0 = [0, 0, 0, 0]; 
-% 
-% % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-% theta_mod = [pi/2, 0, 0, 0]; 
-% 
-% % Layer of recursive sink gadget for revolute joint (row vec.)
-% Nz = [1, 1, 1, 1]; 
+n = 4;
+D = [0,           0,    8*0.02,          0; ...
+     0,        pi/2,         0,      -pi/2; ...
+     0,       -pi/2,         0,       0*pi; ...
+     -6*0.02,  pi/2,         0,        pi];
+fingertip = 'x';
+
+% Specify joint information as a row vector:
+% Contains n elements for each vector
+% Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
+% 'F': Fingertip, 'V': Spine Vertex (not a joint)
+TYPE = ['V', 'R', 'R', 'F']; 
+
+% Maximum joint range (row vec.)
+Qm = [pi, pi, pi, pi]; 
+
+% Initial joint configuration (row vec.)
+Q0 = [0, 0, 0, 0]; 
+
+% Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
+theta_mod = [pi/2, 0, 0, 0]; 
+
+% Layer of recursive sink gadget for revolute joint (row vec.)
+Nz = [1, 1, 1, 1]; 
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
 % fingertip = 'z';
