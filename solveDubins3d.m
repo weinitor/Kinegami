@@ -44,10 +44,27 @@ for i = 1:4
 %     thetamatrix(i, 2) = acos(dot(ad, T_hat(i, :)));
 
 % Find angle using atan2, the range of the output angle is (-pi, pi)   
-    thetamatrix(i, 1) = atan2(norm(cross(ap, T_hat(i, :))),dot(ap, T_hat(i, :)));
-    thetamatrix(i, 2) = atan2(norm(cross(T_hat(i, :), ad)),dot(T_hat(i, :), ad));
+%     thetamatrix(i, 1) = atan2(norm(cross(ap, T_hat(i, :))),dot(ap, T_hat(i, :)));
+%     thetamatrix(i, 2) = atan2(norm(cross(T_hat(i, :), ad)),dot(T_hat(i, :), ad));
     
-    ds(i) = r*thetamatrix(i, 1) + T_normalized + r*thetamatrix(i, 2);
+    thetamatrix(i, 1) = SignedAngle(ap, T_hat(i, :), cross(ap, T_hat(i, :)));
+%     thetamatrix(i, 2) = SignedAngle(T_hat(i, :), ad, cross(T_hat(i, :), ad));
+    
+    % find the point om after a C + S
+    wp = cross(ap, T_hat(i, :));
+    wp = wp/norm(wp);
+    o2c1 = -cross(ap, wp)';
+    o2c1 = o2c1/norm(o2c1);
+    om = op' + r*(eye(3) - RotationalMatrix(wp, thetamatrix(i, 1)))* o2c1 + Tsol(i, :)';
+    % find the vector from om to od, create a normal vector as the axis of
+    % rotation
+    om2od = od' - om;
+    ntemp = cross(T_hat(i, :), om2od);
+
+    thetamatrix(i, 2) = SignedAngle(T_hat(i, :), ad, ntemp);
+    
+    
+    ds(i) = r*abs(thetamatrix(i, 1)) + T_normalized + r*abs(thetamatrix(i, 2));
     
 end
 
@@ -196,8 +213,10 @@ close all
         Tnorm = norm(T);
         Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
-        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+%         theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+%         theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+        theta1 = SignedAngle(ap, Tunit, cross(ap, Tunit));
+        theta2 = SignedAngle(Tunit, ad, cross(Tunit, ad));
 
         err = T + ...
             r*(tan(theta1/2) + tan(theta2/2))*Tunit + ...
@@ -210,8 +229,10 @@ close all
         Tnorm = norm(T);
         Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
-        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+%         theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+%         theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+        theta1 = SignedAngle(ap, Tunit, cross(ap, Tunit));
+        theta2 = SignedAngle(Tunit, ad, cross(Tunit, ad));
 
         err = T - ...
             r*(tan(theta1/2) + tan(theta2/2))*Tunit - ...
@@ -224,8 +245,10 @@ close all
         Tnorm = norm(T);
         Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
-        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+%         theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+%         theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+        theta1 = SignedAngle(ap, Tunit, cross(ap, Tunit));
+        theta2 = SignedAngle(Tunit, ad, cross(Tunit, ad));
 
         err = T + ...
             r*(tan(theta1/2) - tan(theta2/2))*Tunit + ...
@@ -238,8 +261,10 @@ close all
         Tnorm = norm(T);
         Tunit = T/Tnorm;
 
-        theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
-        theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+%         theta1 = atan2(norm(cross(ap,Tunit)),dot(ap,Tunit));
+%         theta2 = atan2(norm(cross(Tunit,ad)),dot(Tunit,ad));
+        theta1 = SignedAngle(ap, Tunit, cross(ap, Tunit));
+        theta2 = SignedAngle(Tunit, ad, cross(Tunit, ad));
 
         err = T + ...
             r*(-tan(theta1/2) + tan(theta2/2))*Tunit + ...
