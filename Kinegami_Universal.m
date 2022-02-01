@@ -11,8 +11,8 @@ clc
 % assign the Joint Parameters themselves ('true')
 selfassign = 'true';
 
-% Determines whether the user wishes to have elbow joints mirrored ('on')
-% or appear normally ('off')
+% Determines whether the user wishes their elbow fittings to have visible
+% tucks ('on' - recommended) or appear with only the lower outlines ('off')
 elbow_tuck = 'on';
 
 % Determines whether the user wishes to print 3 iterations of the print
@@ -85,6 +85,7 @@ if strcmp(selfassign, 'true') == 1
         JointStruct(i).qm = pi;
         JointStruct(i).q0 = 0;
         JointStruct(i).type = 'R';
+        JointStruct(i).nz = 1;
     end
 
     JointStruct(2).q0 = pi/2;

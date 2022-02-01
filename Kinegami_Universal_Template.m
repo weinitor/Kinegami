@@ -1,5 +1,4 @@
-% Kinegami Template V1
-% Fill in the Kinematic parameters '??' and specify the user options.
+% Kinegami Test V1 (Universal)
 % Last Edited 1/1/2022 by Lucien Peach
 
 clear
@@ -10,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'true';
+selfassign = 'false';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')
@@ -39,41 +38,42 @@ plotoption = 'off';
 
 % Specify number of sides and the circumradius [m] for the polygon base 
 % of the prism tube
-nsides = ??;
-r = ??;
+nsides = 4;
+r = 0.02;
 
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
 % n equals to the number of joints plus one fingertip
-n = ??;
+n = 3;
 D = zeros(n,4);
 
 % Specify DH Parameters nX4, in the order of "Link length (a)", 
 % "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
-D = [??, ??, ??, ??;...
-    ...
-     ??, ??, ??, ??];
+D = [
+    0, pi/2, 0, pi/2; ...
+    0, pi/2, 0, 0; ...
+    0.2, 0, 0, 0];
 
 % Specify joint information as a row vector:
 % Contains n elements for each vector
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
 % 'F': Fingertip, 'V': Spine Vertex (not a joint)
-TYPE = [??, ??, ??,...]; 
+TYPE = ['R', 'R', 'F']; 
 
 % Maximum joint range (row vec.)
-Qm = [??, ??, ??,...]; 
+Qm = [ pi, pi, pi]; 
 
 % Initial joint configuration (row vec.)
-Q0 = [??, ??, ??,...]; 
+Q0 = [ pi/2, 0, 0]; 
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-theta_mod = [??, ??, ??,...]; 
+theta_mod = [ 0, 0, 0]; 
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
-Nz = [??, ??, ??,...]; 
+Nz = [ 1, 1, 1]; 
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = '?';
+fingertip = 'x';
 
 % Initialize JointStruct
 JointStruct(n) = struct();
@@ -91,18 +91,42 @@ TransformStruct(N+1) = struct();
 % If the selfassign tag is applied, provide Oc for each joint
 if strcmp(selfassign, 'true') == 1
     
+    n = 4;
+    TYPE = ['V', 'R', 'R', 'F']; 
+    Qm = [pi, pi, pi, pi]; 
+    Q0 = [0, pi/2, 0, 0]; 
+    theta_mod = [0, 0, 0, 0]; 
+    Nz = [1, 1, 1, 1]; 
+    JointStruct = struct() % reset struct
+    JointStruct(n) = struct();
+    for i = 1:n
+        JointStruct(i).qm = Qm(i);
+        JointStruct(i).q0 = Q0(i);
+        JointStruct(i).type = TYPE(i);
+        JointStruct(i).nz = Nz(i);
+    end
+    N = size(JointStruct, 2) - 1;
+    TransformStruct(N+1) = struct();
+    
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-    fingertip = '?';
+    fingertip = 'x';
     
     % Specify the frame (3X4) of each individul joint
-    TransformStruct(1).Oc = [??, ??, ??, ??; ...
-                             ??, ??, ??, ??; ...
-                             ??, ??, ??, ??];
-                         
-    TransformStruct(2).Oc = [??, ??, ??, ??; ...
-                             ??, ??, ??, ??; ...
-                             ??, ??, ??, ??];  
-                         
+    TransformStruct(1).Oc = [0, 0, 1, 0; ...
+        0, -1, 0, 0; ...
+        1, 0, 0, -4*r];
+    
+    TransformStruct(2).Oc = [0, 0, 1, -2.5*r; ...
+        1, 0, 0, 0; ...
+        0, 1, 0, 0];
+    
+    TransformStruct(3).Oc = [1, 0, 0, 0; ...
+        0, 0, -1, 2.5*r; ...
+        0, 1, 0, 0];  
+    
+    TransformStruct(4).Oc = [0, 0, 1, 0; ...
+        0, -1, 0, 0; ...
+        1, 0, 0, 4*r];            
     % etc...
     
 else  

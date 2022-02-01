@@ -9,11 +9,11 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'true';
+selfassign = 'false';
 
-% Determines whether the user wishes to have elbow joints mirrored ('on')
-% or appear normally ('off')
-mirror = 'on';
+% Determines whether the user wishes their elbow fittings to have visible
+% tucks ('on' - recommended) or appear with only the lower outlines ('off')
+elbow_tuck = 'on';
 
 % Specify whether elbow splitting should occur past pi/2 ('on'/'off')
 split = 'on';
@@ -100,9 +100,9 @@ if strcmp(selfassign, 'true') == 1
     fingertip = 'x';
     
     % Specify the frame (3X4) of each individul joint
-    TransformStruct(1).Oc = [-1, 0, 0, 0; ...
+    TransformStruct(1).Oc = [1, 0, 0, 0; ...
                              0, -1, 0, 0; ...
-                             0, 0, -1, 6*r];
+                             0, 0, 1, 6*r];
     
     TransformStruct(2).Oc = [1, 0, 0, 0; ...
                              0, 0, 1, 0; ...
@@ -135,5 +135,5 @@ end
 
 % Run Kinegami code
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
     DXF, split, segmentation, plotoption);

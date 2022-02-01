@@ -8,11 +8,11 @@ clc
 addpath('DXFLib_v0.9.1')
 
 % Specify inputs
-r = 0.02; %[m]
+r = 0.03; %[m]
 n = 4;
-nl = 3;
+nl = 4;
 beta = pi/6; %[rad]
-d0 = 0.04; 
+d0 = 0.05; 
 % h0 < rtan(beta)
 
 % As a side note, provided the algorithms given, weird things happen if

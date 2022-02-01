@@ -1,7 +1,5 @@
-% Kinegami Template V1
-% Fill in the Kinematic parameters '??' and specify the user options.
+% Kinegami Test V1 (Planar)
 % Last Edited 1/1/2022 by Lucien Peach
-
 clear
 close all
 clc
@@ -10,7 +8,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'true';
+selfassign = 'false';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')
@@ -39,41 +37,42 @@ plotoption = 'off';
 
 % Specify number of sides and the circumradius [m] for the polygon base 
 % of the prism tube
-nsides = ??;
-r = ??;
+nsides = 4;
+r = 0.02;
 
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
 % n equals to the number of joints plus one fingertip
-n = ??;
+n = 4;
 D = zeros(n,4);
 
 % Specify DH Parameters nX4, in the order of "Link length (a)", 
 % "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
-D = [??, ??, ??, ??;...
-    ...
-     ??, ??, ??, ??];
+D = [0.15, 0, 0, 0; ...
+     0.15, 0, 0, 0; ...
+     0.15, 0, 0, 0; ...
+     0.15, 0, 0, 0];
 
 % Specify joint information as a row vector:
 % Contains n elements for each vector
 % Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
 % 'F': Fingertip, 'V': Spine Vertex (not a joint)
-TYPE = [??, ??, ??,...]; 
+TYPE = ['R', 'R', 'R', 'F']; 
 
 % Maximum joint range (row vec.)
-Qm = [??, ??, ??,...]; 
+Qm = [4/3*pi, 4/3*pi, 4/3*pi, pi]; 
 
 % Initial joint configuration (row vec.)
-Q0 = [??, ??, ??,...]; 
+Q0 = [0, 0, 0, 0]; 
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-theta_mod = [??, ??, ??,...]; 
+theta_mod = [0, 0, 0, 0]; 
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
-Nz = [??, ??, ??,...]; 
+Nz = [1, 1, 1, 1]; 
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = '?';
+fingertip = 'x';
 
 % Initialize JointStruct
 JointStruct(n) = struct();
@@ -92,17 +91,24 @@ TransformStruct(N+1) = struct();
 if strcmp(selfassign, 'true') == 1
     
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-    fingertip = '?';
+    fingertip = 'x';
     
     % Specify the frame (3X4) of each individul joint
-    TransformStruct(1).Oc = [??, ??, ??, ??; ...
-                             ??, ??, ??, ??; ...
-                             ??, ??, ??, ??];
-                         
-    TransformStruct(2).Oc = [??, ??, ??, ??; ...
-                             ??, ??, ??, ??; ...
-                             ??, ??, ??, ??];  
-                         
+    TransformStruct(1).Oc = [1, 0, 0, 0.15; ...
+        0, 1, 0, 0; ...
+        0, 0, 1, 7.0842*10^-9];
+    
+    TransformStruct(2).Oc = [-1, 0, 0, 0.3; ...
+        0, 1, 0, 0; ...
+        0, 0, -1, -4.5539*10^-10];
+    
+    TransformStruct(3).Oc = [1, 0, 0, 0.45; ...
+        0, 1, 0, 0; ...
+        0, 0, 1, -6.2523*10^-9]; 
+    
+    TransformStruct(4).Oc = [1, 0, 0, 0.6; ...
+        0, 1, 0, 0; ...
+        0, 0, 1, 0];
     % etc...
     
 else  

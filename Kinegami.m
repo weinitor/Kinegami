@@ -58,8 +58,8 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     for i = 1:N
         
         % Extract a and c vectors for frame being adjusted
-        a = TransformStruct(i+1).Oc(:, 1);
-        c = TransformStruct(i+1).Oc(:, 3);
+        a = TransformStruct(i).Oc(:, 1);
+        c = TransformStruct(i).Oc(:, 3);
         
         % Find distance vector between initial point and subsequent
         Vd = TransformStruct(i+1).Oc(:, 4) - TransformStruct(i).Oc(:, 4); 
@@ -67,10 +67,10 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         % If dot product is less than 0, flip direction of a
         if dot(Vd, a) < 0
             
-            TransformStruct(i+1).Oc(:, 1) = -a;
+            TransformStruct(i).Oc(:, 1) = -a;
             
             % Also flip c to keep consistent with RHR
-            TransformStruct(i+1).Oc(:, 3) = -c;
+            TransformStruct(i).Oc(:, 3) = -c;
             
         end
         
@@ -296,13 +296,15 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
  
     end
     
+    % WEI: Fixed the orientation of inital tube 1/27/2022
     % Add initial tube plotting. Take all 3 possible orientations into
     % account for accurate point plotting.
     
     % a = [1; 0; 0]
-    if TransformStruct(1).Op(1, 1) == 1
+    if abs(TransformStruct(1).Op(1, 1)) == 1
         
-        x = [distalcenter(1, 1) - infostruct(1).lmax, distalcenter(1, 1)];
+        x = [distalcenter(1, 1), distalcenter(1, 1)]...
+            -[sign(TransformStruct(1).Op(1, 1))*infostruct(1).lmax, 0];
         y = [distalcenter(1, 2), distalcenter(1, 2)];
         z = [distalcenter(1, 3), distalcenter(1, 3)];
         
@@ -310,10 +312,11 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         h.Annotation.LegendInformation.IconDisplayStyle = 'off';
         
     % a = [0; 1; 0]   
-    elseif TransformStruct(1).Op(2, 1) == 1
+    elseif abs(TransformStruct(1).Op(2, 1)) == 1
         
         x = [distalcenter(1, 1), distalcenter(1, 1)];
-        y = [distalcenter(1, 2) - infostruct(1).lmax, distalcenter(1, 2)];
+        y = [distalcenter(1, 2), distalcenter(1, 2)]...
+            -[sign(TransformStruct(1).Op(2, 1))*infostruct(1).lmax, 0];
         z = [distalcenter(1, 3), distalcenter(1, 3)];
         
         h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
@@ -324,7 +327,8 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         
         x = [distalcenter(1, 1), distalcenter(1, 1)];
         y = [distalcenter(1, 2), distalcenter(1, 2)];
-        z = [distalcenter(1, 3) - infostruct(1).lmax, distalcenter(1, 3)];
+        z = [distalcenter(1, 3), distalcenter(1, 3)]...
+            -[sign(TransformStruct(1).Op(3, 1))*infostruct(1).lmax, 0];
         
         h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
         h.Annotation.LegendInformation.IconDisplayStyle = 'off';
@@ -372,6 +376,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     zlabel('z')
     title('Frame Connections')
     
+    % WEI: TO BE FIXED (take spliting into consideration)
     % Dubins Plotting    
     for i = 1:N
         

@@ -6,6 +6,14 @@ function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, 
 % Create "duplicate" value
 duplicate = 1;
 
+% Flip the direction is theta is less tha 0
+if theta < 0
+    
+    theta = abs(theta);
+    phi = pi + phi;
+    
+end
+
 % Check value of theta
 if theta > pi/2 && strcmp(split, 'off') ~= 1
     

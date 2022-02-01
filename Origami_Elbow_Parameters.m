@@ -4,6 +4,14 @@
 % Function declaration
 function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split)
 
+% Flip the direction is theta is less tha 0
+if theta < 0
+    
+    theta = abs(theta);
+    phi = pi + phi;
+    
+end
+
 if theta > pi/2 && strcmp(split, 'off') ~= 1
     
     theta = theta/2;
