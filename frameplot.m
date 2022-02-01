@@ -1,7 +1,7 @@
 % Frame Plotting (Od and Op)
 % Last Edited 7/5/2021 by Lucien Peach
 
-function handle = frameplot(frame, color, n)
+function handle = frameplot(frame, color)
 
 % frame is the Op or Od being plotted
 
