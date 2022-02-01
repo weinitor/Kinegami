@@ -37,9 +37,12 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
         [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, plotoption); 
         
     else
+        
+        % Joint Placement and Planar Analysis
+        [TransformStruct] = JointPlacement(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption);
     
-        % Joint Assignment and Sphere Analysis for DH specs
-        [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption);
+%         % Joint Assignment and Sphere Analysis for DH specs
+%         [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption);
         
     end
 
@@ -250,11 +253,11 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     % Add frames to previous plot
     for i = 1:N+1
         
-        plot1 = frameplot(TransformStruct(i).Op, 'black', n); % Plotting "proximal"
+        plot1 = frameplot(TransformStruct(i).Op, 'black'); % Plotting "proximal"
         
         if i < N+1 % again, do not worry about fingertip distal
             
-            plot2 = frameplot(TransformStruct(i).Od, 'black', n); % Plotting "distal"
+            plot2 = frameplot(TransformStruct(i).Od, 'black'); % Plotting "distal"
         
         end
         
@@ -348,7 +351,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     for i = 1:N+1
         
         % Run SphericalSampling on each joint
-        [TransformStruct(i).dubinsplot, handle] = SphericalSampling(TransformStruct(i).oinew, ...
+        [TransformStruct(i).dubinsplot, handle] = SphericalSampling(TransformStruct(i).Oc(:, 4), ...
             TransformStruct(i).rs, colorvector(i, :), plotoption);   
         
         % Turn off legend for appearance

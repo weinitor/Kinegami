@@ -10,8 +10,8 @@ addpath('DXFLib_v0.9.1')
 % Specify inputs
 r = 0.02; %[m]
 n = 4;
-phi = pi/2; %[rad]
-theta = 3*pi/4; %[rad] - splits for greater than pi/2
+phi = pi/3; %[rad]
+theta = 2*pi/3; %[rad] - splits for greater than pi/2
 
 % Automatically @pi/2 split unless specified by user to not split
 split = 'on';
@@ -24,8 +24,8 @@ tuck = 'on';
 % Create a figure that demonstrates the crease schematic
 
 % Specify values for h1 and h2, the heights of the two tube sections
-h1 = 0.1; %[m]
-h2 = 0.1; %[m]
+h1 = 0.02; %[m]
+h2 = 0.02; %[m]
 
 % Outputs graphing for elbow fitting
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, ...
