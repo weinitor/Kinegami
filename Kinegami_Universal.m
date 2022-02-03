@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'true';
+selfassign = 'false';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')

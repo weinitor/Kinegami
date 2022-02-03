@@ -14,7 +14,7 @@ n = 6;
 % Create a figure that demonstrates the crease schematic
 
 % Specify value for h, the height of the tube section
-h = 0.3; %[m]
+h = 0; %[m]
 
 % Outputs graphing for default tube
 [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r);

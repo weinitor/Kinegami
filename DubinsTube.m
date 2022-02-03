@@ -2,7 +2,6 @@
 % Last Updated 7/22/2021 by Lucien Peach
 % Last Updated 7/27/2021 by Wei-Hsi Chen
 
-
 function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror, split)
 
 % Op and Od are both 3x4 matrices
