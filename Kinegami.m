@@ -557,7 +557,7 @@ function [infostruct, TransformStruct, DataNet] = Kinegami(D, r, n, ...
     zlabel('z')
     title('Frame Connections')
     
-    % WEI: TO BE FIXED (take spliting into consideration)
+    % WEI: TO BE FIXED? the numbering might be wrong
     % Dubins Plotting    
     for i = 1:N
         

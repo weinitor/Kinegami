@@ -223,7 +223,7 @@ for i = N+1:-1:2
       
         OcMatrix = [TransformStruct(i).Oc(:, 1), TransformStruct(i).Oc(:, 2), ...
             TransformStruct(i).Oc(:, 3)];
-        ORotation = OcMatrix * rotation_matrix;
+        ORotation =  rotation_matrix * OcMatrix; %WEI: FIXED
       
         % Store to structure as waypoint2
         TransformStruct(i).waypoint2 = [ORotation(:, 1), ORotation(:, 2), ...
@@ -280,7 +280,7 @@ for i = N+1:-1:2
     % Optimization based on constraints to determine value of t
     
     % Statement for minimization
-    obj = @(delta) norm(TransformStruct(i-1).Oc(:, 4) + delta*Oz - ...
+    obj = @(delta) norm(Oc + delta*Oz - ...
         TransformStruct(i).waypoint2(:, 4));
 
     % Initial Guess
@@ -294,8 +294,10 @@ for i = N+1:-1:2
     % a*oi(1) + b*oi(2) + c*oi(3) + d >= 0
 
     % Express other parameters as empty cells (not used)
-    A = [];
-    B = [];
+%     A = []; %Wei: Shouldn't this be a linear inequality?
+%     B = [];
+    A = -dot([a b c], Oz');
+    B = dot([a b c], Oc')+d;
     Aeq = [];
     Beq = [];
     LB = [];
@@ -303,7 +305,8 @@ for i = N+1:-1:2
     nonlincon = @nlcon;
 
     % Output optimal value for delta (or t)
-    t_val = fmincon(obj, delta0, A, B, Aeq, Beq, LB, UB, nonlincon);
+%     t_val = fmincon(obj, delta0, A, B, Aeq, Beq, LB, UB, nonlincon);
+    t_val = fmincon(obj, delta0, A, B);
     
     % Now, use values of u and t to find Oc(i-1)
     if JointStruct(i-1).type == 'R'
@@ -317,7 +320,8 @@ for i = N+1:-1:2
     end
     
     % Create O DataSet
-    % Line 22 of Script (why necessary?)
+    % Line 22 of Script (why necessary?) % Wei: For data structure of
+    % Kinegami?
     
     % New sphere creation
     [TransformStruct(i-1).oidata] = SphericalSampling(TransformStruct(i-1).Oc(:, 4), ...
@@ -340,11 +344,14 @@ for i = N+1:-1:2
     
 end
 
-% Nonlinear Constraint Function Call
+% Nonlinear Constraint Function Call  %WEI: Oi is different from Oc
 function [constraint, ceq] = nlcon(delta)
-    constraint = 0 - (a*(TransformStruct(i-1).Oc(1, 4) + delta*Oz(1)) + ...
-        b*(TransformStruct(i-1).Oc(2, 4) + delta*Oz(2)) + ...
-        c*(TransformStruct(i-1).Oc(3, 4) + delta*Oz(3)) + d);
+%     constraint = 0 - (a*(TransformStruct(i-1).Oc(1, 4) + delta*Oz(1)) + ...
+%         b*(TransformStruct(i-1).Oc(2, 4) + delta*Oz(2)) + ...
+%         c*(TransformStruct(i-1).Oc(3, 4) + delta*Oz(3)) + d);
+    constraint = 0 - (a*(Oc(1) + delta*Oz(1)) + ...
+        b*(Oc(2) + delta*Oz(2)) + ...
+        c*(Oc(3) + delta*Oz(3)) + d);
     ceq = [];
 end
 
