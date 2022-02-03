@@ -9,7 +9,7 @@ clc
 
 % Determines whether the user wishes to use DH parameters ('false') or
 % assign the Joint Parameters themselves ('true')
-selfassign = 'false';
+selfassign = 'true';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')
@@ -72,7 +72,7 @@ Qm = [pi, pi, pi, pi, pi, pi, pi];
 Q0 = D(:,end)';
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-theta_mod = [0, 0, 0, 0, 0, 0, 0];
+theta_mod = [0, 0, pi/2, pi/2, pi, 0, 0];
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
 Nz = [1, 1, 1, 1, 1, 1, 1];
