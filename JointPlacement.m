@@ -7,7 +7,7 @@
 % Both of the above will be fields of JointStruct
 % Make JointStruct.type = {R; R; R; P; 0}
 
-function [TransformStruct] = JointPlacement(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption)
+function [TransformStruct] = JointPlacement(D, r, n, JointStruct, N, fingertip, plotoption)
 
 % Does this process remain for JointPlacement? Unsure but kept for now.
 for i = (N+1):-1:1
@@ -185,7 +185,7 @@ for i = N+1:-1:2
             planeval < 0
 
         % Assign normal vector
-        TransformStruct(i).normal2 = -TransformStruct(i-1).zaxis;
+        TransformStruct(i).normal2 = -TransformStruct(i-1).zaxis.';
 
         % Assign new planes
         TransformStruct(i).tangent2(:, 4) = TransformStruct(i).oib.' + ...
