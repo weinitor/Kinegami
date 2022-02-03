@@ -74,8 +74,8 @@ TransformStruct(i).path(:, 5) = (infostruct(index+2).h1 + infostruct(index+2).h2
 
 % Pull ap from elbow1 ad
 ap2 = ad;
-a_next = TransformStruct(i+1).Op(:, 1);
-a_next = a_next/norm(a_next);
+% a_next = TransformStruct(i+1).Op(:, 1);
+% a_next = a_next/norm(a_next);
 
 % Determine new ad based on theta, (w must be a normal vector)
 om2od = TransformStruct(i+1).Op(:, 4) - TransformStruct(i).path(:, 5);
@@ -125,7 +125,7 @@ for j = 1:50
         infostruct(index).r * (eye(3) - RotationalMatrix(wp, dAng1*j)) * o2c1];
 end
 
-if infostruct(index+3).theta < 0
+if infostruct(index+3).theta < -0.001
     dAng2 = (2*pi + infostruct(index+3).theta)/50;
 else
     dAng2 = infostruct(index+3).theta/50;
