@@ -72,8 +72,8 @@ Qm = [pi, pi, pi, pi, pi, pi, pi];
 Q0 = D(:,end)';
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-% theta_mod = [0, 0, pi/2, pi/2, pi, 0, 0];
-theta_mod = [0, 0, 0, 0, 0, 0, 0];
+theta_mod = [0, 0, pi/2, pi/2, 0, 0, 0];
+% theta_mod = [0, 0, 0, 0, 0, 0, 0];
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
 Nz = [1, 1, 1, 1, 1, 1, 1];

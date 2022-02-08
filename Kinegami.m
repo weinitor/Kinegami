@@ -19,9 +19,9 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         
         % Joint Placement and Planar Analysis
         [TransformStruct, JointStruct, N] = JointPlacement(D, r, n, ...
-            JointStruct, N, fingertip, plotoption);
+            JointStruct, N, theta_mod, fingertip, plotoption);
     
-%         % Joint Assignment and Sphere Analysis for DH specs
+% %         % Joint Assignment and Sphere Analysis for DH specs
 %         [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption);
         
     end

@@ -7,7 +7,7 @@
 % Both of the above will be fields of JointStruct
 % Make JointStruct.type = {R; R; R; P; 0}
 
-function [TransformStruct, JointStructNew, Nnew] = JointPlacement(D, r, n, JointStruct, N, fingertip, plotoption)
+function [TransformStruct, JointStructNew, Nnew] = JointPlacement(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption)
 
 % Does this process remain for JointPlacement? Unsure but kept for now.
 for i = (N+1):-1:1
@@ -95,6 +95,16 @@ for i = N:-1:1
     Oy = TransformStruct(i).net(1:3, 2);
     Oz = TransformStruct(i).net(1:3, 3);
     Oc = TransformStruct(i).net(1:3, 4);
+    
+    
+    % WEI(0208): add in theta modification
+    % If revolute
+    if JointStruct(i).type == 'R'
+        
+        Ox = RotationalMatrix(Oz, theta_mod(i))*Ox;
+        Oy = RotationalMatrix(Oz, theta_mod(i))*Oy;
+        
+    end
 
     % O Computation
     TransformStruct(i).O = [Ox, Oy, Oz, Oc];
