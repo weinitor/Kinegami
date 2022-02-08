@@ -2,7 +2,7 @@
 % Last edited 7/22/2021 by Lucien Peach
 % Last edidt 7/27/2021 by Wei-Hsi Chen
 
-function [TransformStruct] = DubinsPlot(TransformStruct, infostruct, index, i)
+function [JointStruct] = DubinsPlot(JointStruct, infostruct, index, i)
 
 % TransformStruct provides information about frames
 % infostruct provides information about fold parameters
@@ -19,14 +19,14 @@ tunit = infostruct(index).tunit;
 t = infostruct(index).t;
 
 % Origin point (Od)
-TransformStruct(i).path(:, 1) = TransformStruct(i).Od(:, 4);
+JointStruct(i).path(:, 1) = JointStruct(i).Od(:, 4);
 
 % Constructing the path via the parameters of the DubinsTube
 % Elbow1 Parameters and Path Plotting
 % ------------------------------------------------------------------------
 
 % Pull ap from initial frame
-ap = TransformStruct(i).Od(:, 1);
+ap = JointStruct(i).Od(:, 1);
 ap = ap/norm(ap);
 
 % Determine ad based on theta - rotation matrix depends on axis of rotation
@@ -45,10 +45,10 @@ o2c1 = o2c1/norm(o2c1);
 % center1 = TransformStruct(i).path(:, 1) + infostruct(index).r*o2c1;
 
 % Factor in h1 and h2 offsets to determine positions for plotting
-TransformStruct(i).path(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
-    + TransformStruct(i).path(:, 1);
-TransformStruct(i).path(:, 3) = (infostruct(index).h2 + infostruct(index).dw)*ad ...
-    + TransformStruct(i).path(:, 2);
+JointStruct(i).path(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
+    + JointStruct(i).path(:, 1);
+JointStruct(i).path(:, 3) = (infostruct(index).h2 + infostruct(index).dw)*ad ...
+    + JointStruct(i).path(:, 2);
 
 
 % Twist Parameters and Path Plotting
@@ -57,16 +57,16 @@ TransformStruct(i).path(:, 3) = (infostruct(index).h2 + infostruct(index).dw)*ad
 % Frame direction remains consistent - ad from elbow1
 % For purposes of initial iteration, twist functions similarly to tube but
 % with an adjusted height calculation
-TransformStruct(i).path(:, 4) = (infostruct(index+1).h1 + infostruct(index+1).h2 + ...
-    infostruct(index+1).h)*ad + TransformStruct(i).path(:, 3);
+JointStruct(i).path(:, 4) = (infostruct(index+1).h1 + infostruct(index+1).h2 + ...
+    infostruct(index+1).h)*ad + JointStruct(i).path(:, 3);
 
 
 % Tube Parameters and Path Plotting
 % ------------------------------------------------------------------------
 
 % Frame direction remains consistent - ad from elbow1
-TransformStruct(i).path(:, 5) = (infostruct(index+2).h1 + infostruct(index+2).h2 + ...
-    infostruct(index+2).h)*ad + TransformStruct(i).path(:, 4);
+JointStruct(i).path(:, 5) = (infostruct(index+2).h1 + infostruct(index+2).h2 + ...
+    infostruct(index+2).h)*ad + JointStruct(i).path(:, 4);
 
 
 % Elbow2 Parameters and Path Plotting
@@ -78,7 +78,7 @@ ap2 = ad;
 % a_next = a_next/norm(a_next);
 
 % Determine new ad based on theta, (w must be a normal vector)
-om2od = TransformStruct(i+1).Op(:, 4) - TransformStruct(i).path(:, 5);
+om2od = JointStruct(i+1).Op(:, 4) - JointStruct(i).path(:, 5);
 om2od = om2od/norm(om2od);
 % wp2 = cross(ap2, a_next);
 wp2 = cross(ap2, om2od);
@@ -90,38 +90,38 @@ ad2 = ad2/norm(ad2);
 % second elbow
 o2c2 = -cross(ap2,wp2);
 o2c2 = o2c2/norm(o2c2);
-center2 = TransformStruct(i).path(:, 5) + infostruct(index).r*o2c1;
+center2 = JointStruct(i).path(:, 5) + infostruct(index).r*o2c1;
 
 % Factor in h1 and h2 offsets
-TransformStruct(i).path(:, 6) = (infostruct(index+3).h1 + infostruct(index+3).dw)*ap2 ...
-    + TransformStruct(i).path(:, 5);
-TransformStruct(i).path(:, 7) = (infostruct(index+3).h2 + infostruct(index+3).dw)*ad2 ...
-    + TransformStruct(i).path(:, 6);
+JointStruct(i).path(:, 6) = (infostruct(index+3).h1 + infostruct(index+3).dw)*ap2 ...
+    + JointStruct(i).path(:, 5);
+JointStruct(i).path(:, 7) = (infostruct(index+3).h2 + infostruct(index+3).dw)*ad2 ...
+    + JointStruct(i).path(:, 6);
 
 % Wei: What is this section exactly???
 % Constructing the path via the parameters of the DubinsPath
 % Newpath
 % ------------------------------------------------------------------------
-TransformStruct(i).newpath(:, 1) = TransformStruct(i).Od(:, 4);
+JointStruct(i).newpath(:, 1) = JointStruct(i).Od(:, 4);
 
 % TransformStruct(i).newpath(:, 2) = (infostruct(index).h1 + infostruct(index).dw)*ap ...
 %     + TransformStruct(i).newpath(:, 1);
-TransformStruct(i).newpath(:, 2) = infostruct(index).oc;
+JointStruct(i).newpath(:, 2) = infostruct(index).oc;
 
 % TransformStruct(i).newpath(:, 3) = TransformStruct(i).newpath(:, 2) + ...
 %     t.'+ (infostruct(index+3).dw + infostruct(index).dw)*tunit.';
-TransformStruct(i).newpath(:, 3) = infostruct(index+3).oc;
+JointStruct(i).newpath(:, 3) = infostruct(index+3).oc;
 
 % TransformStruct(i).newpath(:, 4) = TransformStruct(i+1).Op(:, 4);
-TransformStruct(i).newpath(:, 4) = TransformStruct(i).newpath(:, 3) + ...
-    TransformStruct(i+1).Op(:, 1)*infostruct(index+3).dw;
+JointStruct(i).newpath(:, 4) = JointStruct(i).newpath(:, 3) + ...
+    JointStruct(i+1).Op(:, 1)*infostruct(index+3).dw;
 
 % -------------------------
 % Plot the two circular arcs
 dAng1 = infostruct(index).theta/50;
 circle_pts1 = [];
 for j = 1:50
-    circle_pts1 = [circle_pts1, TransformStruct(i).path(:, 1) + ...
+    circle_pts1 = [circle_pts1, JointStruct(i).path(:, 1) + ...
         infostruct(index).r * (eye(3) - RotationalMatrix(wp, dAng1*j)) * o2c1];
 end
 
@@ -132,7 +132,7 @@ else
 end
 circle_pts2 = [];
 for j = 0:50
-    circle_pts2 = [circle_pts2, TransformStruct(i).path(:, 5) + ...
+    circle_pts2 = [circle_pts2, JointStruct(i).path(:, 5) + ...
         infostruct(index+3).r * (eye(3) - RotationalMatrix(wp2, dAng2*j)) * o2c2];
 end
 

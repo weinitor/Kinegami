@@ -7,7 +7,7 @@
 % Both of the above will be fields of JointStruct
 % Make JointStruct.type = {R; R; R; P; 0}
 
-function [TransformStruct] = JointPlacement(D, r, n, JointStruct, N, fingertip, plotoption)
+function [TransformStruct, JointStructNew, Nnew] = JointPlacement(D, r, n, JointStruct, N, fingertip, plotoption)
 
 % Does this process remain for JointPlacement? Unsure but kept for now.
 for i = (N+1):-1:1
@@ -294,8 +294,6 @@ for i = N+1:-1:2
     % a*oi(1) + b*oi(2) + c*oi(3) + d >= 0
 
     % Express other parameters as empty cells (not used)
-%     A = []; %Wei: Shouldn't this be a linear inequality?
-%     B = [];
     A = -dot([a b c], Oz');
     B = dot([a b c], Oc')+d;
     Aeq = [];
@@ -341,6 +339,40 @@ for i = N+1:-1:2
     % Output plot of new bounding sphere
     [TransformStruct(i-1).boundingsummary] = SphericalSampling(TransformStruct(i-1).oib, ...
         TransformStruct(i-1).rb, 'none', plotoption);
+    
+end
+
+% Create new JointStruct data structure which includes waypoints
+Nnew = 3*(N);
+JointStructNew(Nnew+1) = struct();
+
+% JointStructNew(1) is the same as JointStruct(1), then JointStruct(2)
+% corresponds to JointStructNew(4), etc.
+index = 0;
+for i = 1:3:(Nnew+1)
+    
+    index = index+1;
+    JointStructNew(i).qm = JointStruct(index).qm;
+    JointStructNew(i).q0 = JointStruct(index).q0;
+    JointStructNew(i).type = JointStruct(index).type;
+    JointStructNew(i).nz = JointStruct(index).nz;
+    
+end
+
+% Populate waypoint values
+index = 1;
+for i = 2:3:(Nnew)
+    
+    index = index + 1;
+    % Waypoint 1
+    JointStructNew(i).Op = TransformStruct(index).waypoint1;
+    JointStructNew(i).Od = TransformStruct(index).waypoint1;
+    JointStructNew(i).type = 'W';
+    
+    % Waypoint 2
+    JointStructNew(i+1).Op = TransformStruct(index).waypoint2;
+    JointStructNew(i+1).Od = TransformStruct(index).waypoint2;
+    JointStructNew(i+1).type = 'W';
     
 end
 
