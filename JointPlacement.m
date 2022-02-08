@@ -161,8 +161,11 @@ for i = N+1:-1:2
     TransformStruct(i).P1par(:, 2) = TransformStruct(i).parallel(:, 4);  
 
     % Determine location of first waypoint
+%     [waypoint1] = IntersectionSolver(TransformStruct(i).P1, ...
+%       TransformStruct(i).oi.', TransformStruct(i).normal);  
+%    WEI(0208): I think the oi should be the actual joint centroid
     [waypoint1] = IntersectionSolver(TransformStruct(i).P1, ...
-      TransformStruct(i).oi.', TransformStruct(i).normal);
+      TransformStruct(i).Oc(:, 4).', TransformStruct(i).normal);
 
     % Store to structure as waypoint1
     TransformStruct(i).waypoint1 = [TransformStruct(i).Oc(:, 1), ...
@@ -174,14 +177,14 @@ for i = N+1:-1:2
 
     % Run PlaneCheck, which will determine if the z-axis is on the far or
     % near side of the parallel plane.
-    if dot(TransformStruct(i).normal, TransformStruct(i-1).zaxis) == 0
-
+    % WEI(0208): Check all the time
       planeval = PlaneCheck(TransformStruct(i).P1par, TransformStruct(i-1).oi);   
 
-    end
-
     % For parallel, conflicting case
-    if dot(TransformStruct(i).normal, TransformStruct(i-1).zaxis) == 0 && ...
+%     if dot(TransformStruct(i).normal, TransformStruct(i-1).zaxis) == 0 && ...
+%             planeval < 0
+    % WEI(0208): There could be numeric error, so don't check for ==0
+    if abs(dot(TransformStruct(i).normal, TransformStruct(i-1).zaxis)) < 0.00001 && ...
             planeval < 0
 
         % Assign normal vector
@@ -211,7 +214,8 @@ for i = N+1:-1:2
         TransformStruct(i).P2par(:, 2) = TransformStruct(i).parallel2(:, 4);  
 
         % Determining waypoint2
-        ref2 = TransformStruct(i).waypoint1 + r*TransformStruct(i).normal;
+        % WEI(0208): Change from TransformStruct(i).waypoint1 to waypoint1
+        ref2 = waypoint1 + r*TransformStruct(i).normal; 
         [waypoint2] = IntersectionSolver(TransformStruct(i).P2, ...
             ref2, TransformStruct(i).normal2);
 
@@ -223,7 +227,7 @@ for i = N+1:-1:2
       
         OcMatrix = [TransformStruct(i).Oc(:, 1), TransformStruct(i).Oc(:, 2), ...
             TransformStruct(i).Oc(:, 3)];
-        ORotation =  rotation_matrix * OcMatrix; %WEI: FIXED
+        ORotation =  rotation_matrix * OcMatrix; % WEI(0203): FIXED
       
         % Store to structure as waypoint2
         TransformStruct(i).waypoint2 = [ORotation(:, 1), ORotation(:, 2), ...
@@ -278,7 +282,7 @@ for i = N+1:-1:2
     end
     
     % Optimization based on constraints to determine value of t
-    
+
     % Statement for minimization
     obj = @(delta) norm(Oc + delta*Oz - ...
         TransformStruct(i).waypoint2(:, 4));
@@ -302,6 +306,13 @@ for i = N+1:-1:2
     UB = [];
     nonlincon = @nlcon;
 
+    % WEI(0208): to avoid potential numeric error:
+    if abs(A)<0.00001
+        
+        A = 0;
+        
+    end    
+    
     % Output optimal value for delta (or t)
 %     t_val = fmincon(obj, delta0, A, B, Aeq, Beq, LB, UB, nonlincon);
     t_val = fmincon(obj, delta0, A, B);
@@ -317,9 +328,6 @@ for i = N+1:-1:2
                 
     end
     
-    % Create O DataSet
-    % Line 22 of Script (why necessary?) % Wei: For data structure of
-    % Kinegami?
     
     % New sphere creation
     [TransformStruct(i-1).oidata] = SphericalSampling(TransformStruct(i-1).Oc(:, 4), ...
@@ -342,6 +350,7 @@ for i = N+1:-1:2
     
 end
 
+% Create O DataSet (Line 21 of Script)
 % Create new JointStruct data structure which includes waypoints
 Nnew = 3*(N);
 JointStructNew(Nnew+1) = struct();

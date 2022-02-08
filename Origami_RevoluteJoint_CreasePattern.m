@@ -969,7 +969,7 @@ if nz > 1 && n >= 6
         recursion(index1, 1) = ls - (i/nz)*(ls/2);
         recursion(index1, 2) = h1 + (lineslope*recursion(index1, 1));
         
-        recursion(index1+1, 1) = (i/nz)*(ls/2);
+        recursion(index1+1, 1) = (i/nz)*(ls/2); % WEI: why douple points?
         recursion(index1+1, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+1, 1));
         
         recursion(index1+2, 1) = (i/nz)*(ls/2);
