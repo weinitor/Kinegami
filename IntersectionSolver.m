@@ -27,7 +27,7 @@ d = -1*(normal(1)*center(1) + normal(2)*center(2) + normal(3)*center(3));
 % We can plug in our parametric equations for x, y, and z. This will allow
 % us to determine the values of t, with which we can determine the
 % intersection point.
-const_sum = normal(1)*x0 + normal(2)*y0 + normal(3)*z0 + d;
+const_sum = -(normal(1)*x0 + normal(2)*y0 + normal(3)*z0 + d);
 t_sum = normal(1)*a + normal(2)*b + normal(3)*c;
 t = const_sum / t_sum;
 

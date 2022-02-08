@@ -365,13 +365,13 @@ for i = 2:3:(Nnew)
     
     index = index + 1;
     % Waypoint 1
-    JointStructNew(i).Op = TransformStruct(index).waypoint1;
-    JointStructNew(i).Od = TransformStruct(index).waypoint1;
+    JointStructNew(i).Op = TransformStruct(index).waypoint2;
+    JointStructNew(i).Od = TransformStruct(index).waypoint2;
     JointStructNew(i).type = 'W';
     
     % Waypoint 2
-    JointStructNew(i+1).Op = TransformStruct(index).waypoint2;
-    JointStructNew(i+1).Od = TransformStruct(index).waypoint2;
+    JointStructNew(i+1).Op = TransformStruct(index).waypoint1;
+    JointStructNew(i+1).Od = TransformStruct(index).waypoint1;
     JointStructNew(i+1).type = 'W';
     
 end
