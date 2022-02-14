@@ -956,6 +956,22 @@ if nz > 1 && n >= 6
     % populate the entire recursive joint
     for i = 1:(nz-1)
         
+        % Determine shift value, which will be used in placing
+        % diamond-intersecting points.
+
+        % Use any point on line to determine angle based on diamondslope
+        v1 = [ls, max(lengths)+h1, 0] - [ls/2, max(lengths)+h1, 0];
+        v2 = [ls, (diamondslope(1)*ls)+h1+max(lengths), 0] - [ls/2, max(lengths)+h1, 0];
+        shiftangle = atan2(norm(cross(v1, v2)), dot(v1, v2));
+                        
+        % Determine shift value (x value in supp. diagram)
+        shift = ((i/nz)*(ls/2))*(1/cos(shiftangle));
+        
+        % Use lineslope and diamondslope values to determine h, which is
+        % the perpendicular from the midline to the inclined inner revolute
+        % point
+        h = ((lineslope)*shift) / (1 + (lineslope*diamondslope(2)));
+        
         % Increase count initially
         count = count + 1;
         
@@ -966,10 +982,12 @@ if nz > 1 && n >= 6
         % Populate values of recursion based on index1 and index2
         
         % index1
-        recursion(index1, 1) = ls - (i/nz)*(ls/2);
+        recursion(index1, 1) = ls/2 + (h/lineslope);
         recursion(index1, 2) = h1 + (lineslope*recursion(index1, 1));
         
-        recursion(index1+1, 1) = (i/nz)*(ls/2); % WEI: why douple points?
+        % Double points included for facilitation of consistency of array
+        % size (helps with looping)
+        recursion(index1+1, 1) = (i/nz)*(ls/2);
         recursion(index1+1, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+1, 1));
         
         recursion(index1+2, 1) = (i/nz)*(ls/2);
@@ -981,7 +999,7 @@ if nz > 1 && n >= 6
         recursion(index1+4, 1) = (i/nz)*(ls/2);
         recursion(index1+4, 2) = h1 + (lineslope*recursion(index1+4, 1));
         
-        recursion(index1+5, 1) = ls - (i/nz)*(ls/2);
+        recursion(index1+5, 1) = ls/2 + (h/lineslope);
         recursion(index1+5, 2) = h1 + 2*max(lengths) - (lineslope*recursion(index1+5, 1));
         
         % For points 7 and 8, determine if the diamondslope value will
@@ -1031,8 +1049,8 @@ if nz > 1 && n >= 6
         % Increase count
         count = count + 1;
         
-        % index2
-        recursion(index2, 1) = ls*((n/2)+1) - (i/nz)*(ls/2);
+        % For left endcap of right pattern (index2)
+        recursion(index2, 1) = ls*((n/2)+1) - (ls/2) + (h/lineslope);
         recursion(index2, 2) = -vert_offset + h1 + (lineslope*recursion(index2, 1));
         
         recursion(index2+1, 1) = (i/nz)*(ls/2) + ls*(n/2);
@@ -1047,7 +1065,7 @@ if nz > 1 && n >= 6
         recursion(index2+4, 1) = (i/nz)*(ls/2) + ls*(n/2);
         recursion(index2+4, 2) = -vert_offset + h1 + (lineslope*recursion(index2+4, 1));
         
-        recursion(index2+5, 1) = ls*((n/2)+1) - (i/nz)*(ls/2);
+        recursion(index2+5, 1) = ls*((n/2)+1) - (ls/2) + (h/lineslope);
         recursion(index2+5, 2) = vert_offset + h1 + 2*max(lengths) - (lineslope*recursion(index2+5, 1));
         
         % For points 7 and 8, determine if the diamondslope value will
@@ -1112,7 +1130,7 @@ if nz > 1 && n >= 6
         index3offsetneg = (h1 + 2*max(lengths)) - lineslope*((n/2)-1)*ls;
         
         % index3
-        recursion(index3, 1) = (i/nz)*(ls/2) + ((n/2)-2)*ls;
+        recursion(index3, 1) = ls/2 - (h/lineslope) + ((n/2)-2)*ls;
         recursion(index3, 2) = index3offsetpos - (lineslope*recursion(index3, 1));
         
         recursion(index3+1, 1) = ((n/2)-1)*ls - (i/nz)*(ls/2);
@@ -1127,7 +1145,7 @@ if nz > 1 && n >= 6
         recursion(index3+4, 1) = ((n/2)-1)*ls - (i/nz)*(ls/2);
         recursion(index3+4, 2) = index3offsetpos - (lineslope*recursion(index3+4, 1));
         
-        recursion(index3+5, 1) = (i/nz)*(ls/2) + ((n/2)-2)*ls;
+        recursion(index3+5, 1) = ls/2 - (h/lineslope) + ((n/2)-2)*ls;
         recursion(index3+5, 2) = index3offsetneg + (lineslope*recursion(index3+5, 1));
                
         % For points 7 and 8, determine if the value dictated by
@@ -1183,7 +1201,7 @@ if nz > 1 && n >= 6
         index4offsetneg = (h1 + 2*max(lengths)) - lineslope*(n-1)*ls;
         
         % index3
-        recursion(index4, 1) = (i/nz)*(ls/2) + (n-2)*ls;
+        recursion(index4, 1) = ls/2 - (h/lineslope) + (n-2)*ls;
         recursion(index4, 2) = index4offsetpos - (lineslope*recursion(index4, 1));
         
         recursion(index4+1, 1) = (n-1)*ls - (i/nz)*(ls/2);
@@ -1198,7 +1216,7 @@ if nz > 1 && n >= 6
         recursion(index4+4, 1) = (n-1)*ls - (i/nz)*(ls/2);
         recursion(index4+4, 2) = index4offsetpos - (lineslope*recursion(index4+4, 1));
         
-        recursion(index4+5, 1) = (i/nz)*(ls/2) + (n-2)*ls;
+        recursion(index4+5, 1) = ls/2 - (h/lineslope) + (n-2)*ls;
         recursion(index4+5, 2) = index4offsetneg + (lineslope*recursion(index4+5, 1));
                
         % For points 7 and 8, determine if the value dictated by
