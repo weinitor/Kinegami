@@ -1276,27 +1276,38 @@ if nz > 1 && n >= 8
     % Loop through to assign the layered recursion values (left sect.)
     for i = 1:(nz-1)
         
-        % Determine shift value, which will be used in placing
-        % diamond-intersecting points.
-
-        % Use any point on line to determine angle based on diamondslope
-        v1 = [ls, max(lengths)+h1, 0] - [ls/2, max(lengths)+h1, 0];
-        v2 = [ls, (diamondslope(1)*ls)+h1+max(lengths), 0] - [ls/2, max(lengths)+h1, 0];
-        shiftangle = atan2(norm(cross(v1, v2)), dot(v1, v2));
-                        
-        % Determine shift value (x value in supp. diagram)
-        shift = (((nz-i)/nz)*(ls/2))*(1/cos(shiftangle));
-        
-        % Use lineslope and diamondslope values to determine h, which is
-        % the perpendicular from the midline to the inclined inner revolute
-        % point
-        h = ((lineslope)*shift) / (1 + (lineslope*diamondslope(2)));
-        
         % ---------------- Left Half of Pattern ------------------------
         
         for j = 1:num/2 % Iteration through first half of pattern
             
-            index = (j-1)*9 + 10;
+            % New indexing for diamonds (as they scale by 2)
+            diamondindexeven = 2*j;
+            diamondindexodd = (2*j) + 1;
+            
+            % Determine shift value, which will be used in placing
+            % diamond-intersecting points.
+
+            % Use any point on line to determine angles based on
+            % diamondslope values
+            v11 = [ls, max(lengths)+h1, 0] - [ls/2, max(lengths)+h1, 0];
+            v21 = [ls, (diamondslope(diamondindexeven-1)*ls)+h1+max(lengths), 0] - [ls/2, max(lengths)+h1, 0];
+            shiftangle1 = atan2(norm(cross(v11, v21)), dot(v11, v21));
+            
+            v12 = [ls, max(lengths)+h1, 0] - [ls/2, max(lengths)+h1, 0];
+            v22 = [ls, (diamondslope(diamondindexodd)*ls)+h1+max(lengths),0] - [ls/2, max(lengths)+h1, 0];
+            shiftangle2 = atan2(norm(cross(v12, v22)), dot(v12, v22));
+
+            % Determine shift values (x value in supp. diagram)
+            shift1 = (((nz-i)/nz)*(ls/2))*(1/cos(shiftangle1));
+            shift2 = (((nz-i)/nz)*(ls/2))*(1/cos(shiftangle2));
+            
+            % Use lineslope and diamondslope values to determine h, which is
+            % the perpendicular from the midline to the inclined inner revolute
+            % point
+            hshift1 = ((lineslope)*shift1) / (1 + (lineslope*diamondslope(diamondindexeven)));
+            hshift2 = ((lineslope)*shift2) / (1 + (lineslope*-diamondslope(diamondindexodd)));
+                        
+            index = (j-1)*9 + (nz-1)*9;
             
             % Determine y offsets (b values)
             pos = (h1) + lineslope*(j+1)*ls;
@@ -1305,88 +1316,34 @@ if nz > 1 && n >= 8
             neg = (h1 + 2*max(lengths)) - lineslope*(j+1)*ls;
             
             
-            % Populate "corner" points first (on lineslope x)
-            recursion(index, 1) = ls/2 + (h/lineslope) + j*ls;
+            % Populate points
+            recursion(index, 1) = ls/2 + (hshift2/lineslope) + j*ls;
             recursion(index, 2) = neg + lineslope*recursion(index, 1);
             
-            recursion(index+1, 1) = ls/2 - (h/lineslope) + j*ls;
+            recursion(index+1, 1) = ls/2 - (hshift1/lineslope) + j*ls;
             recursion(index+1, 2) = pos - lineslope*recursion(index+1, 1);
             
-            recursion(index+4, 1) = ls/2 - (h/lineslope) + j*ls;
+            recursion(index+2, 1) = ls/2 - shift1 + j*ls;
+            recursion(index+2, 2) = max(lengths) + h1;
+            
+            recursion(index+3, 1) = ls/2 - shift1 + j*ls;
+            recursion(index+3, 2) = max(lengths) + h1;
+            
+            recursion(index+4, 1) = ls/2 - (hshift1/lineslope) + j*ls;
             recursion(index+4, 2) = neg + lineslope*recursion(index+4, 1);
             
-            recursion(index+5, 1) = ls/2 + (h/lineslope) + j*ls;
+            recursion(index+5, 1) = ls/2 + (hshift2/lineslope) + j*ls;
             recursion(index+5, 2) = pos - lineslope*recursion(index+5, 1);
+            
+            recursion(index+6, 1) = ls/2 + shift2 + j*ls;
+            recursion(index+6, 2) = max(lengths) + h1;
+            
+            recursion(index+7, 1) = ls/2 + shift2 + j*ls;
+            recursion(index+7, 2) = max(lengths) + h1;
             
             recursion(index+8, 1) = recursion(index, 1);
             recursion(index+8, 2) = recursion(index, 2);
-            
-            % New indexing for diamonds (as they scale by 2)
-            diamondindexeven = 2*j;
-            diamondindexodd = (2*j) + 1;
-            
-            % Determine metrics for left-side diamond
-            leftslope = -1/diamondslope(diamondindexeven);
-            leftoffset = (recursion(index, 2)) - recursion(index, 1)*leftslope;
-            leftintersect = ((max(lengths) + h1) - leftoffset) / leftslope;
-            
-            % Conditionals for left half diamond
-            if leftintersect > j*ls
-                
-                % If the intersection occurs before frame limit, graph
-                % normally without factoring in cutoff.
-                recursion(index+6, 1) = leftintersect;
-                recursion(index+6, 2) = max(lengths) + h1;
-                
-                recursion(index+7, 1) = leftintersect;
-                recursion(index+7, 2) = max(lengths) + h1;
-                
-            elseif leftintersect <= j*ls
-                
-                % If the intersection occurs after ls frame limit, graph
-                % only up until the ls frame boundary
-                recursion(index+7, 1) = j*ls;
-                recursion(index+7, 2) = leftoffset + leftslope*recursion(index+7, 1);
-                
-                % Find offset from bottom line
-                differential = recursion(index+7, 2) - recursion(index, 2);
-                
-                recursion(index+6, 1) = j*ls;
-                recursion(index+6, 2) = recursion(index+5, 2) - differential;
-                
-            end
-            
-            % Determine metrics for right-side diamond
-            rightslope = -1/diamondslope(diamondindexodd);
-            rightoffset = (recursion(index+1, 2)) - recursion(index+1, 1)*rightslope;
-            rightintersect = ((max(lengths) + h1) - rightoffset) / rightslope;
-            
-                        % Conditionals for left half diamond
-            if rightintersect < (j+1)*ls
-                
-                % If the intersection occurs before frame limit, graph
-                % normally without factoring in cutoff.
-                recursion(index+2, 1) = rightintersect;
-                recursion(index+2, 2) = max(lengths) + h1;
-                
-                recursion(index+3, 1) = rightintersect;
-                recursion(index+3, 2) = max(lengths) + h1;
-                
-            elseif rightintersect >= (j+1)*ls
-                
-                % If the intersection occurs after ls frame limit, graph
-                % only up until the ls frame boundary
-                recursion(index+2, 1) = (j+1)*ls;
-                recursion(index+2, 2) = rightoffset + rightslope*recursion(index+2, 1);
-                
-                % Find offset from bottom line
-                differential = recursion(index+2, 2) - recursion(index+1, 2);
-                
-                recursion(index+3, 1) = (j+1)*ls;
-                recursion(index+3, 2) = recursion(index+4, 2) - differential;
-                
-            end
-            
+                            
             % Storing and Plotting
             count = count + 1;
             dataFoldD(count).x = recursion(index:index+8, 1);
@@ -1399,6 +1356,33 @@ if nz > 1 && n >= 8
         
         for j = 1:num/2 % Iteration through second half of pattern
             
+            % New indexing for diamonds (as they scale by 2)
+            diamondindexeven = 2*j + (n-4);
+            diamondindexodd = 2*j + (n-4) + 1;
+            
+            % Determine shift values, which will be used in placing
+            % diamond-intersecting points.
+
+            % Use any point on line to determine angles based on
+            % diamondslope values
+            v11 = [ls, max(lengths)+h1, 0] - [ls/2, max(lengths)+h1, 0];
+            v21 = [ls, (diamondslope(diamondindexeven-1)*ls)+h1+max(lengths), 0] - [ls/2, max(lengths)+h1, 0];
+            shiftangle1 = atan2(norm(cross(v11, v21)), dot(v11, v21));
+            
+            v12 = [ls, max(lengths)+h1, 0] - [ls/2, max(lengths)+h1, 0];
+            v22 = [ls, (diamondslope(diamondindexodd)*ls)+h1+max(lengths),0] - [ls/2, max(lengths)+h1, 0];
+            shiftangle2 = atan2(norm(cross(v12, v22)), dot(v12, v22));
+
+            % Determine shift values (x value in supp. diagram)
+            shift1 = (((nz-i)/nz)*(ls/2))*(1/cos(shiftangle1));
+            shift2 = (((nz-i)/nz)*(ls/2))*(1/cos(shiftangle2));
+            
+            % Use lineslope and diamondslope values to determine h, which is
+            % the perpendicular from the midline to the inclined inner revolute
+            % point
+            hshift1 = ((lineslope)*shift1) / (1 + (lineslope*diamondslope(diamondindexeven)));
+            hshift2 = ((lineslope)*shift2) / (1 + (lineslope*-diamondslope(diamondindexodd)));
+                        
             index = (j-1)*9 + (n/2)*9*(nz-1) + 1;
             
             % Determine ls offset value
@@ -1410,89 +1394,34 @@ if nz > 1 && n >= 8
             % The y intersect in the negative regime (for pos. slope)
             neg = (h1 + 2*max(lengths)) - lineslope*(j+offset)*ls;
             
-            
             % Populate "corner" points first (on lineslope x)
-            recursion(index, 1) = ls/2 + (h/lineslope) + (j+offset-1)*ls;
+            recursion(index, 1) = ls/2 + (hshift2/lineslope) + (j+offset-1)*ls;
             recursion(index, 2) = neg + lineslope*recursion(index, 1);
             
-            recursion(index+1, 1) = ls/2 - (h/lineslope) + (j+offset-1)*ls;
+            recursion(index+1, 1) = ls/2 - (hshift1/lineslope) + (j+offset-1)*ls;
             recursion(index+1, 2) = pos - lineslope*recursion(index+1, 1);
             
-            recursion(index+4, 1) = ls/2 - (h/lineslope) + (j+offset-1)*ls;
+            recursion(index+2, 1) = ls/2 - shift1 + (j+offset-1)*ls;
+            recursion(index+2, 2) = max(lengths) + h1;
+            
+            recursion(index+3, 1) = ls/2 - shift1 + (j+offset-1)*ls;
+            recursion(index+3, 2) = max(lengths) + h1;
+            
+            recursion(index+4, 1) = ls/2 - (hshift1/lineslope) + (j+offset-1)*ls;
             recursion(index+4, 2) = neg + lineslope*recursion(index+4, 1);
             
-            recursion(index+5, 1) = ls/2 + (h/lineslope) + (j+offset-1)*ls;
+            recursion(index+5, 1) = ls/2 + (hshift2/lineslope) + (j+offset-1)*ls;
             recursion(index+5, 2) = pos - lineslope*recursion(index+5, 1);
+            
+            recursion(index+6, 1) = ls/2 + shift2 + (j+offset-1)*ls;
+            recursion(index+6, 2) = max(lengths) + h1;
+            
+            recursion(index+7, 1) = ls/2 + shift2 + (j+offset-1)*ls;
+            recursion(index+7, 2) = max(lengths) + h1;
             
             recursion(index+8, 1) = recursion(index, 1);
             recursion(index+8, 2) = recursion(index, 2);
-            
-            % New indexing for diamonds (as they scale by 2)
-            diamondindexeven = 2*j + (n-4);
-            diamondindexodd = 2*j + (n-4) + 1;
-            
-            % Determine metrics for left-side diamond
-            leftslope = -1/diamondslope(diamondindexeven);
-            leftoffset = (recursion(index, 2)) - recursion(index, 1)*leftslope;
-            leftintersect = ((max(lengths) + h1) - leftoffset) / leftslope;
-            
-            % Conditionals for left half diamond
-            if leftintersect > (j+offset-1)*ls
-                
-                % If the intersection occurs before frame limit, graph
-                % normally without factoring in cutoff.
-                recursion(index+6, 1) = leftintersect;
-                recursion(index+6, 2) = max(lengths) + h1;
-                
-                recursion(index+7, 1) = leftintersect;
-                recursion(index+7, 2) = max(lengths) + h1;
-                
-            elseif leftintersect <= (j+offset-1)*ls
-                
-                % If the intersection occurs after ls frame limit, graph
-                % only up until the ls frame boundary
-                recursion(index+7, 1) = (j+offset-1)*ls;
-                recursion(index+7, 2) = leftoffset + leftslope*recursion(index+7, 1);
-                
-                % Find offset from bottom line
-                differential = recursion(index+7, 2) - recursion(index, 2);
-                
-                recursion(index+6, 1) = (j+offset-1)*ls;
-                recursion(index+6, 2) = recursion(index+5, 2) - differential;
-                
-            end
-            
-            % Determine metrics for right-side diamond
-            rightslope = -1/diamondslope(diamondindexodd);
-            rightoffset = (recursion(index+1, 2)) - recursion(index+1, 1)*rightslope;
-            rightintersect = ((max(lengths) + h1) - rightoffset) / rightslope;
-            
-                        % Conditionals for left half diamond
-            if rightintersect < (j+offset)*ls
-                
-                % If the intersection occurs before frame limit, graph
-                % normally without factoring in cutoff.
-                recursion(index+2, 1) = rightintersect;
-                recursion(index+2, 2) = max(lengths) + h1;
-                
-                recursion(index+3, 1) = rightintersect;
-                recursion(index+3, 2) = max(lengths) + h1;
-                
-            elseif rightintersect >= (j+offset)*ls
-                
-                % If the intersection occurs after ls frame limit, graph
-                % only up until the ls frame boundary
-                recursion(index+2, 1) = (j+offset)*ls;
-                recursion(index+2, 2) = rightoffset + rightslope*recursion(index+2, 1);
-                
-                % Find offset from bottom line
-                differential = recursion(index+2, 2) - recursion(index+1, 2);
-                
-                recursion(index+3, 1) = (j+offset)*ls;
-                recursion(index+3, 2) = recursion(index+4, 2) - differential;
-                
-            end
-            
+                       
             % Storing and Plotting
             count = count + 1;
             dataFoldD(count).x = recursion(index:index+8, 1);
