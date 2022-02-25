@@ -11,6 +11,11 @@ clc
 % assign the Joint Parameters themselves ('true')
 selfassign = 'false';
 
+% Determines, in the instance of selfassign = 'false', whether
+% JointPlacement.m ('placement') or JointAssignment.m ('assignment') will
+% run.
+jointselect = 'placement';
+
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')
 elbow_tuck = 'on';
@@ -102,5 +107,5 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split, segmentation, plotoption);
+    DXF, split, segmentation, plotoption, jointselect);
 

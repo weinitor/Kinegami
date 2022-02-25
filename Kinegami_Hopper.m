@@ -11,6 +11,11 @@ clc
 % assign the Joint Parameters themselves ('true')
 selfassign = 'true';
 
+% Determines, in the instance of selfassign = 'false', whether
+% JointPlacement.m ('placement') or JointAssignment.m ('assignment') will
+% run.
+jointselect = 'placement';
+
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
 mirror = 'on';
@@ -117,4 +122,4 @@ end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     mirror, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
-    DXF, split, segmentation, plotoption);
+    DXF, split, segmentation, plotoption, jointselect);

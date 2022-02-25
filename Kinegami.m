@@ -3,7 +3,7 @@
 
 function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
-    TransformStruct, DXF, split, segmentation, plotoption)
+    TransformStruct, DXF, split, segmentation, plotoption, jointselect)
 
     addpath('DXFLib_v0.9.1')
     
@@ -17,12 +17,19 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         
     else
         
-        % Joint Placement and Planar Analysis
-        [TransformStruct, JointStruct, N] = JointPlacement(D, r, n, ...
-            JointStruct, N, theta_mod, fingertip, plotoption);
+        if strcmp(jointselect, 'placement') == 1
+            
+            % Joint Placement and Planar Analysis
+            [TransformStruct, JointStruct, N] = JointPlacement(D, r, n, ...
+                JointStruct, N, theta_mod, fingertip, plotoption);
+            
+        elseif strcmp(jointselect, 'assignment') == 1
     
-% %         % Joint Assignment and Sphere Analysis for DH specs
-%         [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption);
+            % Joint Assignment and Sphere Analysis for DH specs
+            [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, ...
+                theta_mod, fingertip, plotoption);
+            
+        end
         
     end
     

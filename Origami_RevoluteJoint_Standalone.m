@@ -10,7 +10,7 @@ addpath('DXFLib_v0.9.1')
 % Specify inputs (3D Modeling will also consider w, but do not worry about
 % this value for the time being for 2D)
 r = 0.02; %[m]
-n = 10; % must be even, 4 or greater
+n = 6; % must be even, 4 or greater
 theta_m = (3/2)*pi; %[rad]
 
 % Outputs array of lengths and value of ls in [m]
@@ -21,7 +21,7 @@ theta_m = (3/2)*pi; %[rad]
 % Specify values for h1 and h2, the heights of the two tube sections
 h1 = 0.02; %[m]
 h2 = 0.02; %[m]
-nz = 4;
+nz = 2;
 
 % Outputs graphing for elbow fitting
 [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz);
@@ -50,6 +50,6 @@ set(gcf, 'color', 'w')
 
 % % Convert to DXF
 filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...
-    '.dxf']);
+    '_nz' num2str(nz) '.dxf']);
 GenerateDXF(filename, dataFoldD)
 
