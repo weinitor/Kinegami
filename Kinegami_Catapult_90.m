@@ -10,7 +10,7 @@ clc
 % Determines whether JointPlacement.m ('placement'), JointAssignment.m
 % ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
 % localization
-jointselect = 'placement';
+jointselect = 'selfassign';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')
@@ -55,8 +55,8 @@ D = [0, pi/2, 0, pi/2; ...
 % Specify number of joints
 n = 6;
 
-if strcmp(selfassign, 'false') == 1
-
+if strcmp(jointselect, 'selfassign') == 0
+    
     n = 3;
 
     JointStruct(n) = struct();
@@ -77,7 +77,7 @@ end
 % If the selfassign tag is applied, provide Oc for each joint
 % Make sure that Oc(:,4) are all not equal to 0 (x.xxx * 10^-25, etc., is
 % acceptable)
-if strcmp(selfassign, 'true') == 1
+if strcmp(jointselect, 'selfassign') == 1
     
     d = 0.1;
     
@@ -139,7 +139,7 @@ if strcmp(selfassign, 'true') == 1
 else
     
     % Otherwise, do nothing besides initialization
-    TransformStruct(N+1) = struct();
+    TransformStruct(n) = struct();
 
 end
 

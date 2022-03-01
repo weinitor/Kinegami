@@ -10,7 +10,7 @@ clc
 % Determines whether JointPlacement.m ('placement'), JointAssignment.m
 % ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
 % localization
-jointselect = 'placement';
+jointselect = 'selfassign';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')
 % or appear normally ('off')
@@ -88,7 +88,7 @@ N = size(JointStruct, 2) - 1;
 TransformStruct(N+1) = struct();
 
 % If the selfassign tag is applied, provide Oc for each joint
-if strcmp(selfassign, 'true') == 1
+if strcmp(jointselect, 'selfassign') == 1
     
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
     fingertip = 'x';

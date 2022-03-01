@@ -10,7 +10,7 @@ clc
 % Determines whether JointPlacement.m ('placement'), JointAssignment.m
 % ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
 % localization
-jointselect = 'placement';
+jointselect = 'assignment';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')

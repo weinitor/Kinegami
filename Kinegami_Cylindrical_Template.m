@@ -89,7 +89,7 @@ TransformStruct(N+1) = struct();
 %% SELF-ASSIGNED JOINT LOCATION
 
 % If the selfassign tag is applied, provide Oc for each joint
-if strcmp(selfassign, 'true') == 1
+if strcmp(jointselect, 'selfassign') == 1
     
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
     fingertip = 'x';

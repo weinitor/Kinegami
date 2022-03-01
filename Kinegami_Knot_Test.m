@@ -91,7 +91,7 @@ TransformStruct(N+1) = struct();
 %% SELF-ASSIGNED JOINT LOCATION
 
 % If the selfassign tag is applied, provide Oc for each joint
-if strcmp(selfassign, 'true') == 1
+if strcmp(jointselect, 'selfassign') == 1
     
     n = 4;
     TYPE = ['V', 'R', 'R', 'F']; 
