@@ -7,13 +7,9 @@ clc
 
 % User Options - Change Prior to Running (if necessary)
 
-% Determines whether the user wishes to use DH parameters ('false') or
-% assign the Joint Parameters themselves ('true')
-selfassign = 'false';
-
-% Determines, in the instance of selfassign = 'false', whether
-% JointPlacement.m ('placement') or JointAssignment.m ('assignment') will
-% run.
+% Determines whether JointPlacement.m ('placement'), JointAssignment.m
+% ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
+% localization
 jointselect = 'placement';
 
 % Determines whether the user wishes their elbow fittings to have visible
@@ -59,7 +55,7 @@ D = [0, pi/2, 0, pi/2; ...
 % Specify number of joints
 n = 4;
 
-if strcmp(selfassign, 'false') == 1
+if strcmp(jointselect, 'selfassign') == 1
 
     n = 3;
 
@@ -82,7 +78,7 @@ end
 % If the selfassign tag is applied, provide Oc for each joint
 % Make sure that Oc(:,4) are all not equal to 0 (x.xxx * 10^-25, etc., is
 % acceptable)
-if strcmp(selfassign, 'true') == 1
+if strcmp(jointselect, 'selfassign') == 1
     
     JointStruct(n) = struct();
 
@@ -130,6 +126,6 @@ else
 end
 
 [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, nsides, JointStruct, ...
-    elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    elbow_tuck, triple, theta_mod, fingertip, TransformStruct, ...
     DXF, split, segmentation, plotoption, jointselect);
 

@@ -7,13 +7,9 @@ clc
 
 % User Options - Change Prior to Running (if necessary)
 
-% Determines whether the user wishes to use DH parameters ('false') or
-% assign the Joint Parameters themselves ('true')
-selfassign = 'true';
-
-% Determines, in the instance of selfassign = 'false', whether
-% JointPlacement.m ('placement') or JointAssignment.m ('assignment') will
-% run.
+% Determines whether JointPlacement.m ('placement'), JointAssignment.m
+% ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
+% localization
 jointselect = 'placement';
 
 % Determines whether the user wishes their elbow fittings to have visible
@@ -147,5 +143,5 @@ else
 end
 
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    elbow_tuck, triple, theta_mod, fingertip, selfassign, TransformStruct, ...
+    elbow_tuck, triple, theta_mod, fingertip, TransformStruct, ...
     DXF, split, segmentation, plotoption, jointselect);

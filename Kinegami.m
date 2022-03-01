@@ -2,7 +2,7 @@
 % Last Edited 7/22/2021 by Lucien Peach
 
 function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n, ...
-    JointStruct, mirror, triple, theta_mod, fingertip, selfassign, ...
+    JointStruct, mirror, triple, theta_mod, fingertip, ...
     TransformStruct, DXF, split, segmentation, plotoption, jointselect)
 
     addpath('DXFLib_v0.9.1')
@@ -10,7 +10,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     % Determine N (this will ultimately change for JointPlacement.m case)
     N = size(JointStruct, 2) - 1;
     
-    if strcmp(selfassign, 'true') == 1
+    if strcmp(jointselect, 'selfassign') == 1
                
         % Run if Joint Assignment has been pre-assigned
         [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, plotoption); 
