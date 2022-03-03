@@ -62,37 +62,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         infostruct(i).h2 = 0;
         
     end
-    
-    % Check a vectors for optimal orientation
-    index = 0;
-    for i = 1:N
-        % WEI(0203): We already checked this in JointPlacement, can you add
-        % this to Joint assignment?
-%         if strcmp(JointStruct(i).type, 'W') ~= 1
-%             
-%             index = index + 1;
-%         
-%             % Extract a and c vectors for frame being adjusted
-%             a = TransformStruct(index).Oc(:, 1);
-%             c = TransformStruct(index).Oc(:, 3);
-% 
-%             % Find distance vector between initial point and subsequent
-%             Vd = TransformStruct(index+1).Oc(:, 4) - TransformStruct(index).Oc(:, 4); 
-% 
-%             % If dot product is less than 0, flip direction of a
-%             if dot(Vd, a) < 0
-% 
-%                 TransformStruct(index).Oc(:, 1) = -a;
-% 
-%                 % Also flip c to keep consistent with RHR
-%                 TransformStruct(index).Oc(:, 3) = -c;
-% 
-%             end
-%         
-%         end
         
-    end
-    
     % Populate proximal and distal potential frames prior to looping
     index = 0;
     for i = 1:N+1
@@ -494,7 +464,6 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
  
     end
     
-    % WEI: Fixed the orientation of inital tube 1/27/2022
     % Add initial tube plotting. Take all 3 possible orientations into
     % account for accurate point plotting.
     
@@ -581,7 +550,6 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     zlabel('z')
     title('Frame Connections')
     
-    % WEI: TO BE FIXED? the numbering might be wrong
     % Dubins Plotting    
     for i = 1:N
         

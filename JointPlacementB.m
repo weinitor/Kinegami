@@ -95,8 +95,6 @@ for i = N:-1:1
     Oz = TransformStruct(i).net(1:3, 3);
     Oc = TransformStruct(i).net(1:3, 4);
     
-    
-    % WEI(0208): add in theta modification
     % If revolute
     if JointStruct(i).type == 'R'
         
@@ -170,9 +168,6 @@ for i = N+1:-1:2
     TransformStruct(i).P1par(:, 2) = TransformStruct(i).parallel(:, 4);  
 
     % Determine location of first waypoint
-%     [waypoint1] = IntersectionSolver(TransformStruct(i).P1, ...
-%       TransformStruct(i).oi.', TransformStruct(i).normal);  
-%    WEI(0208): I think the oi should be the actual joint centroid
     [waypoint1] = IntersectionSolver(TransformStruct(i).P1, ...
       TransformStruct(i).Oc(:, 4).', TransformStruct(i).normal);
 
@@ -186,13 +181,11 @@ for i = N+1:-1:2
 
     % Run PlaneCheck, which will determine if the z-axis is on the far or
     % near side of the parallel plane.
-    % WEI(0208): Check all the time
       planeval = PlaneCheck(TransformStruct(i).P1par, TransformStruct(i-1).oi);   
 
     % For parallel, conflicting case
-%     if dot(TransformStruct(i).normal, TransformStruct(i-1).zaxis) == 0 && ...
-%             planeval < 0
-    % WEI(0208): There could be numeric error, so don't check for ==0
+    % There could be numeric error, so check for "statment < 0.00001"
+    % instead of "statement == 0".
     if abs(dot(TransformStruct(i).normal, TransformStruct(i-1).zaxis)) < 0.00001 && ...
             planeval < 0
 
@@ -223,7 +216,6 @@ for i = N+1:-1:2
         TransformStruct(i).P2par(:, 2) = TransformStruct(i).parallel2(:, 4);  
 
         % Determining waypoint2
-        % WEI(0208): Change from TransformStruct(i).waypoint1 to waypoint1
         ref2 = waypoint1 + r*TransformStruct(i).normal; 
         [waypoint2] = IntersectionSolver(TransformStruct(i).P2, ...
             ref2, TransformStruct(i).normal2);
@@ -236,7 +228,7 @@ for i = N+1:-1:2
       
         OcMatrix = [TransformStruct(i).Oc(:, 1), TransformStruct(i).Oc(:, 2), ...
             TransformStruct(i).Oc(:, 3)];
-        ORotation =  rotation_matrix * OcMatrix; % WEI(0203): FIXED
+        ORotation =  rotation_matrix * OcMatrix;
       
         % Store to structure as waypoint2
         TransformStruct(i).waypoint2 = [ORotation(:, 1), ORotation(:, 2), ...
@@ -309,21 +301,15 @@ for i = N+1:-1:2
     % Express other parameters as empty cells (not used)
     A = -dot([a b c], Oz');
     B = dot([a b c], Oc')+d;
-    Aeq = [];
-    Beq = [];
-    LB = [];
-    UB = [];
-    nonlincon = @nlcon;
 
-    % WEI(0208): to avoid potential numeric error:
-    if abs(A)<0.00001
-        
+    % To avoid potential numeric error:
+    if abs(A) < 0.00001
+
         A = 0;
         
     end    
     
     % Output optimal value for delta (or t)
-%     t_val = fmincon(obj, delta0, A, B, Aeq, Beq, LB, UB, nonlincon);
     t_val = fmincon(obj, delta0, A, B);
     
     % Now, use values of u and t to find Oc(i-1)
@@ -392,17 +378,6 @@ for i = 2:3:(Nnew)
     JointStructNew(i+1).Od = TransformStruct(index).waypoint1;
     JointStructNew(i+1).type = 'W';
     
-end
-
-% Nonlinear Constraint Function Call  %WEI: Oi is different from Oc
-function [constraint, ceq] = nlcon(delta)
-%     constraint = 0 - (a*(TransformStruct(i-1).Oc(1, 4) + delta*Oz(1)) + ...
-%         b*(TransformStruct(i-1).Oc(2, 4) + delta*Oz(2)) + ...
-%         c*(TransformStruct(i-1).Oc(3, 4) + delta*Oz(3)) + d);
-    constraint = 0 - (a*(Oc(1) + delta*Oz(1)) + ...
-        b*(Oc(2) + delta*Oz(2)) + ...
-        c*(Oc(3) + delta*Oz(3)) + d);
-    ceq = [];
 end
 
 % Final sphere ("joint") visualization
