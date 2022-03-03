@@ -17,16 +17,16 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         
     else
         
-        if strcmp(jointselect, 'placement') == 1
+        if strcmp(jointselect, 'placementB') == 1
             
             % Joint Placement and Planar Analysis
-            [TransformStruct, JointStruct, N] = JointPlacement(D, r, n, ...
+            [TransformStruct, JointStruct, N] = JointPlacementB(D, r, n, ...
                 JointStruct, N, theta_mod, fingertip, plotoption);
             
-        elseif strcmp(jointselect, 'assignment') == 1
+        elseif strcmp(jointselect, 'placementA') == 1
     
             % Joint Assignment and Sphere Analysis for DH specs
-            [TransformStruct] = JointAssignment(D, r, n, JointStruct, N, ...
+            [TransformStruct] = JointPlacementA(D, r, n, JointStruct, N, ...
                 theta_mod, fingertip, plotoption);
             
         end

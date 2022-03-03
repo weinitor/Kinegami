@@ -7,9 +7,10 @@ clc
 
 % User Options - Change Prior to Running (if necessary)
 
-% Determines whether JointPlacement.m ('placement'), JointAssignment.m
-% ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
-% localization
+% Determines which joint placement method will be implemented:
+% For the general method, use JointPlacementA.m ('placementA'); 
+% To guarantee no self-intersection, use JointPlacementB.m ('placementB');
+% To locate the joints manually, use SelfAssign.m ('selfassign')
 jointselect = 'selfassign';
 
 % Determines whether the user wishes to have elbow joints mirrored ('on')

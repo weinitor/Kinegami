@@ -7,9 +7,10 @@ clc
 
 % User Options - Change Prior to Running (if necessary)
 
-% Determines whether JointPlacement.m ('placement'), JointAssignment.m
-% ('assignment'), or SelfAssign.m ('selfassign') will be used for the joint
-% localization
+% Determines which joint placement method will be implemented:
+% For the general method, use JointPlacementA.m ('placementA'); 
+% To guarantee no self-intersection, use JointPlacementB.m ('placementB');
+% To locate the joints manually, use SelfAssign.m ('selfassign')
 jointselect = 'selfassign';
 
 % Determines whether the user wishes their elbow fittings to have visible
@@ -104,8 +105,8 @@ if strcmp(jointselect, 'selfassign') == 1
         0, 0, -1, d; ...
         0, 1, 0, 0];
     
-    TransformStruct(2).Oc = [0, 0, 1, 2*d; ...
-        1, 0, 0, 0; ...
+    TransformStruct(2).Oc = [0, 0, -1, 2*d; ...
+        -1, 0, 0, 0; ...
         0, 1, 0, 0];
     
     TransformStruct(3).Oc = [-1, 0, 0, 0; ...
@@ -120,21 +121,9 @@ if strcmp(jointselect, 'selfassign') == 1
         0, 0, -1, 0; ...
         1, 0, 0, d];
 
-    TransformStruct(6).Oc = [0, -1, 0, 0.51*d; ...
+    TransformStruct(6).Oc = [0, -1, 0, 0.5*d; ...
         0, 0, -1, 0; ...
         1, 0, 0, 3*d];
-    
-    % Note in lines 112-114 an important specification. Due to singularity
-    % issues, TransformStruct(6).Oc(1,4) = 0.51*d instead of 0.5*d.
-    % Referencing the 2D Crease Pattern, we can see that this minor change
-    % creates an elbow joint outside of our tolerance range, and thus only
-    % a tube is generated. Therefore, the functionality of the final
-    % origami folded model is not impacted by this necessary change. 
-    
-    % Here solely to not mess up Kinegami running
-    D = [0, pi/2, 0, pi/2; ...
-        0, pi/2, 0, 0; ...
-        0.2, 0, 0, 0];
     
 else
     
