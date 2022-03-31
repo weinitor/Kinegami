@@ -1,5 +1,5 @@
 # Kinegami
-Given a D-H specification of a kinematic chain robot, the program generates a crease pattern that folds into a kinematically equivalent robot with compliant joints. The program takes in the D-H specification and assigns the corresponding joint to a location that is sufficiently far from other joints while keeping the same kinematic properties. Then an origami link inspired by the Dubin's path method is created to connect every two conseccutive joints. 
+Given a Denavit-Hartenberg (D-H) specification of a kinematic chain robot, the program generates a crease pattern that folds into a kinematically equivalent robot with compliant joints. The program takes in the D-H specification and assigns the corresponding joint to a location that is sufficiently far from other joints while keeping the same kinematic properties. Then an origami link inspired by the Dubin's path method is created to connect every two conseccutive joints. 
 
 To construct the D-H specification, follow the variable definitaion ("Link length (a)", "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)") and numbering system of this kinematic chain mechanism schematic drawing (for details, please read "W. Khalil and E. Dombre, *Modeling, identification and control of robots*") to form a table.
 
@@ -7,10 +7,12 @@ To construct the D-H specification, follow the variable definitaion ("Link lengt
 <!-- ![DHlight](https://user-images.githubusercontent.com/50150425/161122307-ad8ce29e-18ea-4b91-883e-ca186c5232fc.png) -->
 <img src="https://user-images.githubusercontent.com/50150425/161122307-ad8ce29e-18ea-4b91-883e-ca186c5232fc.png" alt="DHlight" width="600"/>
 
-The folded state of the origami module, its spacial operator representation, and its crease pattern is shown here: (a) the origami prism tube, (b) the twist fitting, (c) the elbow fitting, (d) the prismatic joint, (e) the revolute joint, (f) partial close-up of an elbow fitting and (g) partial close-up of a revolute joint.
+Our Kinegami algorithm recruits a catalogue of parameterized modules. The folded state of the origami module, its spacial operator representation, and its crease pattern is shown here: (a) the origami prism tube, (b) the twist fitting, (c) the elbow fitting, (d) the prismatic joint, (e) the revolute joint, (f) partial close-up of an elbow fitting and (g) partial close-up of a revolute joint.
 
 ![OrigamiModuleNew](https://user-images.githubusercontent.com/50150425/161108362-0ee75174-3fda-47f5-8d4d-f7433aadc7c7.png)
 
+In addition, it provides the additional contribution of automatically choosing the relevant modules (with design parameters that control their compliance) and composing them into a non-self-intersecting single sheet pattern, thus reducing the design problem into simply one of abstract specification.
+The resulting pipeline does not require any additional human input beyond the D-H specification, though its algorithmic steps are sufficiently transparent as to facilitate the integration of designers' alternative modules or more suitably optimized compositions when desired.
 
 ## User Guide
 Run scripts `Kinegami_******.m` for existing examples and change parameters if desired. 
