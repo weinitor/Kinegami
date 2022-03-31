@@ -17,10 +17,10 @@ The resulting pipeline does not require any additional human input beyond the D-
 ## User Guide
 Run scripts `Kinegami_******.m` for existing examples and change parameters if desired. 
 To create your kinematic chain robot, fill out the `Kinegami_Template.m` file in this order:
-1. design the regular polygon shape (the number of sides "nside" and circumradius "r") as the tubular origami base
-2. determine the number of joints for your robot, fill in the number of joints plus one (the fingertip) in variable "n".
-3. fill in the DH parameters specifications for variable "D" following the joint design.
-4. specify joints information, all variables that contain "??", including TYPE, maximum joint range, initial joint configurations, etc.
+1. Design the regular polygon shape (the number of sides "nside" and circumradius "r") as the tubular origami base
+2. Determine the number of joints for your robot, fill in the number of joints plus one (the fingertip) in variable "n".
+3. Fill in the DH parameters specifications for variable "D" following the joint design.
+4. Specify joints information, all variables that contain "??", including TYPE, maximum joint range, initial joint configurations, etc.
 5. In addition, modify the user specifications for crease pattern generation including DXF printing and segmentations.
 
 For more comprehensive understanding, reference supporting functions. The algorithm requires "fSolve" from the MatLab Optimization Toolbox. Please install the add-on Optimization Toolbox.
