@@ -18,13 +18,12 @@ addpath('DXFLib_v0.9.1')
 % Specify inputs
 r = 0.02; %[m]
 n = 4;
-<<<<<<< HEAD
+
 phi = pi/3; %[rad]
 theta = 2*pi/3; %[rad] - splits for greater than pi/2
-=======
-phi = pi/2; %[rad]
-theta = -3*pi/4; %[rad] - splits for greater than pi/2
->>>>>>> 5f363364885311361c91262d6f08f87340946efe
+
+% phi = pi/2; %[rad]
+% theta = -3*pi/4; %[rad] - splits for greater than pi/2
 
 % Automatically @pi/2 split unless specified by user to not split
 split = 'on';
