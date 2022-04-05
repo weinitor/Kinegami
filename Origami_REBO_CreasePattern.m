@@ -1,7 +1,14 @@
-% Graph for crease pattern - Origami REBO joint
-% Last edited 4/3/2022 by Lucien Peach
-
 function [dataFoldREBO, m, lmax] = Origami_REBO_CreasePattern(n, nl, ls, l1, h1, h2, alpha)
+% ORIGAMI_REBO_CREASEPATTERN - Generates a crease pattern for the origami
+% REBO joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 4/3/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

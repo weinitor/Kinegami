@@ -1,8 +1,14 @@
-% Crease pattern parameters - Origami REBO joint
-% Last edited 4/3/2022 by Lucien Peach
-
-% Function declaration
 function [ls, l1, h0, alpha] = Origami_REBO_Parameters(r, n, beta, d0, nl)
+% ORIGAMI_REBO_PARAMETERS - Find the key variables needed to
+% generate the crease pattern of the origami REBO joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 4/3/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Specify delta value for side length calculation
 delta = pi*((n-2)/(2*n));

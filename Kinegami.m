@@ -1,9 +1,16 @@
-% Kinegami
-% Last Edited 7/22/2021 by Lucien Peach
-
 function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, ...
     TransformStruct, DXF, split, segmentation, plotoption, jointselect)
+% KINEGAMI - Generates a crease pattern that folds into a serial mechanism
+% from a given D-H specification.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 7/22/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
     addpath('DXFLib_v0.9.1')
     

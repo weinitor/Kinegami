@@ -1,9 +1,13 @@
-% Frame Plotting (Od and Op)
-% Last Edited 7/5/2021 by Lucien Peach
-
 function handle = frameplot(frame, color)
+% FRAMEPLOT - Plot out the Op or Od frame
 
-% frame is the Op or Od being plotted
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 7/5/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % We know that the a vector is always normal to the frame, so we can plot
 % the frame using this normal vector along with the centerpoint of the

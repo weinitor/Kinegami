@@ -1,5 +1,13 @@
-% Creating a Crease Schematic - Fingertip "Joint"
-% Last edited 8/3/2021 by Lucien Peach
+% ORIGAMI_FINGERTIP_STANDALONE - Generates the crease pattern of the origami
+% fingertip "joint". 
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 8/3/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all

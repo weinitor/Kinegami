@@ -1,8 +1,14 @@
-% Crease pattern parameters - Origami Prismatic joint
-% Last edited 6/15/2021 by Lucien Peach
-
-% Function declaration
 function [ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl)
+% ORIGAMI_PRISMATICJOINT_PARAMETERS - Find the key variables needed to
+% generate the crease pattern of the origami prismatic joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/15/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Specify delta value for side length calculation
 delta = pi*((n-2)/(2*n));

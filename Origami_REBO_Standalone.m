@@ -1,3 +1,8 @@
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+
 % Creating a Crease Schematic - Origami REBO joint
 % Last edited 12/15/2021 by Lucien Peach
 

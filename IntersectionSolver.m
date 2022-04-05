@@ -1,9 +1,15 @@
-% Intersection Solver
-% Last Edited 1/19/2021 by Lucien Peach
-
+function [positionvector] = IntersectionSolver(plane, point, linevec)
+% INTERSECTIONSOLVER - find the intersection between a plane and a line.
 % Used to perform the mathematics necessary to find intersection point
 % between a point and a line. Result is output as a position [x, y, z]
-function [positionvector] = IntersectionSolver(plane, point, linevec)
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 1/19/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Begin by using the point and linevec information to create the values
 % which will be used in parametric equations.

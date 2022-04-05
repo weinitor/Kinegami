@@ -1,8 +1,17 @@
-% Rotation Matrix
-% Last edited 6/16/2021 by Lucien Peach
-% Last edited 7/27/2021 by Wei-Hsi Chen, the input axis is normalised
-
 function [r_mat] = RotationalMatrix(w, theta)
+% ROTATIONALMATRIX - The rotational matrix about a unit vector w for theta
+% degree.
+%   w     - unit vector of a rotation axis.
+%   theta - the angle of rotation (in rad).
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last edited 7/27/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % The rotation axis must be a unit vector
 w = w/norm(w);

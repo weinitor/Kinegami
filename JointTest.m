@@ -1,7 +1,14 @@
-% Joint Placement Testing 
-% Last Edited 1/17/2021 by Lucien Peach
+% JOINTTEST - Used for running and intermediary visualization of
+% JointPlacement.m.
 
-% Used for running and intermediary visualization of JointPlacement.m
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 1/17/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
+
 clear
 close all
 clc

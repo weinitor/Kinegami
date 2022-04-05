@@ -1,5 +1,13 @@
-% Creating a Crease Schematic - Origami prismatic joint
-% Last edited 12/15/2021 by Lucien Peach
+% ORIGAMI_PRISMATICJOINT_STANDALONE - Generates the crease pattern of the
+% origami prismatic joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 12/15/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all

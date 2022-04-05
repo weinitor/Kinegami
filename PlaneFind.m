@@ -1,10 +1,14 @@
-% PlaneFind Algorithm
-% Last Edited 1/27/2021 by Lucien Peach
-
-% Simpler version of PlaneCheck that simply outputs values for a, b, c, and
-% d such that the plane equation can be simply written.
-
 function [a, b, c, d] = PlaneFind(plane)
+% PLANEFIND - Simpler version of PlaneCheck that simply outputs values for
+% a, b, c, and d such that the plane equation can be simply written.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 1/27/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Plane represents the 3x2 matrix used to contain the normal vector and
 % center point of the plane in question, while point is a point on the

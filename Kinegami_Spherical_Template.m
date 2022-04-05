@@ -1,5 +1,14 @@
-% Kinegami Test V1 (Spherical Wrist)
-% Last Edited 1/1/2022 by Lucien Peach
+% KINEGAMI_SPHERICAL_TEMPLATE - Generates a 3 DOF spherical wrist with
+% Kinegami. 
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last Edited 1/1/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all

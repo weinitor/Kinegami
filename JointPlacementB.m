@@ -1,12 +1,18 @@
-% Joint Placement B (no self-intersecting links)
-% Last Edited 1/28/2021 by Lucien Peach
-
 function [TransformStruct, JointStructNew, Nnew] = JointPlacementB(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption)
+% JOINTPLACEMENTB - This algorithm identifies the joint location
+% iteratively such that the new joint location is always 4r apart from all
+% the previous joints. In addition, waypoints are introduced to reroute the
+% centerline of the link to avoid path intersection. This algorithm shows
+% the existance of non-self-intersecting Dubins-specified links.
 
-% This algorithm identifies the joint location iteratively such that the
-% new joint location is always 4r apart from all the previous joints. 
-% In addition, waypoints are introduced to reroute the centerline of the
-% link to avoid path intersection.
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last Edited 1/28/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Does this process remain for JointPlacement? Unsure but kept for now.
 for i = (N+1):-1:1

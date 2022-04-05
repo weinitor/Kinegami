@@ -1,14 +1,19 @@
-% Homogeneous Transformation Algorithm
-% Last Edited 6/23/2021 by Lucien Peach 
-
 function [DataStruct] = InverseHomogeneousTransform(index, D)
+% INVERSEHOMOGENEOUSTRANSFORM - Find the inverse trasformation matrix given
+% the D-H specification.
+%   D     - the D-H parameter table of values: i x [a, alpha, d, theta].
+%   index - ranges from 1 to i, used for identifying and properly placing T
+%           into a table of other T values. T indexing is based on the
+%           upper index of T. For instance, T(i) would be equivalent to
+%           {super(i-1)}{T}{sub(i)}
 
-% index ranges from 1 to i, used for identifying and properly placing T
-% into a table of other T values
-% D is the D-H parameter table of values: i x [a, alpha, d, theta]
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 6/23/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
 
-% T indexing is based on the upper index of T. For instance, T(i) would be
-% equivalent to {super(i-1)}{T}{sub(i)} 
 
 % Express a, alpha, d, and theta in terms of indexing in D
 % a = D(index, 1);

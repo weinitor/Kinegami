@@ -1,8 +1,14 @@
-% Crease pattern parameters - Origami elbow fitting
-% Last edited 8/14/2021 by Lucien Peach
-
-% Function declaration
 function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split)
+% ORIGAMI_ELBOW_PARAMETERS - Find the key variables needed to generate the
+% crease pattern of the origami elbow fitting.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 8/14/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Flip the direction is theta is less tha 0
 if theta < 0

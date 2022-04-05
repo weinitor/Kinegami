@@ -1,15 +1,19 @@
-% Appending Crease Pattern
-% Last Edited 6/22/2021 by Lucien Peach
-
 function [msum, lmax_sum, infostruct, Struct1] = DataFoldAppend(a, Struct1, infostruct, index, msum, lmax_sum)
-% infostruct is a data structure that includes all the information needed
-% for the construction of the full schematic
+% DATAFOLDAPPEND - please describe this function.
+%   infostruct - a data structure that includes all the information needed
+%                for the construction of the full schematic.
+%   index      - allows us to know what section of the template we are on. 
+%                Must be an odd number.
+%   msum       - a cumulative counter used for resetting along the x axis 
+%                that carries over for each set of appended structures.
 
-% index allows us to know what section of the template we are on. Must be
-% an odd number
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 6/22/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
 
-% msum is a cumulative counter used for resetting along the x axis that
-% carries over for each set of appended structures
 
 % Check will differ based on if index is final in array
 if index == size(infostruct, 2)

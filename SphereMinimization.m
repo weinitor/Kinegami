@@ -1,16 +1,20 @@
-% Sphere Distance Minimization
-% Last Edited 6/24/2021 by Lucien Peach 
-
 function [DataStruct] = SphereMinimization(DataStruct, index, r, colorinput, plotoption)
+% SPHEREMINIMIZATION - please describe this function in a sentence.
+%   DataStruct - the array which contains information about the origins of
+%                each of the joints as well as the radius associated with
+%                each joint. We will be starting with the end joint and
+%                working to joint 0.
+%   index      - allows us to keep track of what joint we are adjusting.
+%                index will be counted in a loop outside of this function.
+%   r          - the r unadjusted by any joint parameters (pure r).
 
-% DataStruct is the array which contains information about the origins of
-% each of the joints as well as the radius associated with each joint. We
-% will be starting with the end joint and working to joint 0
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 6/24/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
 
-% index allows us to keep track of what joint we are adjusting. index will
-% be counted in a loop outside of this function
-
-% r is the r unadjusted by any joint parameters (pure r)
 
 % Calculate required distances to make conditionals easier to write
 dist = 4*r + DataStruct(index).rnew + DataStruct(index-1).rs;

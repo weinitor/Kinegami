@@ -1,6 +1,15 @@
-% Kinegami Template V1
-% Fill in the Kinematic parameters '??' and specify the user options.
-% Last Edited 1/1/2022 by Lucien Peach
+% KINEGAMI_TEMPLATE - Generates a crease pattern for the given robot
+% specification. Fill in the Kinematic parameters '??' and specify the user
+% options. 
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last Edited 1/1/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all

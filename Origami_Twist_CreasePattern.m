@@ -1,7 +1,14 @@
-% Graph for crease pattern - Origami twist fitting
-% Last edited 6/7/2021 by Lucien Peach
-
 function [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha)
+% ORIGAMI_TWIST_CREASEPATTERN - Generates a crease pattern for the origami
+% twist fitting.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/7/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

@@ -1,8 +1,15 @@
-% Dubins Path Plotting
-% Last edited 7/22/2021 by Lucien Peach
-% Last edidt 7/27/2021 by Wei-Hsi Chen
-
 function [JointStruct] = DubinsPlot(JointStruct, infostruct, index, i)
+% DUBINSPATHPLOTTING - Plots the CSC Dubins path between the distal frame
+% of the previous joint and the proximal frame of the later joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last edited 7/27/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % TransformStruct provides information about frames
 % infostruct provides information about fold parameters

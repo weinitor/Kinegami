@@ -1,5 +1,10 @@
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+
 % Basic Crease Design - Fold Type D (A.3) (Origami_RevoluteJoint)
-% Last edited 6/11/2021 by Lucien Peach
+% Last edited 6/11/2021
 
 % Function declaration
 function [lengths, ls] = Origami_RevoluteJoint_creasedesign_old(r, n, theta_m)

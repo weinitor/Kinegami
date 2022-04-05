@@ -1,7 +1,13 @@
-% Dissect Plot
-% Last Edited 8/8/2021 by Lucien Peach
-
 function [DissectPlot] = DissectPlot(n, ls, index, infostruct, val)
+% DISSECTPLOT - please describe this function.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 8/8/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

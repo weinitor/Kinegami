@@ -1,7 +1,14 @@
-% Graph for crease pattern - Fingertip
-% Last edited 6/11/2021 by Lucien Peach
-
 function [FingertipFold, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m)
+% ORIGAMI_FINGERTIP_CREASEPATTERN - Generates a crease pattern for the
+% origami finger tip. Treat this module as a joint (that does not move).
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/11/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

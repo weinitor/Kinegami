@@ -1,10 +1,15 @@
-% Standalone Duplication
-% Created 12/13/2021 by Lucien Peach
-
-% The aim of this program will be to add the additional frame to each
-% xxx_xxx_Standalone.m file, which is needed for overlap 
-
 function [DataFoldNew] = StandaloneDuplication(DataFoldOld, ls, n, lmax, type, h1, maxlengths)
+% STANDALONEDUPLICATION - The aim of this program will be to add the
+% additional frame to each xxx_xxx_Standalone.m file, which is needed for
+% overlap.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Created 12/13/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Add to right side for all types except 'revolute' (for ease of folding)
 if strcmp(type, 'revolute') ~= 1

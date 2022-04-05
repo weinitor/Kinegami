@@ -1,10 +1,16 @@
-% Dubins Path 3D Modeling
-% Lasted edited 6/25/2021 by Dr. Cynthia Sung and Lucien Peach
-% Lasted edited 7/27/2021 by Wei-Hsi Chen
-
+function [tmin, theta1min, theta2min] = solveDubins3d(r, Od, Op)
+% SOLVEDUBINS3D - Find the CSC Dubins path from frame Op to Od.
 % Outputs row vector and two radian values
 % Make sure that Od and Op are normalized prior to entry
-function [tmin, theta1min, theta2min] = solveDubins3d(r, Od, Op)
+
+% Authors: 
+% Cynthia Sung <crsung@seas.upenn.edu>
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Lasted edited 7/27/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
 
 % input params
 od = Od(:, 4).';

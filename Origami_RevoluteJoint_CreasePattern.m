@@ -1,7 +1,14 @@
-% Graph for crease pattern - Origami Revolute joint
-% Last edited 6/11/2021 by Lucien Peach
-
 function [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz)
+% ORIGAMI_REVOLUTEJOINT_CREASEPATTERN - Generates a crease pattern for the
+% origami REBO joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/11/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

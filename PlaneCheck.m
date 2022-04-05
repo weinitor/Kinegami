@@ -1,7 +1,13 @@
-% PlaneCheck Algorithm
-% Last Edited 1/27/2021 by Lucien Peach
-
 function [planeval] = PlaneCheck(plane, point)
+% PLANECHECK - Check which side of the plane that the given point lies on.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 1/27/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Plane represents the 3x2 matrix used to contain the normal vector and
 % center point of the plane in question, while point is a point on the

@@ -1,7 +1,14 @@
-% Graph for crease pattern - Origami tube
-% Last edited 6/9/2021 by Lucien Peach
-
 function [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r)
+% ORIGAMI_TUBE_CREASEPATTERN - Generates a crease pattern for the origami
+% prism tube.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/9/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

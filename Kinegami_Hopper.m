@@ -1,11 +1,19 @@
-% Kinegami Test V1 (6 DOF)
-% Last Edited 1/1/2022 by Lucien Peach
+% KINEGAMI_HOPPER - Generates a hopper prototype with Kinegami.
+
+% Authors: 
+% Yiyu Wu <yiyuwu@sas.upenn.edu >
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last Edited 1/1/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all
 clc
 
-% User Options - Change Prior to Running (if necessary)
+%% User Options - Change Prior to Running (if necessary)
 
 % Determines which joint placement method will be implemented:
 % For the general method, use JointPlacementA.m ('placementA'); 
@@ -117,6 +125,9 @@ else
     % Otherwise, do nothing new
 end
 
+%% RUN KINEGAMI
+
+% Run Kinegami code
 [infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
-    mirror, triple, theta_mod, fingertip, TransformStruct, ...
+    elbow_tuck, triple, theta_mod, fingertip, TransformStruct, ...
     DXF, split, segmentation, plotoption, jointselect);

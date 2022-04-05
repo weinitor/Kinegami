@@ -1,7 +1,14 @@
-% Kinegami Test V1 (Intersection Testing)
-% Last Edited 1/26/2022 by Wei-Hsi
-% This example is to show the possibility of self-intersection
-% The comments for the joint specifications are deleted for simplicity
+% KINEGAMI_KNOT_TEST - This example is to show the possibility of
+% self-intersection. The comments for the joint specifications are deleted
+% for simplicity. 
+
+% Authors: 
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last Edited 1/26/2022
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all

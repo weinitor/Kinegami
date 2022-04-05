@@ -1,7 +1,16 @@
-% Creating a Crease Schematic - Default origami tube
-% Last edited 12/30/2021 by Lucien Peach
+% ORIGAMI_TUBE_STANDALONE - Generates the crease pattern of the origami
+% prism tube. 
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 12/30/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
+close all
 clc
 
 % Specify inputs

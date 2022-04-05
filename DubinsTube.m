@@ -1,13 +1,20 @@
-% Dubins Tube Algorithm
-% Last Updated 7/22/2021 by Lucien Peach
-% Last Updated 7/27/2021 by Wei-Hsi Chen
-
 function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror, split)
+% DUBINSTUBE - Generate a sequense of origami modules to connect the distal
+% frame of the previous joint and the proximal frame of the later joint.
+%   Op and Od - frames (3x4 matrices).
 
-% Op and Od are both 3x4 matrices
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last edited 7/27/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
+
+
 
 % We know that Ou = {au, bu, cu, ou} - 3x4 matrix of vec/norm(vec)
-
 % Thus,
 ap = Op(:, 1);
 ap = ap / norm(ap);

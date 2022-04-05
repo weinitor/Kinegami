@@ -1,7 +1,14 @@
-% Graph for crease pattern - Origami elbow fitting
-% Last edited 6/8/2021 by Lucien Peach
-
 function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, tuck, split, tuckangle)
+% ORIGAMI_ELBOW_CREASEPATTERN - Generates a crease pattern for the origami
+% elbow fitting.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/8/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Create "duplicate" value
 duplicate = 1;

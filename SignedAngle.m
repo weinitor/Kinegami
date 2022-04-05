@@ -1,8 +1,15 @@
-% Finding the signed angle between two vector "a" and "b"  with respect to
-% vector "a", around the normal vector "n". Outputs an angle "theta"
-% Last edited 8/6/2021 by Wei-Hsi Chen
-
 function [theta] = SignedAngle(a, b, n)
+% SIGNEDANGLE - Finding the signed angle between two vector "a" and "b"
+% with respect to vector "a", around the normal vector "n". Outputs an
+% angle "theta".
+
+% Authors: 
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last edited 8/6/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Make sure all vectors are normalised
 a = a/norm(a);

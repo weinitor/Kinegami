@@ -1,7 +1,13 @@
-% Self Assign
-% Last Edited 7/20/2021 by Lucien Peach
-
 function [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, plotoption)
+% SELFASSIGN - This algorithm process the manually labeled joint frames.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 7/20/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Inputs: Necessary parameters as well as center locations and frame
 % information for each "sphere"

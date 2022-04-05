@@ -1,5 +1,13 @@
-% Creating a Crease Schematic - Origami Revolute Joint
-% Last edited 6/17/2021 by Lucien Peach
+% ORIGAMI_REVOLUTEJOINT_STANDALONE - Generates the crease pattern of the
+% origami revolute joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 6/17/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 clear
 close all

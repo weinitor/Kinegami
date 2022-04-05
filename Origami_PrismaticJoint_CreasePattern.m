@@ -1,7 +1,14 @@
-% Graph for crease pattern - Origami prismatic joint
-% Last edited 6/15/2021 by Lucien Peach
-
 function [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, l2, h0, h1, h2, alpha, beta)
+% ORIGAMI_ELBOW_CREASEPATTERN - Generates a crease pattern for the origami
+% prismatic joint.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last edited 6/15/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % Counter used for data structure indexing
 count = 1;

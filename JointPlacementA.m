@@ -1,10 +1,17 @@
-% Joint Placement A (existance of Dubins-specified link)
-% Last Edited 7/20/2021 by Lucien Peach
-
 function [TransformStruct] = JointPlacementA(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption)
+% JOINTPLACEMENTA - This algorithm identifies the joint location
+% iteratively such that the new joint location is always 4r apart from all
+% the previous joints. This algorithm shows the existance of
+% Dubins-specified links.
 
-% This algorithm identifies the joint location iteratively such that the
-% new joint location is always 4r apart from all the previous joints. 
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last Edited 7/20/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 for i = (N+1):-1:1
     

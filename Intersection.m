@@ -1,7 +1,13 @@
-% No-Intersect Algorithm
-% Last Edited 8/24/2021 by Lucien Peach
-
 function [TransformStruct] = Intersection(TransformStruct, index, r)
+% INTERSECTIN - please describe this function.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Last Edited 8/24/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.txt for detail.
+
 
 % ----------- Old Code - Keep in Case of Intersection Checks ------------
 
@@ -14,8 +20,6 @@ function [TransformStruct] = Intersection(TransformStruct, index, r)
 % vecx = CoordVec(1); % (x2 - x1)
 % vecy = CoordVec(2); % (y2 - y1)
 % vecz = CoordVec(3); % (z2 - z1)
-%
-% 
 % 
 % % Define x1, x2; y1, y2; z1, z2
 % x1 = TransformStruct(index).Oc(1, 4);
