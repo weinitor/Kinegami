@@ -1,3 +1,6 @@
 [submodule "Bounding-Spheres-And-Circles"]
 	path = Bounding-Spheres-And-Circles
 	url = https://github.com/AntonSemechko/Bounding-Spheres-And-Circles.git
+[submodule "dxflib"]
+	path = dxflib
+	url = https://github.com/taquart/dxflib.git

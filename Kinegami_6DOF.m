@@ -8,10 +8,10 @@
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.txt for detail.
 
+
 clear
 close all
 clc
-
 
 %% USER OPTIONS - Change Prior to Running (if necessary)
 
