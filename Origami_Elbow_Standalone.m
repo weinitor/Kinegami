@@ -13,7 +13,8 @@ clear
 close all
 clc
 
-addpath('DXFLib_v0.9.1')
+% Add all the folders and subfolders to the search path
+addpath(genpath(fileparts(mfilename('fullpath'))));
 
 % Specify inputs
 r = 0.02; %[m]

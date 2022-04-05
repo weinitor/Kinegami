@@ -13,6 +13,9 @@ clear
 close all
 clc
 
+% Add all the folders and subfolders to the search path
+addpath(genpath(fileparts(mfilename('fullpath'))));
+
 % Specify inputs
 r = 0.02; %[m]
 n = 4;

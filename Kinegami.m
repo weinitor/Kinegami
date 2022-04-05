@@ -12,7 +12,8 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 % All rights reserved. Please refer to LICENSE.txt for detail.
 
 
-    addpath('DXFLib_v0.9.1')
+    % Add all the folders and subfolders to the search path
+    addpath(genpath(fileparts(mfilename('fullpath'))));
     
     % Determine N (this will ultimately change for JointPlacement.m case)
     N = size(JointStruct, 2) - 1;

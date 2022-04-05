@@ -13,6 +13,9 @@ clear
 close all
 clc
 
+% Add all the folders and subfolders to the search path
+addpath(genpath(fileparts(mfilename('fullpath'))));
+
 % Specify inputs (3D Modeling will also consider w, but do not worry about
 % this value for the time being for 2D)
 r = 0.02; %[m]
