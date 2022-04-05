@@ -6,7 +6,7 @@ function [TransformStruct] = Intersection(TransformStruct, index, r)
 % Last Edited 8/24/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % ----------- Old Code - Keep in Case of Intersection Checks ------------

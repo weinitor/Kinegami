@@ -7,7 +7,7 @@ function [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2,
 % Last edited 6/7/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Counter used for data structure indexing

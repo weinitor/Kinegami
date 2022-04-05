@@ -7,7 +7,7 @@
 % Last Edited 1/26/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 clear

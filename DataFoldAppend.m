@@ -12,7 +12,7 @@ function [msum, lmax_sum, infostruct, Struct1] = DataFoldAppend(a, Struct1, info
 % Last Edited 6/22/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Check will differ based on if index is final in array

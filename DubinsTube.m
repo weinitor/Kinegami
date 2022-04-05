@@ -9,9 +9,7 @@ function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror, spli
 % Last edited 7/27/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
-
-
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % We know that Ou = {au, bu, cu, ou} - 3x4 matrix of vec/norm(vec)

@@ -1,7 +1,13 @@
-% Spherical Sampling
-% Last Edited 6/23/2021 by Lucien Peach
-
 function [Concat, handle] = SphericalSampling(oi, r, colorinput, plotoption)
+% SPHERICALSAMPLING - please describe this code.
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Created 6/21/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.md for detail.
+
 
 % Specify colorinput as 'none' if random color is desired
 

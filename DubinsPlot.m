@@ -2,15 +2,7 @@ function [JointStruct] = DubinsPlot(JointStruct, infostruct, index, i)
 % DUBINSPATHPLOTTING - Plots the CSC Dubins path between the distal frame
 % of the previous joint and the proximal frame of the later joint.
 
-% Authors: 
-% Lucien Peach <peach@seas.upenn.edu>
-% Wei-Hsi Chen <weicc@seas.upenn.edu>
-% Last edited 7/27/2021
-%
-% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
-
-
+% Please update the input/output
 % TransformStruct provides information about frames
 % infostruct provides information about fold parameters
 % i used for TransformStruct indexing
@@ -21,6 +13,15 @@ function [JointStruct] = DubinsPlot(JointStruct, infostruct, index, i)
 % index+1 = twist
 % index+2 = tube
 % index+3 = elbow2
+
+% Authors: 
+% Lucien Peach <peach@seas.upenn.edu>
+% Wei-Hsi Chen <weicc@seas.upenn.edu>
+% Last edited 7/27/2021
+%
+% Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
+% All rights reserved. Please refer to LICENSE.md for detail.
+
 
 tunit = infostruct(index).tunit;
 t = infostruct(index).t;

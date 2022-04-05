@@ -6,7 +6,7 @@ function [planeval] = PlaneCheck(plane, point)
 % Last edited 1/27/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Plane represents the 3x2 matrix used to contain the normal vector and

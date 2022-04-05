@@ -7,7 +7,7 @@ function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, 
 % Last edited 6/8/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Create "duplicate" value

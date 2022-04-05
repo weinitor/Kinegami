@@ -7,7 +7,7 @@ function [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m)
 % Last edited 6/17/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Specify delta value for side length and vertical lengths calculation

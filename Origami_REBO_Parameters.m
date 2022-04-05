@@ -7,7 +7,7 @@ function [ls, l1, h0, alpha] = Origami_REBO_Parameters(r, n, beta, d0, nl)
 % Last edited 4/3/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Specify delta value for side length calculation

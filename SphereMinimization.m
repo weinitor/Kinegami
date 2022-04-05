@@ -13,7 +13,7 @@ function [DataStruct] = SphereMinimization(DataStruct, index, r, colorinput, plo
 % Last Edited 6/24/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Calculate required distances to make conditionals easier to write

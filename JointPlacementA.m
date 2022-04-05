@@ -10,7 +10,7 @@ function [TransformStruct] = JointPlacementA(D, r, n, JointStruct, N, theta_mod,
 % Last Edited 7/20/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 for i = (N+1):-1:1

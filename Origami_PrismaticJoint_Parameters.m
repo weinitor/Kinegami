@@ -7,7 +7,7 @@ function [ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_Parameters(r, n, beta,
 % Last edited 6/15/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Specify delta value for side length calculation

@@ -9,7 +9,7 @@ function [tuckangle] = TuckAngles(r, n, phi, theta, split)
 % Last edited 8/26/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split);

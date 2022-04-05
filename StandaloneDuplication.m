@@ -8,7 +8,7 @@ function [DataFoldNew] = StandaloneDuplication(DataFoldOld, ls, n, lmax, type, h
 % Created 12/13/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Add to right side for all types except 'revolute' (for ease of folding)

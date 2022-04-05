@@ -11,7 +11,7 @@ function [TransformStruct, JointStructNew, Nnew] = JointPlacementB(D, r, n, Join
 % Last Edited 1/28/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Does this process remain for JointPlacement? Unsure but kept for now.

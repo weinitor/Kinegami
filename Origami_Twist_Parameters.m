@@ -7,7 +7,7 @@ function [x, l, ls] = Origami_Twist_Parameters(r, n, h, alpha)
 % Last edited 6/22/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Specify delta value for midsection height calculation

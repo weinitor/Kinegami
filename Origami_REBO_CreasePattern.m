@@ -7,7 +7,7 @@ function [dataFoldREBO, m, lmax] = Origami_REBO_CreasePattern(n, nl, ls, l1, h1,
 % Last edited 4/3/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Counter used for data structure indexing

@@ -11,7 +11,7 @@ function [DataStruct] = HomogeneousTransform(index, D)
 % Last Edited 6/23/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Express a, alpha, d, and theta in terms of indexing in D

@@ -7,7 +7,7 @@ function [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, l
 % Last edited 6/15/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Counter used for data structure indexing

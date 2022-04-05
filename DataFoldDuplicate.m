@@ -13,7 +13,7 @@ function [msum, lmax_sum, infostruct, Struct1, Struct2] =  ...
 % Last Edited 6/22/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % First, check to ensure that fold type is not "twist"

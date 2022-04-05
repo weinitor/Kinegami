@@ -7,7 +7,7 @@ function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split)
 % Last edited 8/14/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % Flip the direction is theta is less tha 0

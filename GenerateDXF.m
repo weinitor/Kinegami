@@ -2,7 +2,7 @@ function GenerateDXF(filename, data)
 % GENERATEDXF - Create DXF file with data struct:
 % {x(colume),y(colume),cut(boolean),color([0,0,0])} and save as 'filename'
 %
-% uses: DXFLib_v0.9.1 from FileExchange
+% uses the submodule "dxflib"
 
 fid = dxf_open(filename);
 for q = 1:length(data)

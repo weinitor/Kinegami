@@ -7,7 +7,7 @@ function handle = planeplot(plane, color)
 % Last Edited 7/5/2021
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
-% All rights reserved. Please refer to LICENSE.txt for detail.
+% All rights reserved. Please refer to LICENSE.md for detail.
 
 
 % We know that the a vector is always normal to the frame, so we can plot
