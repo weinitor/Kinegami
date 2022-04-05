@@ -42,4 +42,4 @@ Edited `Kinegami.m` to support plotting for Proximal and Distal Frames. Added ne
 This work was supported by the Army Research Office under the SLICE Multidisciplinary University Research Initiatives Program award under Grant \#W911NF1810327, and in part by the National Science Foundation under Grant \#1845339.
 
 ## License
-This code is released using the Penn Software License. Please refer to `LICENSE.txt` for details.
+This code is released using the Penn Software License. Please refer to `LICENSE.md` for details.
