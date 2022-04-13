@@ -1,5 +1,5 @@
 # Kinegami
-Given a Denavit-Hartenberg (D-H) specification of a kinematic chain robot, the program generates a crease pattern that folds into a kinematically equivalent robot with compliant joints. The program takes in the D-H specification and assigns the corresponding joint to a location that is sufficiently far from other joints while keeping the same kinematic properties. Then an origami link inspired by Dubin's path method is created to connect every two consecutive joints. 
+Given a **Denavit-Hartenberg (D-H) specification** of a kinematic chain robot, the program generates a **crease pattern** that folds into a kinematically equivalent robot with compliant joints. The program takes in the D-H specification and assigns the corresponding joint to a location that is sufficiently far from other joints while keeping the same kinematic properties. Then an origami link inspired by Dubin's path method is created to connect every two consecutive joints. 
 
 To construct the D-H specification, follow the variable definition ("Link length (a)", "Link twist (&alpha;)", "Joint offset (d)", and "Joint angle (&theta;)") and numbering system of the following kinematic chain mechanism schematic drawing (for more detail, please read "W. Khalil and E. Dombre, *Modeling, identification and control of robots*") to form a table.
 
