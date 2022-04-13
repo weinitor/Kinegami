@@ -40,7 +40,7 @@ Edited `JointAssignment.m` to include the correct value of rs for Prismatic Join
 Edited `Kinegami.m` to support plotting for Proximal and Distal Frames. Added new function frameplot.m for frame plotting. Changed manner in which figures are closed in papercut files. -->
 
 ## Acknowledgement
-This work was supported by the Army Research Office under the SLICE Multidisciplinary University Research Initiatives Program award under Grant \#W911NF1810327, and in part by the National Science Foundation under Grant \#1845339. In addition, we thank Sheely Wu for her contributions in the documentation.
+This work was supported by the Army Research Office under the SLICE Multidisciplinary University Research Initiatives Program award under Grant \#W911NF1810327, and in part by the National Science Foundation under Grant \#1845339. In addition, we thank Shelly Wu for her contributions in the documentation.
 
 ## Credit
 This application uses Open Source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
