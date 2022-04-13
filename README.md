@@ -15,6 +15,7 @@ In addition, it provides the additional contribution of automatically choosing t
 The resulting pipeline does not require additional human input beyond the D-H specification. However, its algorithmic steps are sufficiently transparent to facilitate the integration of designers' alternative modules or more suitably optimized compositions when desired.
 
 ## User Guide
+Kinegami runs on MATLAB (works on version MATLAB_R2021a).  
 Run scripts `Kinegami_******.m` for existing examples and change parameters if desired. 
 To create your kinematic chain robot, fill out the `Kinegami_Template.m` file in this order:
 1. Design the regular polygon shape (the number of sides "nside" and circumradius "r") as the tubular origami base
@@ -39,7 +40,15 @@ Edited `JointAssignment.m` to include the correct value of rs for Prismatic Join
 Edited `Kinegami.m` to support plotting for Proximal and Distal Frames. Added new function frameplot.m for frame plotting. Changed manner in which figures are closed in papercut files. -->
 
 ## Acknowledgement
-This work was supported by the Army Research Office under the SLICE Multidisciplinary University Research Initiatives Program award under Grant \#W911NF1810327, and in part by the National Science Foundation under Grant \#1845339.
+This work was supported by the Army Research Office under the SLICE Multidisciplinary University Research Initiatives Program award under Grant \#W911NF1810327, and in part by the National Science Foundation under Grant \#1845339. In addition, we thank Sheely Wu for her contributions in the documentation.
+
+## Credit
+This application uses Open Source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
+
+Package: [dxflib](https://github.com/taquart/dxflib.git), 
+[License](https://github.com/taquart/dxflib/blob/f653f3d9829ec92ab2414a8616e9e04d9fa43e44/dxflib/license.txt)  
+Package: [Bounding-Spheres-And-Circles](https://github.com/AntonSemechko/Bounding-Spheres-And-Circles.git),
+[License](https://github.com/AntonSemechko/Bounding-Spheres-And-Circles/blob/cc88aa596dcdb568dd198982527f4ad951ce40aa/LICENSE.md)
 
 ## License
 This code is released using the Penn Software License. Please refer to `LICENSE.md` for details.
