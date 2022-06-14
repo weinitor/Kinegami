@@ -15,7 +15,10 @@ In addition, it provides the additional contribution of automatically choosing t
 The resulting pipeline does not require additional human input beyond the D-H specification. However, its algorithmic steps are sufficiently transparent to facilitate the integration of designers' alternative modules or more suitably optimized compositions when desired.
 
 ## User Guide
-Kinegami runs on MATLAB (works on version MATLAB_R2021a).  
+Kinegami runs on MATLAB (works on version MATLAB_R2021a). 
+
+To intialize submodules, which contain necessary files for dxf generation and spherical bounding and optimization, open terminal on your system, change the working directory to the synced folder, and enter "git submodule update --init".
+
 Run scripts `Kinegami_******.m` for existing examples and change parameters if desired. 
 To create your kinematic chain robot, fill out the `Kinegami_Template.m` file in this order:
 1. Design the regular polygon shape (the number of sides "nside" and circumradius "r") as the tubular origami base
