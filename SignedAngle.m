@@ -1,7 +1,15 @@
 function [theta] = SignedAngle(a, b, n)
-% SIGNEDANGLE - Finding the signed angle between two vector "a" and "b"
+% SIGNEDANGLE - Finding the signed angle between two vectors "a" and "b"
 % with respect to vector "a", around the normal vector "n". Outputs an
 % angle "theta".
+
+% Inputs:
+%   a       - vector "a". See function description for details.
+%   b       - vector "b". See function description for details.
+%   n       - normal vector for utilization in cross product.
+
+% Outputs:
+%   theta   - output signed angle, in radians.
 
 % Authors: 
 % Wei-Hsi Chen <weicc@seas.upenn.edu>
@@ -18,5 +26,6 @@ n = n/norm(n);
 
 % find the signed angle
 theta = atan2(dot(cross(a,b),n),dot(a,b));
+
 end
 

@@ -1,8 +1,22 @@
 function [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, plotoption)
-% SELFASSIGN - This algorithm process the manually labeled joint frames.
-%
-% Inputs: Necessary parameters as well as center locations and frame
-% information for each "sphere"
+% SELFASSIGN - This algorithm processes manually labeled joint frames.
+% Functions as an alternative to JointPlacement[].m algorithms.
+
+% Inputs: 
+%   TransformStruct - data structure that contains information about
+%                     bounding spheres, associated planes, and other
+%                     related information.
+%   r               - desired radius of folded origami linkage.
+%   JointStruct     - a data structure that contains information about
+%                     joint parameters, frames, and connection pathways.
+%   N               - variable used for iteration. Equivalent to: (number
+%                     of joints of system) - 1.
+%   plotoption      - string input which dictates type of joint placement.
+
+% Outputs:
+%   TransformStruct - updated data structure that contains information
+%                     about bounding spheres, associated planes, and other
+%                     related information.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

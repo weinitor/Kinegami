@@ -1,12 +1,25 @@
 function [DataStruct] = SphereMinimization(DataStruct, index, r, colorinput, plotoption)
-% SPHEREMINIMIZATION - please describe this function in a sentence.
-%   DataStruct - the array which contains information about the origins of
-%                each of the joints as well as the radius associated with
-%                each joint. We will be starting with the end joint and
-%                working to joint 0.
-%   index      - allows us to keep track of what joint we are adjusting.
-%                index will be counted in a loop outside of this function.
-%   r          - the r unadjusted by any joint parameters (pure r).
+% SPHEREMINIMIZATION - Optimization function which reassigns the
+% centerpoint of a given bounding sphere, provided that it is allowed to
+% move along its z axis and must be a specified distance from previous
+% bounding spheres.
+
+% Inputs:
+%   DataStruct - array which contains information about the origins of each
+%                of the joints as well as the radius associated with each
+%                joint. We will be starting with the end joint and working
+%                to joint 0.
+%   index      - value which allows us to keep track of what joint we are 
+%                adjusting. index will be counted in an external loop.
+%   r          - the radius unadjusted by any joint parameters (pure r).
+%   colorinput - string input which determines the color of the plotted
+%                sphere, if so desired.
+%   plotoption - string input which dictates plotting.
+
+% Outputs:
+%   DataStruct - updated array which contains information about the origins
+%                of each of the joints as well as the radius associated
+%                with each joint. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

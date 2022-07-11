@@ -2,6 +2,22 @@ function [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, l
 % ORIGAMI_ELBOW_CREASEPATTERN - Generates a crease pattern for the origami
 % prismatic joint.
 
+% Inputs:
+%   n           - number of sides of folded origami linkage.
+%   nl          - 
+%   ls          - side length of folded origami linkage.
+%   l1          -
+%   l2          -
+%   h1          - length from bottom of schematic to base of prismatic
+%                 section. ie height of lower tube region.
+%   h2          -
+%   alpha       -
+
+% Outputs:
+%   dataFoldE   -
+%   m
+%   lmax
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 6/15/2021

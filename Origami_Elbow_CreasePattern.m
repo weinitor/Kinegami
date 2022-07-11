@@ -1,6 +1,29 @@
-function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, r, phi, theta, tuck, split, tuckangle)
+function [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, theta, tuck, split, tuckangle)
 % ORIGAMI_ELBOW_CREASEPATTERN - Generates a crease pattern for the origami
 % elbow fitting.
+
+% Inputs:
+%   lengths     - vector of length measurements for use in plotting elbow
+%                 section of schematic. 
+%   ls          - side length of folded origami linkage. 
+%   n           - number of sides of folded origami linkage.
+%   h1          - length from bottom of schematic to base of elbow section.
+%                 ie height of lower tube region.
+%   h2          - length from top of elbow section to top of full
+%                 schematic. ie height of upper tube region.
+%   theta       - bending angle.
+%   tuck        - string value which determines whether elbow tuckaway
+%                 lines are printed in final schematic.
+%   split       - determines whether theta splitting occurs.
+%   tuckangle   - array of angles which is used for generation of elbow
+%                 crease lines.
+
+% Outputs:
+%   dataFoldA   - data structure which contains pertinent information for
+%                 DXF generation of crease schematic.
+%   m           - horizontal offset value for use within DataFoldAppend.m.
+%   lmax        - total height of crease schematic. Will be used in crease
+%                 "stacking" and duplication. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
@@ -17,7 +40,7 @@ duplicate = 1;
 if theta < 0
     
     theta = abs(theta);
-    phi = pi + phi;
+%     phi = pi + phi;
     
 end
 

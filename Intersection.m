@@ -1,5 +1,19 @@
 function [TransformStruct] = Intersection(TransformStruct, index, r)
-% INTERSECTIN - please describe this function.
+% INTERSECTION - Uses bounding sphere data and parametrized line equations
+% to optimize the distance between two subsequent joint spheres.
+
+% Inputs:
+%   TransformStruct     - data structure which contains information about
+%                         bounding spheres, associated planes, and other
+%                         related information.
+%   index               - used for indexing data entries in
+%                         TransformStruct.
+%   r                   - desired radius of folded origami linkage.
+
+% Outputs:
+%   TransformStruct     - updated data structure which contains information
+%                         about bounding spheres, associated planes, and
+%                         other related information.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

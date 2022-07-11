@@ -1,5 +1,15 @@
 function [planeval] = PlaneCheck(plane, point)
-% PLANECHECK - Check which side of the plane that the given point lies on.
+% PLANECHECK - Check the side of the plane on which the given point lies.
+
+% Inputs:
+%   plane       - 3x2 matrix which includes information about the normal
+%                 vector and "center point" for the plane in question.
+%   point       - vector which contains the coordinates to a point on the
+%                 line in question in 3D space.
+
+% Outputs:
+%   planeval    - output value used in determining the side of the plane
+%                 on which the given point lies. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

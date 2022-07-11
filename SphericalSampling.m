@@ -1,5 +1,20 @@
 function [Concat, handle] = SphericalSampling(oi, r, colorinput, plotoption)
-% SPHERICALSAMPLING - please describe this code.
+% SPHERICALSAMPLING - Provides visualization of spherical region based on
+% center point, radius of sphere, and other minor settings.
+
+% Inputs:
+%   oi          - the component of Oi which describes the location of the
+%                 point in space.
+%   r           - the radius unadjusted by any joint parameters (pure r).
+%   colorinput  - string input which determines the color of the plotted
+%                 sphere, if so desired.
+%   plotoption  - string input which dictates plotting.
+
+% Outputs:
+%   Concat      - matrix of values which contains 3 columns of sphere data
+%                 for use within ExactMinBoundSphere3D.m
+%   handle      - plot handle which allows for future edits to plot
+%                 settings or to call the plot if needed.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

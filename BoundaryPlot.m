@@ -1,5 +1,15 @@
 function [dataFoldBoundary] = BoundaryPlot(n, ls, lmax_sum)
-% BOUNDARYPLOT - Draw the boundary of the crease pattern.
+% BOUNDARYPLOT - Draws the boundary of the crease pattern.
+
+% Inputs:
+%   n                - number of sides of folded origami linkage.
+%   ls               - side length of folded origami linkage. 
+%   lmax_sum         - a cumulative counter that tracks the total height of
+%                      all appended crease segments.
+
+% Outputs:
+%   dataFoldBoundary - data structure containing information relevant to
+%                      the crease pattern boundary. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

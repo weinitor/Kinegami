@@ -1,18 +1,22 @@
 function [JointStruct] = DubinsPlot(JointStruct, infostruct, index, i)
-% DUBINSPATHPLOTTING - Plots the CSC Dubins path between the distal frame
-% of the previous joint and the proximal frame of the later joint.
+% DUBINSPLOT - Plots the CSC Dubins path between the distal frame
+% of the previous joint and the proximal frame of the subsequent joint.
 
-% Please update the input/output
-% TransformStruct provides information about frames
-% infostruct provides information about fold parameters
-% i used for TransformStruct indexing
-% index used for infostruct indexing
+% Inputs:
+%   JointStruct     - a data structure that contains information about
+%                     joint parameters, frames, and connection pathways.
+%   infostruct      - a data structure that includes all the information
+%                     needed for the construction of the full schematic.
+%   index           - uses the same indexing scheme as in DubinsTube. index
+%                     refers to the first elbow joint, followed by twist,
+%                     tube, and the second elbow joint.
+%   i               - another index, which is used for the specification of
+%                     inputs to JointStruct.
 
-% Using same index scheme as for DubinsTube: 
-% index = elbow1
-% index+1 = twist
-% index+2 = tube
-% index+3 = elbow2
+% Outputs:
+%   JointStruct     - updated data structure that contains information
+%                     about joint parameters, frames, and connection
+%                     pathways.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

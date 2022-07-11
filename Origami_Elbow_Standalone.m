@@ -42,7 +42,7 @@ h2 = 0.02; %[m]
 
 % Outputs graphing for elbow fitting
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, h1, h2, ...
-    r, phi, theta, tuck, split, tuckangle);
+    theta, tuck, split, tuckangle);
 
 % Create Duplication for Overlap Slide
 [dataFoldNew] = StandaloneDuplication(dataFoldA, ls, n, lmax, 'elbow', h1);

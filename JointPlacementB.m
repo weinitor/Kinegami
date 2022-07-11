@@ -3,7 +3,31 @@ function [TransformStruct, JointStructNew, Nnew] = JointPlacementB(D, r, n, Join
 % iteratively such that the new joint location is always 4r apart from all
 % the previous joints. In addition, waypoints are introduced to reroute the
 % centerline of the link to avoid path intersection. This algorithm shows
-% the existance of non-self-intersecting Dubins-specified links.
+% the existence of non-self-intersecting Dubins-specified links.
+
+% Inputs:
+%   D               - the D-H parameter table of values: i x [a, alpha, d,
+%                     theta].
+%   r               - desired radius of folded origami linkage.
+%   n               - number of sides of folded origami linkage.
+%   JointStruct     - a data structure that contains information about
+%                     joint parameters, frames, and connection pathways.
+%   N               - variable used for iteration. Equivalent to: (number
+%                     of joints of system) - 1.
+%   theta_mod       - revolute joint parameter for use within
+%                     RotationalMatrix.m.
+%   fingertip       - string input ('x', 'y', or 'z') used for fingertip
+%                     orientation assignment.
+%   plotoption      - string input which dicates plotting.
+
+% Outputs:
+%   TransformStruct - updated data structure which contains information
+%                     about bounding spheres, associated planes, and other
+%                     related information.
+%   JointStructNew  - updated data structure which additionally contains
+%                     information about waypoint data.
+%   Nnew            - value which specifies the size of JointStructNew.
+%                     Defined within this function.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

@@ -1,11 +1,29 @@
 function [msum, lmax_sum, infostruct, Struct1] = DataFoldAppend(a, Struct1, infostruct, index, msum, lmax_sum)
-% DATAFOLDAPPEND - please describe this function.
+% DATAFOLDAPPEND - Appends individual crease patterns, factoring in the
+% offset terms stored in infostruct.
+
+% Inputs:
+%   a          - axes handle call.
+%   Struct1    - subset of infostruct which contains x and y coordinates of
+%                pertinent data points for plotting.
 %   infostruct - a data structure that includes all the information needed
 %                for the construction of the full schematic.
 %   index      - allows us to know what section of the template we are on. 
 %                Must be an odd number.
 %   msum       - a cumulative counter used for resetting along the x axis 
 %                that carries over for each set of appended structures.
+%   lmax_sum   - a cumulative counter that tracks the total height of all
+%                appended crease segments.
+
+% Outputs:
+%   msum       - a cumulative counter used for resetting along the x axis 
+%                that carries over for each set of appended structures.
+%   lmax_sum   - a cumulative counter that tracks the total height of all
+%                appended crease segments.
+%   infostruct - a data structure that includes all the information needed
+%                for the construction of the full schematic.
+%   Struct1    - subset of infostruct which contains x and y coordinates of
+%                pertinent data points for plotting.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

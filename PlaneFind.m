@@ -2,6 +2,16 @@ function [a, b, c, d] = PlaneFind(plane)
 % PLANEFIND - Simpler version of PlaneCheck that simply outputs values for
 % a, b, c, and d such that the plane equation can be simply written.
 
+% Inputs:
+%   plane   - 3x2 matrix which includes information about the normal vector
+%             and "center point" for the plane in question.
+
+% Outputs:
+%   a       - plane equation coefficient associated with x.
+%   b       - plane equation coefficient associated with y.
+%   c       - plane equation coefficient associated with z.
+%   d       - constant contained in plane equation.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 1/27/2022

@@ -1,5 +1,21 @@
 function [DissectPlot] = DissectPlot(n, ls, index, infostruct, val)
-% DISSECTPLOT - please describe this function.
+% DISSECTPLOT - Creates boundary boxes around individual Dubins Linkage
+% Segments, separated by interposed tube segments. Boundary range can be
+% adjusted in Kinegami.m.
+
+% Inputs:
+%   n           - number of sides of folded origami linkage.
+%   ls          - side length of folded origami linkage. 
+%   index       - counting term which is incremented outside of this loop.
+%                 For use in indexing of infostruct terms.
+%   infostruct  - a data structure that includes all the information needed
+%                 for the construction of the full schematic.
+%   val         - value representative of the max size of the infostruct 
+%                 data structure 
+
+% Outputs:
+%   DissectPlot - a data structure which contains pertinent information for
+%                 the graphing of boundary boxes.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

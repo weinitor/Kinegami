@@ -1,7 +1,20 @@
 function [tmin, theta1min, theta2min] = solveDubins3d(r, Od, Op)
 % SOLVEDUBINS3D - Find the CSC Dubins path from frame Op to Od.
-% Outputs row vector and two radian values
-% Make sure that Od and Op are normalized prior to entry
+% Outputs row vector and two radian values. Ensure that Od and Op are
+% normalized prior to entry. 
+
+% Inputs:
+%   r           - desired radius of folded origami linkage.
+%   Od          - distal, or terminal, frame of dubins pathing.
+%   Op          - proximal, or initial, frame of dubins pathing.
+
+% Outputs:
+%   tmin        - row vector associated with the shortest path for Dubins
+%                 path linkage.
+%   theta1min   - theta value (in radians) for use in RotationalMatrix.m,
+%                 for utility in determining rotational matrix around wp.
+%   theta2min   - theta value (in radians) for use in RotationalMatrix.m,
+%                 for utility in determining rotational matrix around wd.
 
 % Authors: 
 % Cynthia Sung <crsung@seas.upenn.edu>

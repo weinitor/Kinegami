@@ -1,7 +1,28 @@
 function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror, split)
-% DUBINSTUBE - Generate a sequense of origami modules to connect the distal
-% frame of the previous joint and the proximal frame of the later joint.
-%   Op and Od - frames (3x4 matrices).
+% DUBINSTUBE - Generates a sequence of origami modules to connect the 
+% distal frame of the previous joint and the proximal frame of the
+% subsequent joint.
+
+% Inputs:
+%   r           - desired radius of folded origami linkage.
+%   n           - number of sides of folded origami linkage.
+%   Op          - the matrix which describes the proximal frame of the
+%                 linkage in question. This is a 3x4 matrix so as to
+%                 include the center point of the x, y, and z vectors.
+%   Od          - the matrix which describes the distal frame of the
+%                 linkage in question. This is a 3x4 matrix so as to
+%                 include the center point of the x, y, and z vectors.
+%   infostruct  - a data structure that includes all the information needed
+%                 for the construction of the full schematic.
+%   index       - used for indexing of outputs in infostruct. 
+%   mirror      - setting required for creation of elbow schematic. See
+%                 Origami_Elbow_CreasePattern.m for further detail.
+%   split       - setting required for creation of elbow schematic. See
+%                 Origami_Elbow_CreasePattern.m for further detail.
+
+% Outputs:
+%   infostruct  - updated data structure that includes all the information
+%                 needed for the construction of the full schematic.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

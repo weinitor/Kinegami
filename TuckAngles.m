@@ -1,8 +1,19 @@
 function [tuckangle] = TuckAngles(r, n, phi, theta, split)
-% TUCKANGLES - Calculates the angle that needs to be fold away for the
+% TUCKANGLES - Calculates the angle that needs to be folded away for the
 % hidden part of the elbow fitting. The inputs are the same as the elbow
 % fitting, the output is an array of angles with the same size as
 % "lengths". 
+
+% Inputs:
+%   r           - desired radius of folded origami linkage.
+%   n           - number of sides of folded origami linkage.
+%   phi         - rotational axis angle.
+%   theta       - bending angle.
+%   split       - determines whether theta splitting occurs.
+
+% Outputs:
+%   tuckangle   - an array of angles which can be used for generation of
+%                 the origami elbow crease schematic.
 
 % Authors: 
 % Wei-Hsi Chen <weicc@seas.upenn.edu>

@@ -1,11 +1,18 @@
 function [DataStruct] = InverseHomogeneousTransform(index, D)
-% INVERSEHOMOGENEOUSTRANSFORM - Find the inverse trasformation matrix given
-% the D-H specification.
-%   D     - the D-H parameter table of values: i x [a, alpha, d, theta].
-%   index - ranges from 1 to i, used for identifying and properly placing T
-%           into a table of other T values. T indexing is based on the
-%           upper index of T. For instance, T(i) would be equivalent to
-%           {super(i-1)}{T}{sub(i)}
+% INVERSEHOMOGENEOUSTRANSFORM - Finds the inverse transformation matrix 
+% given the D-H specification.
+
+% Inputs:
+%   D           - the D-H parameter table of values: i x [a, alpha, d, 
+%                 theta].
+%   index       - ranges from 1 to i, used for identifying and properly 
+%                 placing T into a table of other T values. T indexing is
+%                 based on the upper index of T. For instance, T(i) would
+%                 be equivalent to {super(i-1)}{T}{sub(i)}.
+
+% Outputs:
+%   DataStruct  - structure which represents the inverse homogeneous 
+%                 transformation matrix.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

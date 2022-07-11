@@ -1,7 +1,23 @@
 function [DataFoldNew] = StandaloneDuplication(DataFoldOld, ls, n, lmax, type, h1, maxlengths)
-% STANDALONEDUPLICATION - The aim of this program will be to add the
+% STANDALONEDUPLICATION - The aim of this program will be to add an
 % additional frame to each xxx_xxx_Standalone.m file, which is needed for
-% overlap.
+% overlap. Used primarily for individual joint testing.
+
+% Inputs:
+%   DataFoldOld - Initial data structure containing information for DXF
+%                 generation for a specific crease schematic.
+%   ls          - side length of folded origami linkage.
+%   n           - number of sides of folded origami linkage.
+%   lmax        - maximum height of printed crease schematic.
+%   type        - string input which specifies joint type.
+%   h1          - value used for determination of revolute or twist section
+%                 base.
+%   maxlengths  - value used for determination of revolute section height.
+%                 Equivalent to 1/2 of total revolute section height.
+
+% Outputs:
+%   DataFoldNew - Updated data structure containing information for DXF
+%                 generation for a specific crease schematic.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
@@ -129,7 +145,7 @@ if strcmp(type, 'revolute') == 1
     
     % Mid Orange
     DataFoldNew(end+1).x = [-ls; 0];
-    DataFoldNew(end).y = [h1 + maxlengths; h1+maxlengths];
+    DataFoldNew(end).y = [h1 + maxlengths; h1 + maxlengths];
     DataFoldNew(end).color = [1, 0.41, 0]; 
     
     % Top Blue

@@ -1,8 +1,17 @@
 function handle = frameplot(frame, color)
-% FRAMEPLOT - Plot out the Op or Od frame.
-% We know that the a vector is always normal to the frame, so we can plot
-% the frame using this normal vector along with the centerpoint of the
-% frame.
+% FRAMEPLOT - Plot out the Op or Od frame. We know that the a vector is
+% always normal to the frame, so we can plot the frame using this normal
+% vector along with the centerpoint of the frame. 
+
+% Inputs:
+%   frame   - matrix which contains information about the normal vector and
+%             centerpoint of the frame in question. This is a 3x4 matrix
+%             adapted from the Op and Od matrices.
+%   color   - string input which determines the color of the plotted frame.
+
+% Outputs:
+%   handle  - plot handle which allows for future edits to plot settings or
+%             to call the plot if needed.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

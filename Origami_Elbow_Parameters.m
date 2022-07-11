@@ -2,6 +2,18 @@ function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split)
 % ORIGAMI_ELBOW_PARAMETERS - Find the key variables needed to generate the
 % crease pattern of the origami elbow fitting.
 
+% Inputs:
+%   r           - desired radius of folded origami linkage. 
+%   n           - number of sides of folded origami linkage.
+%   phi         - rotational axis angle.
+%   theta       - bending angle.
+%   split       - determines whether theta splitting occurs.
+
+% Outputs:
+%   lengths     - vector of length measurements for use in schematic
+%                 plotting.
+%   ls          - side length of folded origami linkage.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 8/14/2021
@@ -10,7 +22,7 @@ function [lengths, ls] = Origami_Elbow_Parameters(r, n, phi, theta, split)
 % All rights reserved. Please refer to LICENSE.md for detail.
 
 
-% Flip the direction is theta is less tha 0
+% Flip the direction is theta is less than 0
 if theta < 0
     
     theta = abs(theta);

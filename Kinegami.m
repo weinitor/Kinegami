@@ -4,9 +4,47 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 % KINEGAMI - Generates a crease pattern that folds into a serial mechanism
 % from a given D-H specification.
 
+% Inputs:
+%   D               - the D-H parameter table of values: i x [a, alpha, d,
+%                     theta].
+%   r               - desired radius of folded origami linkage.
+%   n               - number of sides of folded origami linkage.
+%   JointStruct     - a data structure that contains information about
+%                     joint parameters, frames, and connection pathways.
+%   mirror          - setting required for creation of elbow schematic. See
+%                     Origami_Elbow_CreasePattern.m for further detail.
+%   triple          - a string input which controls the degree to which
+%                     duplication takes place.
+%   theta_mod       - revolute joint parameter for use within
+%                     RotationalMatrix.m.
+%   fingertip       - string input ('x', 'y', or 'z') used for fingertip
+%                     orientation assignment.
+%   TransformStruct - data structure which contains information about
+%                     bounding spheres, associated planes, and other
+%                     related information.
+%   DXF             - string input which dicates DXF generation. 
+%   split           - setting required for creation of elbow schematic. See
+%                     Origami_Elbow_CreasePattern.m for further detail. 
+%   segmentation    - string input which dictates segment splitting for
+%                     ease of fabrication.
+%   plotoption      - string input which dictates plotting.
+%   jointselect     - string input which dictates type of joint placement.
+
+% Outputs:
+%   infostruct      - updated data structure that includes all the
+%                     information needed for the construction of the full
+%                     schematic.
+%   TransformStruct - updated data structure that contains information
+%                     about bounding spheres, associated planes, and other
+%                     related information.
+%   DataNet         - cumulative data structure used for DXF generation.
+%   JointStruct     - updated data structure that contains information
+%                     about joint parameters, frames, and connection
+%                     pathways.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
-% Last Edited 7/22/2021
+% Last Edited 2/17/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.

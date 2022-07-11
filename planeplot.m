@@ -2,6 +2,15 @@ function handle = planeplot(plane, color)
 % PLANRPLOT - Plot a plane. Largely similar to frameplot.m. Minor changes
 % for visualization.
 
+% Inputs:
+%   plane   - 3x2 matrix which includes information about the normal vector
+%             and "center point" for the plane in question.
+%   color   - string input which determines the color of the plotted plane.
+
+% Outputs:
+%   handle  - plot handle which allows for future edits to plot settings or
+%             to call the plot if needed.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last Edited 7/5/2021

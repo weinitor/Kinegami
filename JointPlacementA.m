@@ -1,8 +1,29 @@
 function [TransformStruct] = JointPlacementA(D, r, n, JointStruct, N, theta_mod, fingertip, plotoption)
 % JOINTPLACEMENTA - This algorithm identifies the joint location
 % iteratively such that the new joint location is always 4r apart from all
-% the previous joints. This algorithm shows the existance of
+% the previous joints. This algorithm shows the existence of
 % Dubins-specified links.
+
+% Inputs:
+%   D               - the D-H parameter table of values: i x [a, alpha, d,
+%                     theta].
+%   r               - desired radius of folded origami linkage.
+%   n               - number of sides of folded origami linkage.
+%   JointStruct     - a data structure that contains information about
+%                     joint parameters, frames, and connection pathways.
+%   N               - variable used for iteration. Equivalent to: (number
+%                     of joints of system) - 1.
+%   theta_mod       - revolute joint parameter for use within
+%                     RotationalMatrix.m.
+%   fingertip       - string input ('x', 'y', or 'z') used for fingertip
+%                     orientation assignment.
+%   plotoption      - string input which dicates plotting.
+
+
+% Outputs:
+%   TransformStruct - updated data structure which contains information
+%                     about bounding spheres, associated planes, and other
+%                     related information.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
