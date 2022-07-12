@@ -42,9 +42,9 @@ lmax = max(lengths);
 
 % Store boundary coordinates to array
 boundarybottom = [0, 0; n*ls, 0];
-boundaryleft = [0, 0; 0, h1 + 2*lmax];
-boundarytop = [0, h1 + 2*lmax; n*ls, h1 + 2*lmax];
-boundaryright = [n*ls, h1 + 2*lmax; n*ls, 0];
+boundaryleft = [0, 0; 0, h1 + lmax];
+boundarytop = [0, h1 + lmax; n*ls, h1 + lmax];
+boundaryright = [n*ls, h1 + lmax; n*ls, 0];
 
 FingertipFold(count).x = boundarybottom(:, 1);
 FingertipFold(count).y = boundarybottom(:, 2);
@@ -93,7 +93,7 @@ FingertipFold(count).color = blue;
 count = count + 1;
 
 % Distal line
-distal = [0, h1 + (2*lmax); n*ls, h1 + (2*lmax)];
+distal = [0, h1 + (lmax); n*ls, h1 + (lmax)];
 FingertipFold(count).x = distal(:, 1);
 FingertipFold(count).y = distal(:, 2);
 FingertipFold(count).color = blue;
@@ -124,34 +124,6 @@ for ii = 1:2:2*(n-1)
     FingertipFold(count).y = bottomtube(ii:ii+1, 2);
     FingertipFold(count).color = blue;
 
-end
-
-% Top tube folds
-% --------------------------------------------------------------------
-
-% Top tube folds and graphing
-toptube = zeros(2*(n-1), 2);
-
-% Ignore side folds as these are graphed by the boundary section
-for jj = 1:2:2*(n-1)
-    
-    % Increase count initially
-    count = count + 1;
-    
-    % Indexing 
-    index = ((jj-1)/2) + 1;
-    
-    % Populate array
-    toptube(jj, 1) = index*ls;
-    toptube(jj, 2) = (2*lmax) + h1;
-    toptube(jj+1, 1) = index*ls;
-    toptube(jj+1, 2) = (2*lmax) + h1;
-    
-    % Log data to structure and add to plot. Plotting is sequential
-    FingertipFold(count).x = toptube(jj:jj+1, 1);
-    FingertipFold(count).y = toptube(jj:jj+1, 2);
-    FingertipFold(count).color = blue;
-    
 end
 
 % Cross hatch pattern
@@ -424,7 +396,7 @@ if n > 4
                 else % Odd indexes (upper parts of ridge)
                     index = (j-1)/2; 
                     weave1(j, 1) = index*ls + ls/2;
-                    weave1(j, 2) = h1 + max(lengths);
+                    weave1(j, 2) = h1 + lmax;
                 end
 
 
@@ -441,7 +413,7 @@ if n > 4
                 else % Odd indexes (upper parts of ridge)
                     index = ((j-1)/2) + (n/2);
                     weave1(offset+j, 1) = index*ls + ls/2;
-                    weave1(offset+j, 2) = h1 + max(lengths);
+                    weave1(offset+j, 2) = h1 + lmax;
                 end
 
             end
@@ -481,7 +453,7 @@ count = count + 1;
 vert_blue1(1, 1) = ((n/2)-1)*ls;
 vert_blue1(1, 2) = h1;
 vert_blue1(2, 1) = ((n/2)-1)*ls;
-vert_blue1(2, 2) = h1 + 2*max(lengths);
+vert_blue1(2, 2) = h1 + lmax;
 
 FingertipFold(count).x = vert_blue1(1:2, 1);
 FingertipFold(count).y = vert_blue1(1:2, 2);
@@ -494,7 +466,7 @@ count = count + 1;
 vert_blue1(3, 1) = (n/2)*ls;
 vert_blue1(3, 2) = h1;
 vert_blue1(4, 1) = (n/2)*ls;
-vert_blue1(4, 2) = h1 + 2*max(lengths);
+vert_blue1(4, 2) = h1 + lmax;
 
 FingertipFold(count).x = vert_blue1(3:4, 1);
 FingertipFold(count).y = vert_blue1(3:4, 2);
@@ -507,7 +479,7 @@ count = count + 1;
 vert_blue1(5, 1) = (n-1)*ls;
 vert_blue1(5, 2) = h1;
 vert_blue1(6, 1) = (n-1)*ls;
-vert_blue1(6, 2) = h1 + 2*max(lengths);
+vert_blue1(6, 2) = h1 + lmax;
 
 FingertipFold(count).x = vert_blue1(5:6, 1);
 FingertipFold(count).y = vert_blue1(5:6, 2);
@@ -520,7 +492,7 @@ count = count + 1;
 vert_blue1(7, 1) = 0;
 vert_blue1(7, 2) = h1;
 vert_blue1(8, 1) = 0;
-vert_blue1(8, 2) = h1 + 2*max(lengths);
+vert_blue1(8, 2) = h1 + lmax;
 
 FingertipFold(count).x = vert_blue1(7:8, 1);
 FingertipFold(count).y = vert_blue1(7:8, 2);
@@ -535,22 +507,7 @@ if n > 4
     for i = 1:2 % Identifies first and second sections, as before
         if i == 1 % First section
             for j = 0:4:(2*(n-4))-4
-                
-                % Indexing for horizontal coordinate position
-                index = (j/4)+1;
-                
-                % Populate array with top values
-                vert_blue2(j+1, 1) = index*ls;
-                vert_blue2(j+1, 2) = max(lengths) + h1;
-                vert_blue2(j+2, 1) = index*ls;
-                vert_blue2(j+2, 2) = 2*max(lengths) + h1;
-                
-                % Increase count and plot top values
-                count = count + 1;
-                FingertipFold(count).x = vert_blue2(j+1:j+2, 1);
-                FingertipFold(count).y = vert_blue2(j+1:j+2, 2);
-                FingertipFold(count).color = blue;
-                
+                               
                 % Lengths index for varying values
                 lengthsindex = (j/4) + 2;
                 
@@ -569,21 +526,6 @@ if n > 4
             end
         else
             for j = 2*(n-4):4:(4*(n-4))-4
-                                
-                % Indexing for horizontal coordinate position
-                index = (n/2) + ((j-2*(n-4))/4) + 1;
-                
-                % Populate array with top values
-                vert_blue2(j+1, 1) = index*ls;
-                vert_blue2(j+1, 2) = max(lengths) + h1;
-                vert_blue2(j+2, 1) = index*ls;
-                vert_blue2(j+2, 2) = 2*max(lengths) + h1;
-                
-                % Increase count and plot top values
-                count = count + 1;
-                FingertipFold(count).x = vert_blue2(j+1:j+2, 1);
-                FingertipFold(count).y = vert_blue2(j+1:j+2, 2);
-                FingertipFold(count).color = blue;
                 
                 % Lengths index for varying values
                 lengthsindex = (n/2) + ((j-2*(n-4))/4) + 2;
@@ -627,7 +569,7 @@ if n > 4
                 vert_orange(j+1, 1) = index*ls;
                 vert_orange(j+1, 2) = h1 + lengths(lengthsindex);
                 vert_orange(j+2, 1) = index*ls;
-                vert_orange(j+2, 2) = h1 + max(lengths);
+                vert_orange(j+2, 2) = h1 + lmax;
                 
                 % Increase count, add to structure, and plot
                 count = count + 1;
@@ -649,7 +591,7 @@ if n > 4
                 vert_orange(j+1, 1) = index*ls;
                 vert_orange(j+1, 2) = h1 + lengths(lengthsindex);
                 vert_orange(j+2, 1) = index*ls;
-                vert_orange(j+2, 2) = h1 + max(lengths);
+                vert_orange(j+2, 2) = h1 + lmax;
                 
                 % Increase count, add to structure, and plot
                 count = count + 1;
@@ -662,18 +604,7 @@ if n > 4
     end
 end
 
-% Finally, plot labeling and adjustments
-% ------------------------------------------------------------------
-
-% Label the plot for clarity
-% title({
-%     ('Origami Schematic 2.A for Provided Parameters:')
-%     ['[r = ' num2str(r) ', n = ' num2str(n) ', theta = ', num2str(theta_m) ']']
-%     })
-% 
-% daspect([1 1 1])
-
 m = 0;
-lmax = h1 + 2*lmax;
+lmax = h1 + lmax;
 
 end

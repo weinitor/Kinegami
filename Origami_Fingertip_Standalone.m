@@ -19,7 +19,7 @@ addpath(genpath(fileparts(mfilename('fullpath'))));
 % Specify inputs (3D Modeling will also consider w, but do not worry about
 % this value for the time being for 2D)
 r = 0.02; %[m]
-n = 8; % must be even, 4 or greater
+n = 4; % must be even, 4 or greater
 theta_m = (3/2)*pi; %[rad]
 
 % Outputs array of lengths and value of ls in [m]
@@ -27,9 +27,8 @@ theta_m = (3/2)*pi; %[rad]
 
 % Create a figure that demonstrates the crease schematic
 
-% Specify values for h1 and h2, the heights of the two tube sections
-h1 = 0.03; %[m]
-nz = 1;
+% Specify value for h1. 
+h1 = 0; %[m]
 
 % Outputs graphing for elbow fitting
 [dataFoldF, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1);
