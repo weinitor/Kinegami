@@ -2,6 +2,28 @@ function [dataFoldREBO, m, lmax] = Origami_REBO_CreasePattern(n, nl, ls, l1, h1,
 % ORIGAMI_REBO_CREASEPATTERN - Generates a crease pattern for the origami
 % REBO joint.
 
+% Inputs:
+%   n               - number of sides of folded origami linkage.
+%   nl              - number of folded prismatic layers.
+%   ls              - side length of folded origami linkage.
+%   l1              - midsection height for single REBO layer. 
+%   h1              - though this value is always 0, it would represent the
+%                     distance from the bottom of the crease schematic to
+%                     the base of the REBO joint.
+%   h2              - though this value is always 0, it would represent the
+%                     distance from the upper boundary of the REBO joint to
+%                     the top of the crease schematic. 
+%   alpha           - angular measurement for use in generation of fold
+%                     regional of schematic. 
+
+% Outputs:
+%   dataFoldREBO    - data structure which contains pertinent information
+%                     for DXF generation of crease schematic. 
+%   m               - horizontal offset value for use within
+%                     DataFoldAppend.m.
+%   lmax            - total height of crease schematic. Will be used in
+%                     crease "stacking" and duplication.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 4/3/2022

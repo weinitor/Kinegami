@@ -1,7 +1,25 @@
-function [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha)
+function [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, alpha)
 % ORIGAMI_TWIST_CREASEPATTERN - Generates a crease pattern for the origami
 % twist fitting.
 
+% Inputs:
+%   x           - twist offset value for upper tube segmentation.
+%   l           - height of twist layer.
+%   ls          - side length of folded origami linkage.
+%   n           - number of sides of folded origami linkage.
+%   h1          - length from bottom of schematic to lower boundary of
+%                 twist region. ie height of lower tube region.
+%   h2          - length from upper boundary of twist region to top of full
+%                 schematic. ie height of upper tube region.
+%   alpha       - desired twist angle.
+
+% Outputs:
+%   dataFoldB   - data structure which contains pertinent information for
+%                 DXF generation of crease schematic. 
+%   m           - horizontal offset value for use within DataFoldAppend.m.
+%   lmax        - total height of crease schematic. Will be used in crease
+%                 "stacking" and duplication.
+    
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 6/7/2021

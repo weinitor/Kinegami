@@ -27,7 +27,7 @@ function [infostruct] = DubinsTube(r, n, Op, Od, infostruct, index, mirror, spli
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Wei-Hsi Chen <weicc@seas.upenn.edu>
-% Last edited 7/27/2021
+% Last edited 7/11/2022
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -94,7 +94,7 @@ infostruct(index).ls = ls;
 infostruct(index).r = r;
 
 [dataFoldA, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index).h1, ...
-    infostruct(index).h2, r, phi1, theta1, mirror, split, tuckangle);
+    infostruct(index).h2, theta1, mirror, split, tuckangle);
 
 infostruct(index).m = m;
 infostruct(index).lmax = lmax;
@@ -114,7 +114,7 @@ infostruct(index+1).ls = ls;
 infostruct(index+1).r = r;
 
 [dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, infostruct(index+1).h1, ...
-    infostruct(index+1).h2, r, 0.2*Tnorm, alpha);
+    infostruct(index+1).h2, alpha);
 
 infostruct(index+1).m = m;
 infostruct(index+1).lmax = lmax;
@@ -131,7 +131,7 @@ infostruct(index+2).ls = ls;
 infostruct(index+2).r = r;
  
 % Outputs graphing for default tube
-[dataFoldTube, m, lmax] = Origami_Tube_CreasePattern(n, ls, 0.8*Tnorm, r);
+[dataFoldTube, m, lmax] = Origami_Tube_CreasePattern(n, ls, 0.8*Tnorm);
 
 infostruct(index+2).m = m;
 infostruct(index+2).lmax = lmax;
@@ -148,7 +148,7 @@ infostruct(index+3).ls = ls;
 infostruct(index+3).r = r;
 
 [dataFoldD, m, lmax] = Origami_Elbow_CreasePattern(lengths, ls, n, infostruct(index+3).h1, ...
-    infostruct(index+3).h2, r, phi2, theta2, mirror, split, tuckangle);
+    infostruct(index+3).h2, theta2, mirror, split, tuckangle);
 
 infostruct(index+3).m = m;
 infostruct(index+3).lmax = lmax;

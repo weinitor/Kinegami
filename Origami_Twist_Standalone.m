@@ -32,7 +32,7 @@ h1 = 0.03; %[m]
 h2 = 0.03; %[m]
 
 % Outputs midsection for graphing
-[dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, r, h, alpha);
+[dataFoldB, m, lmax] = Origami_Twist_CreasePattern(x, l, ls, n, h1, h2, alpha);
 
 % Create Duplication for Overlap Slide
 [dataFoldNew] = StandaloneDuplication(dataFoldB, ls, n, lmax, 'twist', h1);

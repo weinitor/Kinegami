@@ -48,7 +48,7 @@ h2 = 0.02; %[m]
 % graphing of the schematic and saving the file as a .dxf
 
 % Outputs graphing for prismatic joint
-[dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, dm, h0, h1, h2, alpha, beta);
+[dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(n, nl, ls, l1, dm, h1, h2, alpha);
 
 % Create Duplication for Overlap Slide
 [dataFoldNew] = StandaloneDuplication(dataFoldE, ls, n, lmax, 'prismatic', h1);

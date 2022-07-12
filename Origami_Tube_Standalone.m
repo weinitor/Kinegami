@@ -29,7 +29,7 @@ n = 4;
 h = 0.09; %[m]
 
 % Outputs graphing for default tube
-[dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r);
+[dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h);
 
 % Create Duplication for Overlap Slide
 [dataFoldNew] = StandaloneDuplication(dataFoldDefault, ls, n, lmax, 'tube', h);

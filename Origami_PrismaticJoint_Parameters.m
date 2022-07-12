@@ -1,6 +1,22 @@
 function [ls, l1, h0, dm, alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl)
-% ORIGAMI_PRISMATICJOINT_PARAMETERS - Find the key variables needed to
+% ORIGAMI_PRISMATICJOINT_PARAMETERS - Finds the key variables needed to
 % generate the crease pattern of the origami prismatic joint.
+
+% Inputs:
+%   r       - desired radius of folded origami linkage. 
+%   n       - number of sides of folded origami linkage.
+%   beta    - prismatic cone angle. 
+%   d0      - zero configuration length.
+%   nl      - number of folded prismatic layers.
+
+% Outputs:
+%   ls      - side length of folded origami linkage.
+%   l1      - midsection height for single prismatic layer.
+%   h0      - zero configuration length for a single prismatic layer.
+%   dm      - the max length quantity, for use in determining height
+%             boundaries of final origami schematic. 
+%   alpha   - angular measurement for use in the generation of prismatic
+%             fold region of schematic. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

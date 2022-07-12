@@ -1,6 +1,24 @@
-function [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, r, theta_m, nz)
+function [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, h1, h2, nz)
 % ORIGAMI_REVOLUTEJOINT_CREASEPATTERN - Generates a crease pattern for the
 % origami REBO joint.
+
+% Inputs:
+%   lengths     - vector of length measurements for use in plotting
+%                 revolute joint section of schematic. 
+%   ls          - side length of folded origami linkage. 
+%   n           - number of sides of folded origami linkage. 
+%   h1          - length from bottom of schematic to base of revolute
+%                 section. ie height of lower tube region. 
+%   h2          - length from upper boundary of revolute section to top of
+%                 full schematic. ie height of upper tube region. 
+%   nz          - number of recursive sink layers.
+
+% Outputs:
+%   dataFoldD   - data structure which contains pertinent information for
+%                 DXF generation of crease schematic. 
+%   m           - horizontal offset value for use within DataFoldAppend.m.
+%   lmax        - total height of crease schematic. Will be used in crease
+%                 "stacking" and duplication. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

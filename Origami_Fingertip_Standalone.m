@@ -1,5 +1,5 @@
-% ORIGAMI_FINGERTIP_STANDALONE - Generates the crease pattern of the origami
-% fingertip "joint". 
+% ORIGAMI_FINGERTIP_STANDALONE - Generates the crease pattern of the 
+% origami fingertip "joint". 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
@@ -32,7 +32,7 @@ h1 = 0.03; %[m]
 nz = 1;
 
 % Outputs graphing for elbow fitting
-[dataFoldF, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1, r, theta_m);
+[dataFoldF, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, h1);
 
 % Create Duplication for Overlap Slide
 [dataFoldNew] = StandaloneDuplication(dataFoldF, ls, n, lmax, 'fingertip', h1);

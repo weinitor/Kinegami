@@ -2,6 +2,20 @@ function [ls, l1, h0, alpha] = Origami_REBO_Parameters(r, n, beta, d0, nl)
 % ORIGAMI_REBO_PARAMETERS - Find the key variables needed to
 % generate the crease pattern of the origami REBO joint.
 
+% Inputs:
+%   r       - desired radius of folded origami linkage.
+%   n       - number of sides of folded origami linkage.
+%   beta    - REBO cone angle. 
+%   d0      - zero configuration length.
+%   nl      - number of folded prismatic layers.
+
+% Outputs:
+%   ls      - side length of folded origami linkage.
+%   l1      - midsection height for single REBO layer. 
+%   h0      - zero configuration length for a single REBO layer.
+%   alpha   - angular measurement for use in the generation of REBO fold
+%             region of schematic. 
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 4/3/2022

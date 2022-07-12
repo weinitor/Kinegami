@@ -1,6 +1,20 @@
-function [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h, r)
+function [dataFoldDefault, m, lmax] = Origami_Tube_CreasePattern(n, ls, h)
 % ORIGAMI_TUBE_CREASEPATTERN - Generates a crease pattern for the origami
 % prism tube.
+
+% Inputs:
+%   n                   - number of sides of folded origami linkage.
+%   ls                  - side length of folded origami linkage.
+%   h                   - desired tube height. 
+
+% Outputs:
+%   dataFoldDefault     - data structure which contains pertinent
+%                         information for DXF generation of crease
+%                         schematic.
+%`  m                   - horizontal offset value for use within
+%                         DataFoldAppend.m.
+%   lmax                - total height of crease schematic. Will be used in
+%                         crease "stacking" and duplication.
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>

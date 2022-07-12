@@ -2,6 +2,16 @@ function [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m)
 % ORIGAMI_REVOLUTEJOINT_PARAMETERS - Find the key variables needed to
 % generate the crease pattern of the origami revolute joint.
 
+% Inputs:
+%   r           - desired radius of folded origami linkage.
+%   n           - number of sides of folded origami linkage.
+%   theta_m     - total bending angle of revolute joint.
+
+% Outputs:
+%   lengths     - vector of length measurements for use in schematic
+%                 plotting.
+%   ls          - side length of folded origami linkage.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 6/17/2021

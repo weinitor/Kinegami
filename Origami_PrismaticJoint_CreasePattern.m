@@ -1,22 +1,27 @@
-function [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, l2, h0, h1, h2, alpha, beta)
+function [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(n, nl, ls, l1, l2, h1, h2, alpha)
 % ORIGAMI_ELBOW_CREASEPATTERN - Generates a crease pattern for the origami
 % prismatic joint.
 
 % Inputs:
 %   n           - number of sides of folded origami linkage.
-%   nl          - 
+%   nl          - number of folded prismatic layers.
 %   ls          - side length of folded origami linkage.
-%   l1          -
-%   l2          -
-%   h1          - length from bottom of schematic to base of prismatic
-%                 section. ie height of lower tube region.
-%   h2          -
-%   alpha       -
+%   l1          - midsection height for single prismatic layer.
+%   l2          - also referred to as dm. The max length quantity, as
+%                 defined in Origami_PrismaticJoint_Parameters.m.
+%   h1          - length from bottom of schematic to prismatic region
+%                 guide line. ie height of lower tube region. 
+%   h2          - length from upper boundary of prismatic region to top of
+%                 full schematic. ie height of upper tube region.
+%   alpha       - angular measurement for use in generation of prismatic
+%                 fold region of schematic. 
 
 % Outputs:
-%   dataFoldE   -
-%   m
-%   lmax
+%   dataFoldE   - data structure which contains pertinent information for
+%                 DXF generation of crease schematic. 
+%   m           - horizontal offset value for use within DataFoldAppend.m.
+%   lmax        - total height of crease schematic. Will be used in crease
+%                 "stacking" and duplication. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
@@ -33,7 +38,7 @@ count = 1;
 orange = [1, 0.41, 0];
 blue = [0, 0, 1];
 black = [0, 0, 0];
-red = [1, 0, 0];
+% red = [1, 0, 0];
 
 % Begin by defining boundaries of sheet 
 % -------------------------------------------------------------------

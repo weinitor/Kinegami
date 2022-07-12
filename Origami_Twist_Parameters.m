@@ -2,6 +2,17 @@ function [x, l, ls] = Origami_Twist_Parameters(r, n, h, alpha)
 % ORIGAMI_TWIST_PARAMETERS - Find the key variables needed to generate the
 % crease pattern of the origami twist fitting.
 
+% Inputs:
+%   r       - desired radius of folded origami linkage.
+%   n       - number of sides of folded origami linkage.
+%   h       - desired height of twist fitting. 
+%   alpha   - desired twist angle.
+
+% Outputs:
+%   x       - twist offset value for upper tube segmentation.
+%   l       - height of twist layer.
+%   ls      - side length of folded origami linkage.
+
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Last edited 6/22/2021
