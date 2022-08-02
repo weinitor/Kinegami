@@ -60,4 +60,4 @@ set(gcf, 'color', 'w')
 %     % Convert to DXF
     filename = (['REBO_r' num2str(r) '_n' num2str(n) '_l1_' num2str(l1) ...
         '.dxf']);
-    GenerateDXF(filename, dataFoldREBO)
+    GenerateDXF(filename, dataFoldNew)

@@ -69,4 +69,5 @@ set(gcf, 'color', 'w')
 % Convert to DXF
 filename = (['Elbow_r' num2str(r) '_n' num2str(n) '_phi' num2str(phi) ...
     '_theta' num2str(theta) '.dxf']);
-GenerateDXF(filename, dataFoldA)
+GenerateDXF(filename, dataFoldNew)
+

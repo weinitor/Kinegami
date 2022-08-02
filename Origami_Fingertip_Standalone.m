@@ -56,6 +56,6 @@ axis off
 set(gcf, 'color', 'w')
 
 % Convert to DXF
-% filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...
-%     '.dxf']);
-% GenerateDXF(filename, dataFoldD)
+filename = (['Revolute_r' num2str(r) '_n' num2str(n) '_theta' num2str(theta_m) ...
+    '.dxf']);
+GenerateDXF(filename, dataFoldNew)

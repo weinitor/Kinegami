@@ -57,6 +57,6 @@ axis off
 set(gcf, 'color', 'w')
 
 % Convert to DXF
-% filename = (['Twist_r' num2str(r) '_n' num2str(n) '_h' num2str(h) ...
-%     '_alpha' num2str(alpha) '.dxf']);
-% GenerateDXF(filename, dataFoldB)
+filename = (['Twist_r' num2str(r) '_n' num2str(n) '_h' num2str(h) ...
+    '_alpha' num2str(alpha) '.dxf']);
+GenerateDXF(filename, dataFoldNew)

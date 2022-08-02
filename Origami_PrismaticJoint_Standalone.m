@@ -72,8 +72,9 @@ title({
 daspect([1 1 1])
 axis off
 set(gcf, 'color', 'w')
-    
-%     % Convert to DXF
-    filename = (['Prismatic_r' num2str(r) '_n' num2str(n) '_l1_' num2str(l1) ...
-        '_l2_' num2str(dm) '.dxf']);
-    GenerateDXF(filename, dataFoldE)
+
+% Convert to DXF
+filename = (['Prismatic_r' num2str(r) '_n' num2str(n) '_l1_' num2str(l1) ...
+    '_l2_' num2str(dm) '.dxf']);
+GenerateDXF(filename, dataFoldNew)
+

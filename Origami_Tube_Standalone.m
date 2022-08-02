@@ -56,4 +56,4 @@ set(gcf, 'color', 'w')
 % Convert to DXF
 filename = (['Tube_r' num2str(r) '_n' num2str(n) '_h' num2str(h) ...
     '.dxf']);
-GenerateDXF(filename, dataFoldDefault)
+GenerateDXF(filename, dataFoldNew)
