@@ -60,7 +60,7 @@ if strcmp(type, 'revolute') ~= 1
 
         DataFoldNew(k).x = [];
         DataFoldNew(k).y = [];
-        DataFoldNew(k).color = [];
+        DataFoldNew(k).color = [0, 0, 0];
 
     end
 
@@ -68,7 +68,7 @@ if strcmp(type, 'revolute') ~= 1
 
         DataFoldNew(k).x = [];
         DataFoldNew(k).y = [];
-        DataFoldNew(k).color = [];
+        DataFoldNew(k).color = [0, 0, 0];
 
     end
 
