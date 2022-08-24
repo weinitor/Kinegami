@@ -1,15 +1,21 @@
 # Kinegami
 Given a **Denavit-Hartenberg (D-H) specification** of a kinematic chain robot, the program generates a **crease pattern** that folds into a kinematically equivalent robot with compliant joints. The program takes in the D-H specification and assigns the corresponding joint to a location that is sufficiently far from other joints while keeping the same kinematic properties. Then an origami link inspired by Dubin's path method is created to connect every two consecutive joints. 
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/50150425/186512835-2872de91-0506-41d0-b3d5-f5de10d29beb.png" alt="GIT_KinegamiFlowchart" width="700"/>
+</p>
+
 To construct the D-H specification, follow the variable definition ("Link length (a)", "Link twist (&alpha;)", "Joint offset (d)", and "Joint angle (&theta;)") and numbering system of the following kinematic chain mechanism schematic drawing (for more detail, please read "W. Khalil and E. Dombre, *Modeling, identification and control of robots*") to form a table.
 
-<!-- ![DH](https://user-images.githubusercontent.com/50150425/161108095-26ed20c8-596d-4ba4-a642-271e6f2d4c32.png) -->
-<!-- ![DHlight](https://user-images.githubusercontent.com/50150425/161122307-ad8ce29e-18ea-4b91-883e-ca186c5232fc.png) -->
-<img src="https://user-images.githubusercontent.com/50150425/161122307-ad8ce29e-18ea-4b91-883e-ca186c5232fc.png" alt="DHlight" width="600"/>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/50150425/186512245-90ea90ee-cd9c-4cd5-a77f-e04e22ddbb50.png" alt="GIT_DH" width="600"/>
+</p>
 
 Our Kinegami algorithm recruits a catalogue of parameterized modules. The folded state of the origami module, its spacial operator representation, and its crease pattern is shown here: (a) the origami prism tube, (b) the twist fitting, (c) the elbow fitting, (d) the prismatic joint, (e) the revolute joint, (f) partial close-up of an elbow fitting and (g) partial close-up of a revolute joint.
 
-![OrigamiModuleNew](https://user-images.githubusercontent.com/50150425/161108362-0ee75174-3fda-47f5-8d4d-f7433aadc7c7.png)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/50150425/186513578-b9112b8c-882f-4ba1-a223-3af849856ffc.png" alt="GIT_OrigamiModuleNew" width="900"/>
+</p>
 
 In addition, it provides the additional contribution of automatically choosing the relevant modules (with design parameters that control their compliance) and composing them into a non-self-intersecting single sheet pattern, thus reducing the design problem into simply one of abstract specification.
 The resulting pipeline does not require additional human input beyond the D-H specification. However, its algorithmic steps are sufficiently transparent to facilitate the integration of designers' alternative modules or more suitably optimized compositions when desired.
