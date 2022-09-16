@@ -11,9 +11,6 @@ function GenerateDXF(filename, data)
 % Outputs:
 %   None
 
-% Authors:
-% Unknown
-
 fid = dxf_open(filename);
 for q = 1:length(data)
     % set color
