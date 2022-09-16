@@ -24,7 +24,7 @@ Please report these by opening an issue on our Github at: https://github.com/wei
 
 7) Recipient and Developer will acknowledge in their respective publications, if any, the contributions made to each other's research involving or based on the Software. The current citations for Software are:
 
-  > *W.-H. Chen, W. Yang, L. Peach, D. E. Koditschek, and C. R. Sung, “Kinegami: Folding single sheet composition into tunably compliant kinematic chains,” under review.*
+  > *W.-H. Chen, W. Yang, L. Peach, D. E. Koditschek, and C. R. Sung, “Kinegami: Algorithmic Design of Compliant Kinematic Chains from Tubular Origami,” accepted to IEEE Transactions on Robotics.*
 
 8) Any party desiring a license to use the Software and/or Modifications for commercial purposes shall contact The Penn Center for Innovation at 215-898-9591 or pciinfo@pci.upenn.edu.
 
