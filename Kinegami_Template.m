@@ -15,6 +15,9 @@ clear
 close all
 clc
 
+% Add all the folders and subfolders to the search path
+addpath(genpath(fileparts(mfilename('fullpath'))));
+
 %% USER OPTIONS - Change Prior to Running (if necessary)
 
 % Determines which joint placement method will be implemented:
