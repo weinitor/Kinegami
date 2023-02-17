@@ -1,6 +1,7 @@
 function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n, ...
     JointStruct, mirror, triple, theta_mod, fingertip, ...
-    TransformStruct, DXF, split, segmentation, plotoption, jointselect)
+    TransformStruct, DXF, split, segmentation, plotoption, jointselect, ...
+    tubeinit)
 % KINEGAMI - Generates a crease pattern that folds into a serial mechanism
 % from a given D-H specification.
 
@@ -29,6 +30,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 %                     ease of fabrication.
 %   plotoption      - string input which dictates plotting.
 %   jointselect     - string input which dictates type of joint placement.
+%   tubeinit        - string input which dictates initial tube plotting
 
 % Outputs:
 %   infostruct      - updated data structure that includes all the
@@ -44,7 +46,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
-% Last Edited 7/11/2022
+% Last Edited 1/25/2023
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -53,8 +55,24 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     % Add all the folders and subfolders to the search path
     addpath(genpath(fileparts(mfilename('fullpath'))));
     
+    % Define h1 and h2 value for extended revolute joints
+    h1 = 0.035;
+    h2 = 0.035;
+    
     % Determine N (this will ultimately change for JointPlacement.m case)
     N = size(JointStruct, 2) - 1;
+    
+    % Define h1 and h2 data for each joint (in JointStruct)
+    for i = 1:N+1
+        
+        if JointStruct(i).type == 'E'
+            JointStruct(i).h1 = h1;
+            JointStruct(i).h2 = h2;
+        else
+            JointStruct(i).h1 = 0;
+            JointStruct(i).h2 = 0;
+        end        
+    end
     
     if strcmp(jointselect, 'selfassign') == 1
                
@@ -84,9 +102,14 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     infostruct(num) = struct();
     init_size = num;
     
-    % Tube
-    tube_height = 0.1;
-    
+    % Include initial tube to 0.1m in instance of tubeinit
+    if strcmp(tubeinit, 'on') == 1
+        tube_height = 0.1;
+    else
+        tube_height = 0;
+    end
+
+    % Populate initial tube in infostruct
     [ls] = Origami_Tube_Parameters(r, n);
 
     infostruct(1).ls = ls;
@@ -129,10 +152,8 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             JointStruct(i).Op(:, 4) = JointStruct(i).Op(:, 4) ...
                 - TransformStruct(index).adjust;
             JointStruct(i).Od(:, 4) = JointStruct(i).Od(:, 4) ...
-                + TransformStruct(index).adjust;
-        
-        end
-        
+                + TransformStruct(index).adjust;        
+        end 
     end
     
     % This figure call has no purpose except to prevent previous figure
@@ -141,287 +162,122 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         figure()
     end
     
-%     % Execute for JointPlacement Iteration
-%     if strcmp(selfassign, 'false') == 1
-%         
-%         % Create new structure for Joint & Waypoint Data Storage
-%         CumulativeStruct((3*N)+1) = struct();
-%         
-%         % Populating CumulativeStruct for main joints
-%         index = 0;
-%         for i = 1:3:(3*N)+1
-% 
-%             index = index+1;
-%             
-%             % Populate information for final joint plotted (initial joint
-%             % in series). No waypoint data here.
-%             CumulativeStruct(i).Op = TransformStruct(index).Op;
-%             CumulativeStruct(i).Od = TransformStruct(index).Od;
-%             
-%             % Converting JointStruct to CumulativeStruct
-%             CumulativeStruct(i).qm = JointStruct(index).qm;
-%             CumulativeStruct(i).q0 = JointStruct(index).q0;
-%             CumulativeStruct(i).type = JointStruct(index).type;
-%             CumulativeStruct(i).nz = JointStruct(index).nz;
-%             
-%             % Determine indexing for each of the main joints
-%             mainjoint = (index-1)*15+2;                
-%             
-%             % Classification by Joint Type
-%             if CumulativeStruct(i).type == 'R'
-% 
-%                 theta_m = CumulativeStruct(i).qm;
-% 
-%                 % Revolute Joint       
-%                 [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
-% 
-%                 infostruct(mainjoint).r = r;
-%                 infostruct(mainjoint).ls = ls;
-%                 infostruct(mainjoint).nz = CumulativeStruct(i).nz;
-%                 nz = infostruct(mainjoint).nz;
-% 
-%                 [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, ...
-%                     infostruct(mainjoint).h1, infostruct(mainjoint).h2, r, theta_m, nz);
-% 
-%                 infostruct(mainjoint).m = m;
-%                 infostruct(mainjoint).lmax = lmax;
-%                 infostruct(mainjoint).n = n;
-%                 infostruct(mainjoint).type = dataFoldD; 
-%                 infostruct(mainjoint).name = "Revolute";
-% 
-%             elseif CumulativeStruct(i).type == 'P'
-% 
-%                 % Prismatic Joint
-%                 beta = pi/3;
-%                 nl = 2;
-%                 d0 = CumulativeStruct(i).q0;
-% 
-%                 [ls, l1, h0, dm, PJ_alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl);
-% 
-%                 infostruct(mainjoint).r = r;
-%                 infostruct(mainjoint).ls = ls;
-%                 infostruct(mainjoint).n = n;
-%                 infostruct(mainjoint).l1 = l1;
-%                 infostruct(mainjoint).PJ_alpha = PJ_alpha;
-% 
-%                 [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(r, n, nl, ls, l1, dm, h0, ...
-%                     infostruct(mainjoint).h1, infostruct(mainjoint).h2, PJ_alpha, beta);
-% 
-%                 infostruct(mainjoint).m = m;
-%                 infostruct(mainjoint).lmax = lmax;
-%                 infostruct(mainjoint).type = dataFoldE;
-%                 infostruct(mainjoint).name = "Prismatic";
-% 
-%             elseif CumulativeStruct(i).type == 'F'
-% 
-%                 % Fingertip "Joint"
-%                 theta_m = CumulativeStruct(i).qm;
-% 
-%                 % Use same calculation file as revolute joint
-%                 [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
-% 
-%                 infostruct(mainjoint).r = r;
-%                 infostruct(mainjoint).ls = ls;
-% 
-%                 [FingertipFold, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, ...
-%                     infostruct(mainjoint).h1, r, theta_m);
-% 
-%                 infostruct(mainjoint).m = m;
-%                 infostruct(mainjoint).lmax = lmax;
-%                 infostruct(mainjoint).n = n;
-%                 infostruct(mainjoint).type = FingertipFold; 
-%                 infostruct(mainjoint).name = "Fingertip";
-%                 
-%             end
-%             
-%         end
-%         
-%         index = 0;
-%         % Waypoint data
-%         for i = 2:3:(3*N)-1
-%             
-%             index = index+1;
-% 
-%             waypoint2index = (index-1)*15+7;
-%             waypoint1index = (index-1)*15+12;
-%             
-%             % Waypoint 2
-%             CumulativeStruct(i).type = 'W';
-%             CumulativeStruct(i).waypoint = TransformStruct(index+1).waypoint2;
-%             
-%             % Waypoint 2 Information 
-%             height = 0;
-%             
-%             [ls] = Origami_Tube_Parameters(r, n);
-%             infostruct(waypoint2index).ls = ls;
-%             infostruct(waypoint2index).r = r;
-%             
-%             % Outputs tube of height 0
-%             [dataFoldW, m, lmax] = Origami_Tube_CreasePattern(n, ls, height, r);
-%             
-%             infostruct(waypoint2index).m = m;
-%             infostruct(waypoint2index).lmax = lmax;
-%             infostruct(waypoint2index).n = n;
-%             infostruct(waypoint2index).type = dataFoldW;
-%             infostruct(waypoint2index).name = 'Waypoint';
-%             
-%             % Waypoint 1
-%             CumulativeStruct(i+1).type = 'W';
-%             CumulativeStruct(i+1).waypoint = TransformStruct(index+1).waypoint1;
-%             
-%             % Waypoint 1 Information
-%             height = 0;
-%             
-%             [ls] = Origami_Tube_Parameters(r, n);
-%             infostruct(waypoint1index).ls = ls;
-%             infostruct(waypoint1index).r = r;
-%             
-%             % Outputs tube of height 0
-%             [dataFoldW, m, lmax] = Origami_Tube_CreasePattern(n, ls, height, r);
-%             
-%             infostruct(waypoint1index).m = m;
-%             infostruct(waypoint1index).lmax = lmax;
-%             infostruct(waypoint1index).n = n;
-%             infostruct(waypoint1index).type = dataFoldW;
-%             infostruct(waypoint1index).name = 'Waypoint';
-%             
-%         end
-%         
-%         % At this point, we have populated the initial tube, all main
-%         % joints, and all waypoint joints. Now, we run DubinsTube to
-%         % connect these.
-%         index = 0;
-%         for i = 1:3:(3*N)-2
-%             
-%             % Indexing
-%             index = index+1;            
-%             val1 = (index-1)*15+3;
-%             val2 = (index-1)*15+8;
-%             val3 = (index-1)*15+13;
-% 
-%             % Run DubinsTube analysis
-%             [infostruct] = DubinsTube(r, n, CumulativeStruct(i).Od, ...
-%                 CumulativeStruct(i+1).waypoint, infostruct, val1, mirror, split);
-%             [infostruct] = DubinsTube(r, n, CumulativeStruct(i+1).waypoint, ...
-%                 CumulativeStruct(i+2).waypoint, infostruct, val2, mirror, split);
-%             [infostruct] = DubinsTube(r, n, CumulativeStruct(i+2).waypoint, ...
-%                 CumulativeStruct(i+3).Op, infostruct, val3, mirror, split);
-%             
-%         end
-%         
-% 
-%     end
-    
-    % infostruct population for selfassign (no waypoints)
-%     if strcmp(selfassign, 'true') == 1
-        for i = 1:N+1
+    % infostruct population and execution of DubinsTube()
+    for i = 1:N+1
 
-            if JointStruct(i).type == 'R'
-
-                theta_m = JointStruct(i).qm;
-                jointindex = (i-1)*5+2;
-
-                % Revolute Joint       
-                [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
-
-                infostruct(jointindex).r = r;
-                infostruct(jointindex).ls = ls;
-                infostruct(jointindex).nz = JointStruct(i).nz;
-                nz = infostruct(jointindex).nz;
-
-                [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, ...
-                    infostruct(i).h1, infostruct(i).h2, nz);
-
-                infostruct(jointindex).m = m;
-                infostruct(jointindex).lmax = lmax;
-                infostruct(jointindex).n = n;
-                infostruct(jointindex).type = dataFoldD; 
-                infostruct(jointindex).name = "Revolute";
-
-            elseif JointStruct(i).type == 'P'
-
-                % Prismatic Joint
-                beta = pi/3;
-                nl = 2;
-                d0 = JointStruct(i).q0;
-
-                jointindex = (i-1)*5+2;
-
-                [ls, l1, h0, dm, PJ_alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl);
-
-                infostruct(jointindex).r = r;
-                infostruct(jointindex).ls = ls;
-                infostruct(jointindex).n = n;
-                infostruct(jointindex).l1 = l1;
-                infostruct(jointindex).h0 = h0;
-                infostruct(jointindex).PJ_alpha = PJ_alpha;
-
-
-                [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(n, nl, ls, l1, dm, ...
-                    infostruct(i).h1, infostruct(i).h2, PJ_alpha);
-
-                infostruct(jointindex).m = m;
-                infostruct(jointindex).lmax = lmax;
-                infostruct(jointindex).type = dataFoldE;
-                infostruct(jointindex).name = "Prismatic";
-
-            elseif JointStruct(i).type == 'F'
-
-                % Fingertip "Joint"
-                theta_m = JointStruct(i).qm;
-                jointindex = (i-1)*5+2;
-
-                % Use same calculation file as revolute joint
-                [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
-
-                infostruct(jointindex).r = r;
-                infostruct(jointindex).ls = ls;
-
-                [FingertipFold, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, ...
-                    infostruct(i).h1);
-
-                infostruct(jointindex).m = m;
-                infostruct(jointindex).lmax = lmax;
-                infostruct(jointindex).n = n;
-                infostruct(jointindex).type = FingertipFold; 
-                infostruct(jointindex).name = "Fingertip";
-                
-            else
-                
-                % Waypoint Specification
-                jointindex = (i-1)*5+2;
-                height = 0;
-
-                [ls] = Origami_Tube_Parameters(r, n);
-
-                infostruct(jointindex).ls = ls;
-                infostruct(jointindex).r = r;
-
-                % Outputs default tube parameters
-                [dataFoldV, m, lmax] = Origami_Tube_CreasePattern(n, ls, height);
-
-                infostruct(jointindex).m = m;
-                infostruct(jointindex).lmax = lmax;
-                infostruct(jointindex).n = n;
-                infostruct(jointindex).type = dataFoldV;
-                infostruct(jointindex).name = "Zero";
-                
+        if JointStruct(i).type == 'R' || JointStruct(i).type == 'E'
+            
+            jointindex = (i-1)*5+2;
+            
+            % for extended revolute, override h1 and h2 measurements
+            % (hardcoded, define here)
+            if JointStruct(i).type == 'E'
+                % naming convention also included here
+                infostruct(jointindex).name = "Extended Revolute";
+                infostruct(jointindex).h1 = h1;
+                infostruct(jointindex).h2 = h2;
+            elseif JointStruct(i).type == 'R'
+                infostruct(jointindex).name = "Revolute";                
             end
-        
-            val = 1 + (i-1)*5; 
 
-            newval = val+2;
+            theta_m = JointStruct(i).qm;
 
-            % Run Dubins Tube Analysis
-            if i < N+1
+            % Revolute Joint       
+            [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
 
-                [infostruct] = DubinsTube(r, n, JointStruct(i).Od, ...
-                    JointStruct(i+1).Op, infostruct, newval, mirror, split);   
-                
-            end
+            infostruct(jointindex).r = r;
+            infostruct(jointindex).ls = ls;
+            infostruct(jointindex).nz = JointStruct(i).nz;
+            nz = infostruct(jointindex).nz;
+
+            [dataFoldD, m, lmax] = Origami_RevoluteJoint_CreasePattern(lengths, ls, n, ...
+                infostruct(jointindex).h1, infostruct(jointindex).h2, nz);
+
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).type = dataFoldD; 
+
+        elseif JointStruct(i).type == 'P'
+
+            % Prismatic Joint
+            beta = pi/3;
+            nl = 2;
+            d0 = JointStruct(i).q0;
+
+            jointindex = (i-1)*5+2;
+
+            [ls, l1, h0, dm, PJ_alpha] = Origami_PrismaticJoint_Parameters(r, n, beta, d0, nl);
+
+            infostruct(jointindex).r = r;
+            infostruct(jointindex).ls = ls;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).l1 = l1;
+            infostruct(jointindex).h0 = h0;
+            infostruct(jointindex).PJ_alpha = PJ_alpha;
+
+
+            [dataFoldE, m, lmax] = Origami_PrismaticJoint_CreasePattern(n, nl, ls, l1, dm, ...
+                infostruct(jointindex).h1, infostruct(jointindex).h2, PJ_alpha);
+
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).type = dataFoldE;
+            infostruct(jointindex).name = "Prismatic";
+
+        elseif JointStruct(i).type == 'F'
+
+            % Fingertip "Joint"
+            theta_m = JointStruct(i).qm;
+            jointindex = (i-1)*5+2;
+
+            % Use same calculation file as revolute joint
+            [lengths, ls] = Origami_RevoluteJoint_Parameters(r, n, theta_m);
+
+            infostruct(jointindex).r = r;
+            infostruct(jointindex).ls = ls;
+
+            [FingertipFold, m, lmax] = Origami_Fingertip_CreasePattern(lengths, ls, n, ...
+                infostruct(jointindex).h1);
+
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).type = FingertipFold; 
+            infostruct(jointindex).name = "Fingertip";
+
+        else
+
+            % Waypoint Specification
+            jointindex = (i-1)*5+2;
+            height = 0;
+
+            [ls] = Origami_Tube_Parameters(r, n);
+
+            infostruct(jointindex).ls = ls;
+            infostruct(jointindex).r = r;
+
+            % Outputs default tube parameters
+            [dataFoldV, m, lmax] = Origami_Tube_CreasePattern(n, ls, height);
+
+            infostruct(jointindex).m = m;
+            infostruct(jointindex).lmax = lmax;
+            infostruct(jointindex).n = n;
+            infostruct(jointindex).type = dataFoldV;
+            infostruct(jointindex).name = "Zero";
         end
-      
-%     end
+
+        val = 1 + (i-1)*5; 
+
+        newval = val+2;
+
+        % Run Dubins Tube Analysis
+        if i < N+1
+
+            [infostruct] = DubinsTube(r, n, JointStruct(i).Od, ...
+                JointStruct(i+1).Op, infostruct, newval, mirror, split);   
+        end
+    end
     
     % Create new figure to demonstrate the frames and their connections, as
     % well as the connection pipes
@@ -444,9 +300,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
                 JointStruct(i).Od(3,4), JointStruct(i).Od(1,j), ...
                 JointStruct(i).Od(2,j), JointStruct(i).Od(3,j), ...
                 'AutoScaleFactor', 0.025, 'Linewidth', 3, 'Color', colorvector(j));
-            
-            end
-            
+            end     
         end
         
         for j = 1:3
@@ -456,8 +310,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
                 JointStruct(i).Op(3,4), JointStruct(i).Op(1,j), ...
                 JointStruct(i).Op(2,j), JointStruct(i).Op(3,j), ...
                 'AutoScaleFactor', 0.025, 'Linewidth', 3, 'Color', colorvector(j));
-        end
-              
+        end         
     end
     
     % Identify red, green, blue, as a, b, c
@@ -472,8 +325,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         
         if i < N+1 % again, do not worry about fingertip distal
             
-            plot2 = frameplot(JointStruct(i).Od, 'black'); % Plotting "distal"
-        
+            plot2 = frameplot(JointStruct(i).Od, 'black'); % Plotting "distal"        
         end
         
         % Ignore in legend
@@ -481,8 +333,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         plot2.Annotation.LegendInformation.IconDisplayStyle = 'off';
         
         % Recall that the first "proximal" is the distal of the first
-        % joint. The first "distal" is the proximal of the second joint.
-        
+        % joint. The first "distal" is the proximal of the second joint.      
     end
     
     % Initialize proximalcenter and distalcenter vectors (for plotting
@@ -507,46 +358,47 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 %         z = [proximalcenter(i, 3), distalcenter(i+1, 3)];
         
 %         h = plot3(x, y, z, 'color', 'k', 'Linewidth', 1.5);
-%         h.Annotation.LegendInformation.IconDisplayStyle = 'off';
- 
+%         h.Annotation.LegendInformation.IconDisplayStyle = 'off'; 
     end
     
     % Add initial tube plotting. Take all 3 possible orientations into
     % account for accurate point plotting.
     
-    % a = [1; 0; 0]
-    if abs(JointStruct(1).Op(1, 1)) == 1
-        
-        x = [distalcenter(1, 1), distalcenter(1, 1)]...
-            -[sign(JointStruct(1).Op(1, 1))*infostruct(1).lmax, 0];
-        y = [distalcenter(1, 2), distalcenter(1, 2)];
-        z = [distalcenter(1, 3), distalcenter(1, 3)];
-        
-        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
-        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
-        
-    % a = [0; 1; 0]   
-    elseif abs(JointStruct(1).Op(2, 1)) == 1
-        
-        x = [distalcenter(1, 1), distalcenter(1, 1)];
-        y = [distalcenter(1, 2), distalcenter(1, 2)]...
-            -[sign(JointStruct(1).Op(2, 1))*infostruct(1).lmax, 0];
-        z = [distalcenter(1, 3), distalcenter(1, 3)];
-        
-        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
-        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
-        
-    % a = [0; 0; 1]    
-    else
-        
-        x = [distalcenter(1, 1), distalcenter(1, 1)];
-        y = [distalcenter(1, 2), distalcenter(1, 2)];
-        z = [distalcenter(1, 3), distalcenter(1, 3)]...
-            -[sign(JointStruct(1).Op(3, 1))*infostruct(1).lmax, 0];
-        
-        h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
-        h.Annotation.LegendInformation.IconDisplayStyle = 'off';
-        
+    if strcmp(tubeinit, 'on') == 1
+        % a = [1; 0; 0]
+        if abs(JointStruct(1).Op(1, 1)) == 1
+
+            x = [distalcenter(1, 1), distalcenter(1, 1)]...
+                -[sign(JointStruct(1).Op(1, 1))*infostruct(1).lmax, 0];
+            y = [distalcenter(1, 2), distalcenter(1, 2)];
+            z = [distalcenter(1, 3), distalcenter(1, 3)];
+
+            h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
+            h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+
+        % a = [0; 1; 0]   
+        elseif abs(JointStruct(1).Op(2, 1)) == 1
+
+            x = [distalcenter(1, 1), distalcenter(1, 1)];
+            y = [distalcenter(1, 2), distalcenter(1, 2)]...
+                -[sign(JointStruct(1).Op(2, 1))*infostruct(1).lmax, 0];
+            z = [distalcenter(1, 3), distalcenter(1, 3)];
+
+            h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
+            h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+
+        % a = [0; 0; 1]    
+        else
+
+            x = [distalcenter(1, 1), distalcenter(1, 1)];
+            y = [distalcenter(1, 2), distalcenter(1, 2)];
+            z = [distalcenter(1, 3), distalcenter(1, 3)]...
+                -[sign(JointStruct(1).Op(3, 1))*infostruct(1).lmax, 0];
+
+            h = plot3(x, y, z, 'color', 'k', 'Linewidth', 4);
+            h.Annotation.LegendInformation.IconDisplayStyle = 'off';
+
+        end
     end
     
     % Colorvector data for joint spheres
@@ -558,7 +410,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     blue = [0, 0.447, 0.741];
     purple = [0.4940, 0.1840, 0.5560];
 
-    colorvector = [black; red; orange; yellow; green; blue; purple];
+    colorvector = [black; red; orange; yellow; green; blue; purple; black];
     
     % Add joint spheres
     % For this specific instance of SphericalSampling, we require the
@@ -580,8 +432,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             % Turn off legend for appearance
             handle.Annotation.LegendInformation.IconDisplayStyle = 'off';
         
-        end
-        
+        end  
     end
     
     % Plot Settings
@@ -604,8 +455,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         
         newval = val+2;
     
-        [JointStruct] = DubinsPlot(JointStruct, infostruct, newval, i);
-    
+        [JointStruct] = DubinsPlot(JointStruct, infostruct, newval, i);  
     end
     
     % Add field for tracking lmaxnet
@@ -618,8 +468,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
         
         % Create triplet structure which will only be used in the instance
         % of a 'triplet' input
-        infostruct(i).triple = infostruct(i).type;
-         
+        infostruct(i).triple = infostruct(i).type;         
     end
     
     msum = 0;
@@ -639,7 +488,6 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 
         [msum, lmax_sum, infostruct, infostruct(index).type] = DataFoldAppend(a, infostruct(index).type, ...
             infostruct, index, msum, lmax_sum);
-
     end
     
     msum = 0;
@@ -652,7 +500,6 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             infostruct(index).triple] ...
             = DataFoldDuplicate(a, infostruct(index).duplicate, ...
             infostruct(index).triple, infostruct, index, msum, lmax_sum, triple);
-
     end
         
     for i = 1:size(infostruct, 2)
@@ -661,8 +508,7 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             lmaxtotal = infostruct(i).lmax;
         else
             lmaxtotal = infostruct(i).lmax + lmaxtotal;
-        end
-        
+        end      
     end
     
 %     totalsize = ((size(infostruct, 2) - 1) / 5);
@@ -683,10 +529,8 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 
                 infostruct(end+1).type = dataFoldDissect;
             
-            end
-            
-        end
-        
+            end            
+        end 
     end
     
     % Adding boundary box around entirety of printed region
@@ -712,17 +556,14 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             
         else
             
-            sizecounter = sizecounter + infostruct(i).size;
-            
-        end
-        
+            sizecounter = sizecounter + infostruct(i).size;            
+        end   
     end
     
     % Assign .size field to additional entries
     for i = init_size:structsize
         
-        infostruct(i).size = size(infostruct(i).type, 2);        
-        
+        infostruct(i).size = size(infostruct(i).type, 2);               
     end
     
     % Specify length of structure
@@ -755,10 +596,8 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
                 
                 DataNet(j+offset+2*infostruct(i).size).x = infostruct(i).triple(j).x;
                 DataNet(j+offset+2*infostruct(i).size).y = infostruct(i).triple(j).y;
-                DataNet(j+offset+2*infostruct(i).size).color = infostruct(i).triple(j).color;
-                
-            end
-                      
+                DataNet(j+offset+2*infostruct(i).size).color = infostruct(i).triple(j).color;               
+            end              
         end
         
         offset = offset + mult*infostruct(i).size;
@@ -772,12 +611,10 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             
             DataNet(j+offset).x = infostruct(i).type(j).x;
             DataNet(j+offset).y = infostruct(i).type(j).y;
-            DataNet(j+offset).color = infostruct(i).type(j).color;
-            
+            DataNet(j+offset).color = infostruct(i).type(j).color;        
         end      
         
-        offset = offset + infostruct(i).size;
-        
+        offset = offset + infostruct(i).size;     
     end
     
     % Set axis limits so that only print area is displayed

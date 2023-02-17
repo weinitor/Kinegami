@@ -48,6 +48,10 @@ segmentation = 'off';
 % in-depth analysis.
 plotoption = 'off';
 
+% Specify whether initial tube plotting (prior to first joint location)
+% should be included. ('on'/'off')
+tubeinit = 'off';
+
 %% KINEMATIC CHAIN SPECIFICATION
 
 % Specify number of sides and the circumradius [m] for the polygon base 
