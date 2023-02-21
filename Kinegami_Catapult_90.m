@@ -54,6 +54,10 @@ segmentation = 'on';
 % in-depth analysis.
 plotoption = 'off';
 
+% Specify whether initial tube plotting (prior to first joint location)
+% should be included. ('on'/'off')
+tubeinit = 'off';
+
 % Specify number of sides (polygon)
 nsides = 4;
 

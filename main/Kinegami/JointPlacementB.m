@@ -32,7 +32,7 @@ function [TransformStruct, JointStructNew, Nnew] = JointPlacementB(D, r, n, Join
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Wei-Hsi Chen <weicc@seas.upenn.edu>
-% Last Edited 1/28/2022
+% Last Edited 1/25/2023
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -86,12 +86,19 @@ for i = 1:N+1
     
     % Assign r fields for sphere calculations
     
-    % If revolute
+    % If revolute or extended revolute
     if JointStruct(i).type == 'R'
         
         TransformStruct(i).rs = r*sin(((n - 2)*pi) / (2*n))* ...
             tan(JointStruct(i).qm/ 4);
-    
+        
+    % If extended revolute
+    elseif JointStruct(i).type == 'E'
+        
+        TransformStruct(i).rs = (r*sin(((n - 2)*pi) / (2*n))* ...
+            tan(JointStruct(i).qm/ 4)) + ((JointStruct(i).h1+ ...
+            JointStruct(i).h2)/2);    
+        
     % If prismatic
     elseif JointStruct(i).type == 'P'
         
@@ -125,8 +132,8 @@ for i = N:-1:1
     Oz = TransformStruct(i).net(1:3, 3);
     Oc = TransformStruct(i).net(1:3, 4);
     
-    % If revolute
-    if JointStruct(i).type == 'R'
+    % If revolute or extended revolute
+    if JointStruct(i).type == 'R' || JointStruct(i).type == 'E'
         
         Ox = RotationalMatrix(Oz, theta_mod(i))*Ox;
         Oy = RotationalMatrix(Oz, theta_mod(i))*Oy;
@@ -290,7 +297,7 @@ for i = N+1:-1:2
     
     % Since fingertip case (N+1) is already addressed in lines 29-44,
     % worry only about Prismatic and Revolute cases
-    if JointStruct(i-1).type == 'R'
+    if JointStruct(i-1).type == 'R' || JointStruct(i).type == 'E'
         
         TransformStruct(i-1).Oc = [Ox, Oy, Oz, Oc];
         
@@ -343,7 +350,7 @@ for i = N+1:-1:2
     t_val = fmincon(obj, delta0, A, B);
     
     % Now, use values of u and t to find Oc(i-1)
-    if JointStruct(i-1).type == 'R'
+    if JointStruct(i-1).type == 'R' || JointStruct(i-1).type == 'E'
         
         TransformStruct(i-1).Oc = [u*Ox, u*Oy, Oz, Oc + t_val*Oz];
         

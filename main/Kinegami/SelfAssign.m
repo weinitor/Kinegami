@@ -20,7 +20,7 @@ function [TransformStruct] = SelfAssign(TransformStruct, r, n, JointStruct, N, p
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
-% Last Edited 7/20/2021
+% Last Edited 1/25/2023
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -38,6 +38,13 @@ for i = 1:N+1
         
         TransformStruct(i).rs = r*sin(((n - 2)*pi) / (2*n))* ...
             tan(JointStruct(i).qm/ 4);
+        
+    % If extended revolute
+    elseif JointStruct(i).type == 'E'
+        
+        TransformStruct(i).rs = (r*sin(((n - 2)*pi) / (2*n))* ...
+            tan(JointStruct(i).qm/ 4)) + ((JointStruct(i).h1+ ...
+            JointStruct(i).h2)/2);    
     
     % If prismatic
     elseif JointStruct(i).type == 'P'
@@ -138,7 +145,7 @@ green = [0.466, 0.674, 0.188];
 blue = [0, 0.447, 0.741];
 purple = [0.4940, 0.1840, 0.5560];
 
-colorvector = [black; red; orange; yellow; green; blue; purple];
+colorvector = [black; red; orange; yellow; green; blue; purple; red];
 
 % Plot lines connecting consecutive spheres
 

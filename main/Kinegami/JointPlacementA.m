@@ -28,7 +28,7 @@ function [TransformStruct] = JointPlacementA(D, r, n, JointStruct, N, theta_mod,
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Wei-Hsi Chen <weicc@seas.upenn.edu>
-% Last Edited 7/20/2021
+% Last Edited 1/25/2023
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -86,6 +86,13 @@ for i = 1:N+1
         
         TransformStruct(i).rs = r*sin(((n - 2)*pi) / (2*n))* ...
             tan(JointStruct(i).qm/ 4);
+        
+        % If extended revolute
+    elseif JointStruct(i).type == 'E'
+        
+        TransformStruct(i).rs = (r*sin(((n - 2)*pi) / (2*n))* ...
+            tan(JointStruct(i).qm/ 4)) + ((JointStruct(i).h1+ ...
+            JointStruct(i).h2)/2);    
     
     % If prismatic
     elseif JointStruct(i).type == 'P'
@@ -259,8 +266,8 @@ for i = 1:N+1
     Oz = TransformStruct(i).net(1:3, 3);
     Oc = TransformStruct(i).oinew.';
     
-    % If revolute
-    if JointStruct(i).type == 'R'
+    % If revolute or extended revolute
+    if JointStruct(i).type == 'R' || JointStruct(i).type == 'E'
         
         ai = RotationalMatrix(Oz, theta_mod(i))*Ox;
         bi = RotationalMatrix(Oz, theta_mod(i))*Oy;

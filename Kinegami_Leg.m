@@ -1,5 +1,6 @@
-% KINEGAMI_SPHERICAL_TEMPLATE - Generates a 3 DOF spherical wrist with
-% Kinegami. 
+% KINEGAMI_TEMPLATE - Generates a crease pattern for the given robot
+% specification. Fill in the Kinematic parameters '??' and specify the user
+% options. 
 
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
@@ -23,7 +24,7 @@ addpath(genpath(fileparts(mfilename('fullpath'))));
 % For the general method, use JointPlacementA.m ('placementA'); 
 % To guarantee no self-intersection, use JointPlacementB.m ('placementB');
 % To locate the joints manually, use SelfAssign.m ('selfassign')
-jointselect = 'placementA';
+jointselect = 'selfassign';
 
 % Determines whether the user wishes their elbow fittings to have visible
 % tucks ('on' - recommended) or appear with only the lower outlines ('off')
@@ -57,41 +58,40 @@ tubeinit = 'off';
 % Specify number of sides and the circumradius [m] for the polygon base 
 % of the prism tube
 nsides = 4;
-r = 0.02;
+r = 0.04;
 
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
 % n equals to the number of joints plus one fingertip
-n = 4;
+n = 8;
 D = zeros(n,4);
 
 % Specify DH Parameters nX4, in the order of "Link length (a)", 
 % "Link twist (alpha)", "Joint offset (d)", and "Joint angle (theta)".
-D = [0, 0, 0.1, 0; ...
-    0, pi/2, 0, pi/2; ...
-    0, pi/2, 0, pi/2; ...
-    0, pi/2, 0.1, 0];
+% D = [??, ??, ??, ??;...
+%     ...
+%      ??, ??, ??, ??];
 
 % Specify joint information as a row vector:
 % Contains n elements for each vector
-% Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
-% 'F': Fingertip, 'V': Spine Vertex (not a joint)
-TYPE = ['R', 'R', 'R', 'F']; 
+% Types of joints: 'R': Revolute joint, 'E': Extended Revolute Joint, ...
+% 'P': Prismatic joint, 'F': Fingertip, 'V': Spine Vertex (not a joint)
+TYPE = ['V', 'E', 'E', 'V', 'V', 'E', 'E', 'V']; 
 
 % Maximum joint range (row vec.)
-Qm = [pi, pi, pi, pi]; 
+Qm = [pi/2, pi, pi, pi/2, pi/2, pi, pi, pi/2]; 
 
 % Initial joint configuration (row vec.)
-Q0 = [0, pi/2, pi/2, 0]; 
+Q0 = [0, 0, 0, 0, 0, 0, 0, 0]; 
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-theta_mod = [0, 0, 0, 0]; 
+theta_mod = [0, 0, 0, 0, 0, 0, 0, 0]; 
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
-Nz = [1, 1, 1, 1]; 
+Nz = [1, 1, 1, 1, 1, 1, 1, 1]; 
 
 % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-fingertip = 'z';
+fingertip = 'x';
 
 % Initialize JointStruct
 JointStruct(n) = struct();
@@ -110,26 +110,46 @@ TransformStruct(N+1) = struct();
 if strcmp(jointselect, 'selfassign') == 1
     
     % Specify the orientation of the fingertip: 'x', 'y', or 'z'
-    fingertip = 'z';
+    fingertip = 'x';
     
-    % Specify the frame (3X4) of each individul joint
-    TransformStruct(1).Oc = [1, 0, 0, 0; ...
-        0, 1, 0, 0; ...
-        0, 0, 1, -0.159];
+    % Lengths [m]
+    l1 = 0.2;
+    l2 = 0.2;
+    d = 2*l1;
     
-    TransformStruct(2).Oc = [0, -1, 0, 0; ...
-        0, 0, -1, 0.2377; ...
-        1, 0, 0, 0.1];
-    
-    TransformStruct(3).Oc = [0, 0, 1, -0.139; ...
-        -1, 0, 0, 0; ...
-        0, -1, 0, 0.1];    
-    
-    TransformStruct(4).Oc = [0, 0, 1, 0; ...
-        0, -1, 0, 0; ...
-        1, 0, 0, 0.2];                         
-    % etc...
-    
+    % Specify the frame (3X4) of each individul joint in global frame
+    TransformStruct(1).Oc = [1, 0, 0, -l2; ...
+                             0, 1, 0, 0; ...
+                             0, 0, 1, 0];
+                         
+    TransformStruct(2).Oc = [1, 0, 0, 0; ...
+                             0, 1, 0, 0; ...
+                             0, 0, 1, 0];
+                         
+    TransformStruct(3).Oc = [cos(-pi/3), -sin(-pi/3), 0, l2*cos(-pi/3); ...
+                             sin(-pi/3), cos(-pi/3), 0, l2*sin(-pi/3); ...
+                             0, 0, 1, 0];  
+                     
+    TransformStruct(4).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - ((d*cos(pi/3))/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - ((d*sin(pi/3)/3)); ...
+                             0, 0, 1, -0.125];   
+                         
+    TransformStruct(5).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - (2*(d*cos(pi/3))/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - (2*(d*sin(pi/3))/3); ...
+                             0, 0, 1, -0.125];   
+                         
+    TransformStruct(6).Oc = [cos(2*pi/3), -sin(2*pi/3), 0, (l2*cos(-pi/3)) - d*cos(pi/3); ...
+                             sin(2*pi/3), cos(2*pi/3), 0, (l2*sin(-pi/3)) - d*sin(pi/3); ...
+                             0, 0, 1, 0];                        
+                                               
+    TransformStruct(7).Oc = [-1, 0, 0, (l2*cos(-pi/3)) - d*cos(pi/3) + (l2*cos(2*pi/3)); ...
+                             0, -1, 0, (l2*sin(-pi/3)) - d*sin(pi/3) + (l2*sin(2*pi/3)); ...
+                             0, 0, 1, 0];  
+
+    TransformStruct(8).Oc = [-1, 0, 0, (l2*cos(-pi/3)) - d*cos(pi/3) + (l2*cos(2*pi/3)) - l1; ...
+                             0, -1, 0, (l2*sin(-pi/3)) - d*sin(pi/3) + (l2*sin(2*pi/3)); ...
+                             0, 0, 1, 0];                           
+                         
 else  
     % Otherwise, do nothing new
 end
@@ -137,6 +157,6 @@ end
 %% RUN KINEGAMI
 
 % Run Kinegami code
-[infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, nsides, JointStruct, ...
+[infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, TransformStruct, ...
-    DXF, split, segmentation, plotoption, jointselect);
+    DXF, split, segmentation, plotoption, jointselect, tubeinit);
