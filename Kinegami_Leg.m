@@ -75,8 +75,8 @@ D = zeros(n,4);
 % Specify joint information as a row vector:
 % Contains n elements for each vector
 % Types of joints: 'R': Revolute joint, 'E': Extended Revolute Joint, ...
-% 'P': Prismatic joint, 'F': Fingertip, 'V': Spine Vertex (not a joint)
-TYPE = ['V', 'E', 'E', 'V', 'V', 'E', 'E', 'V']; 
+% 'P': Prismatic joint, 'F': Fingertip, 'W': Waypoint (not a joint)
+TYPE = ['W', 'E', 'E', 'W', 'W', 'E', 'E', 'W']; 
 
 % Maximum joint range (row vec.)
 Qm = [pi/2, pi, pi, pi/2, pi/2, pi, pi, pi/2]; 

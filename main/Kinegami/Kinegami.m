@@ -135,31 +135,22 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     % Populate proximal and distal potential frames prior to looping
     index = 0;
     for i = 1:N+1
-        
-        if strcmp(JointStruct(i).type, 'W') ~= 1
-            
-            index = index + 1;
-    
-            % Establish adjustment parameters
-            TransformStruct(index).adjust = TransformStruct(index).rs * ...
-                TransformStruct(index).Oc(:, 1);
+                   
+        index = index + 1;
 
-            % Create new fields for editing
-            JointStruct(i).Op = TransformStruct(index).Oc;
-            JointStruct(i).Od = TransformStruct(index).Oc;
+        % Establish adjustment parameters
+        TransformStruct(index).adjust = TransformStruct(index).rs * ...
+            TransformStruct(index).Oc(:, 1);
 
-            % Edit new fields to create proximal and distal frames
-            JointStruct(i).Op(:, 4) = JointStruct(i).Op(:, 4) ...
-                - TransformStruct(index).adjust;
-            JointStruct(i).Od(:, 4) = JointStruct(i).Od(:, 4) ...
-                + TransformStruct(index).adjust;        
-        end 
-    end
-    
-    % This figure call has no purpose except to prevent previous figure
-    % from closing
-    if strcmp(plotoption, 'on') == 1
-        figure()
+        % Create new fields for editing
+        JointStruct(i).Op = TransformStruct(index).Oc;
+        JointStruct(i).Od = TransformStruct(index).Oc;
+
+        % Edit new fields to create proximal and distal frames
+        JointStruct(i).Op(:, 4) = JointStruct(i).Op(:, 4) ...
+            - TransformStruct(index).adjust;
+        JointStruct(i).Od(:, 4) = JointStruct(i).Od(:, 4) ...
+            + TransformStruct(index).adjust;           
     end
     
     % infostruct population and execution of DubinsTube()
@@ -273,10 +264,21 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
 
         % Run Dubins Tube Analysis
         if i < N+1
-
+            
+            % Add additional figure for each DubinsTube visualization
+            if strcmp(plotoption, "on") == 1
+                figure()
+            end
+            
+            % Run DubinsTube path planning algorithm 
             [infostruct] = DubinsTube(r, n, JointStruct(i).Od, ...
                 JointStruct(i+1).Op, infostruct, newval, mirror, split);   
         end
+    end
+    
+    % Remove plot generation from DubinsTube if necessary
+    if strcmp(plotoption, "off") == 1
+        close
     end
     
     % Create new figure to demonstrate the frames and their connections, as
@@ -420,19 +422,15 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     
     index = 0;
     for i = 1:N+1
-        
-        if strcmp(JointStruct(i).type, 'W') ~= 1
             
-            index = index + 1;
-        
-            % Run SphericalSampling on each joint
-            [TransformStruct(index).dubinsplot, handle] = SphericalSampling(TransformStruct(index).Oc(:, 4), ...
-                TransformStruct(index).rs, colorvector(index, :), plotoption);   
+        index = index + 1;
 
-            % Turn off legend for appearance
-            handle.Annotation.LegendInformation.IconDisplayStyle = 'off';
-        
-        end  
+        % Run SphericalSampling on each joint
+        [TransformStruct(index).dubinsplot, handle] = SphericalSampling(TransformStruct(index).Oc(:, 4), ...
+            TransformStruct(index).rs, colorvector(index, :), plotoption);   
+
+        % Turn off legend for appearance
+        handle.Annotation.LegendInformation.IconDisplayStyle = 'off'; 
     end
     
     % Plot Settings

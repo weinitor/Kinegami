@@ -114,7 +114,7 @@ if strcmp(jointselect, 'selfassign') == 1
     Q0 = [0, pi/2, 0, 0]; 
     theta_mod = [0, 0, 0, 0]; 
     Nz = [1, 1, 1, 1]; 
-    JointStruct = struct() % reset struct
+    JointStruct = struct(); % reset struct
     JointStruct(n) = struct();
     for i = 1:n
         JointStruct(i).qm = Qm(i);

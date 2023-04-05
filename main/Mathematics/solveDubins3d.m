@@ -150,8 +150,6 @@ plotCirclePath(op, od, Cp4, Pp4, Cd4, Pd4, ap, ad, 'b', 'r')
 
 axis equal
 
-close all
-
 % Functions
 % ---------------------------------------------------------------------
 

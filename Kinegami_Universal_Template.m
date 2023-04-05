@@ -74,8 +74,8 @@ D = [
 
 % Specify joint information as a row vector:
 % Contains n elements for each vector
-% Types of joints: 'R': Revolute joint, 'P': Prismatic joint, ...
-% 'F': Fingertip, 'V': Spine Vertex (not a joint)
+% Types of joints: 'R': Revolute joint, 'E': Extended Revolute Joint, ...
+% 'P': Prismatic joint, 'F': Fingertip, 'W': Waypoint (not a joint)
 TYPE = ['R', 'R', 'F']; 
 
 % Maximum joint range (row vec.)
@@ -115,7 +115,7 @@ if strcmp(jointselect, 'selfassign') == 1
     Q0 = [0, pi/2, 0, 0]; 
     theta_mod = [0, 0, 0, 0]; 
     Nz = [1, 1, 1, 1]; 
-    JointStruct = struct() % reset struct
+    JointStruct = struct(); % reset struct
     JointStruct(n) = struct();
     for i = 1:n
         JointStruct(i).qm = Qm(i);
