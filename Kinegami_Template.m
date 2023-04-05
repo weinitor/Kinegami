@@ -5,7 +5,7 @@
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Wei-Hsi Chen <weicc@seas.upenn.edu>
-% Last Edited 1/1/2022
+% Last Edited 04/05/2023
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -51,7 +51,7 @@ plotoption = 'off';
 
 % Specify whether initial tube plotting (prior to first joint location)
 % should be included. ('on'/'off')
-tubeinit = 'off';
+tubeinit = 'on';
 
 %% KINEMATIC CHAIN SPECIFICATION
 
@@ -130,6 +130,6 @@ end
 %% RUN KINEGAMI
 
 % Run Kinegami code
-[infostruct, TransformStruct, DataNet] = Kinegami(D, r, nsides, JointStruct, ...
+[infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, TransformStruct, ...
-    DXF, split, segmentation, plotoption, jointselect);
+    DXF, split, segmentation, plotoption, jointselect, tubeinit);
