@@ -55,10 +55,6 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     % Add all the folders and subfolders to the search path
     addpath(genpath(fileparts(mfilename('fullpath'))));
     
-    % Define h1 and h2 value for extended revolute joints
-    h1 = 0.03;
-    h2 = 0.03;
-    
     % Determine N (this will ultimately change for JointPlacement.m case)
     N = size(JointStruct, 2) - 1;
     
@@ -153,8 +149,8 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
             if JointStruct(i).type == 'E'
                 % naming convention also included here
                 infostruct(jointindex).name = "Extended Revolute";
-                infostruct(jointindex).h1 = h1;
-                infostruct(jointindex).h2 = h2;
+                infostruct(jointindex).h1 = JointStruct(i).h1;
+                infostruct(jointindex).h2 = JointStruct(i).h2;
             elseif JointStruct(i).type == 'R'
                 infostruct(jointindex).name = "Revolute";                
             end
