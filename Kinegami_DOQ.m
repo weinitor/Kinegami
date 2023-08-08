@@ -5,7 +5,7 @@
 % Authors: 
 % Lucien Peach <peach@seas.upenn.edu>
 % Wei-Hsi Chen <weicc@seas.upenn.edu>
-% Last Edited 04/05/2023
+% Last Edited 08/08/2023
 %
 % Copyright (C) 2022 The Trustees of the University of Pennsylvania. 
 % All rights reserved. Please refer to LICENSE.md for detail.
@@ -58,7 +58,7 @@ tubeinit = 'off';
 % Specify number of sides and the circumradius [m] for the polygon base 
 % of the prism tube
 nsides = 4;
-r = 0.04;
+r = 0.02;
 
 % Input the kinematic chain robot specifications
 % Number of joints and initialize DH Parameter table D
@@ -78,6 +78,11 @@ D = zeros(n,4);
 % 'P': Prismatic joint, 'F': Fingertip, 'W': Waypoint (not a joint)
 TYPE = ['W', 'E', 'E', 'W', 'W', 'E', 'E', 'W']; 
 
+% Specify extended revolute tube section length (for 'E' joints, else 0)
+% Define as h1 and h2 values
+h1 = 0.03;
+h2 = 0.03;
+
 % Maximum joint range (row vec.)
 Qm = [pi/2, pi, pi, pi/2, pi/2, pi, pi, pi/2]; 
 
@@ -85,7 +90,7 @@ Qm = [pi/2, pi, pi, pi/2, pi/2, pi, pi, pi/2];
 Q0 = [0, 0, 0, 0, 0, 0, 0, 0]; 
 
 % Specify the angle modification utilized (recommended: zeros(n)) (row vec.)
-theta_mod = [0, 0, -pi/3, 0, 0, 0, 0, 0]; 
+theta_mod = [0, 0, 0, 0, 0, 0, 0, 0]; 
 
 % Layer of recursive sink gadget for revolute joint (row vec.)
 Nz = [1, 1, 1, 1, 1, 1, 1, 1]; 
@@ -100,6 +105,15 @@ for i = 1:n
     JointStruct(i).q0 = Q0(i);
     JointStruct(i).type = TYPE(i);
     JointStruct(i).nz = Nz(i);
+    
+    % Define h1 and h2 data for each joint
+    if JointStruct(i).type == 'E'
+        JointStruct(i).h1 = h1;
+        JointStruct(i).h2 = h2;
+    else
+        JointStruct(i).h1 = 0;
+        JointStruct(i).h2 = 0;
+    end        
 end
 N = size(JointStruct, 2) - 1;
 TransformStruct(N+1) = struct();
@@ -113,9 +127,10 @@ if strcmp(jointselect, 'selfassign') == 1
     fingertip = 'x';
     
     % Lengths [m]
-    l1 = 0.2;
-    l2 = 0.2;
-    d = 2*l1;
+    l1 = 0.1;
+    l2 = 0.1;
+    hip_to_hip = 2*l1;
+    indent = 0.075;
     
     % Specify the frame (3X4) of each individul joint in global frame
     TransformStruct(1).Oc = [1, 0, 0, -l2; ...
@@ -126,28 +141,28 @@ if strcmp(jointselect, 'selfassign') == 1
                              0, 1, 0, 0; ...
                              0, 0, 1, 0];
                          
-    TransformStruct(3).Oc = [cos(-pi/3), -sin(-pi/3), 0, l2*cos(-pi/3); ...
-                             sin(-pi/3), cos(-pi/3), 0, l2*sin(-pi/3); ...
+    TransformStruct(3).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3); ...
                              0, 0, 1, 0];  
                      
-    TransformStruct(4).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - ((d*cos(pi/3))/3); ...
-                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - ((d*sin(pi/3)/3)); ...
-                             0, 0, 1, -0.125];   
+    TransformStruct(4).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - ((hip_to_hip*cos(pi/3))/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - ((hip_to_hip*sin(pi/3)/3)); ...
+                             0, 0, 1, -indent];   
                          
-    TransformStruct(5).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - (2*(d*cos(pi/3))/3); ...
-                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - (2*(d*sin(pi/3))/3); ...
-                             0, 0, 1, -0.125];   
+    TransformStruct(5).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - (3*(hip_to_hip*cos(pi/3))/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - (3*(hip_to_hip*sin(pi/3))/3); ...
+                             0, 0, 1, -indent];   
                          
-    TransformStruct(6).Oc = [cos(2*pi/3), -sin(2*pi/3), 0, (l2*cos(-pi/3)) - d*cos(pi/3); ...
-                             sin(2*pi/3), cos(2*pi/3), 0, (l2*sin(-pi/3)) - d*sin(pi/3); ...
+    TransformStruct(6).Oc = [cos(pi/3), -sin(pi/3), 0, (l2*cos(-pi/3)) - hip_to_hip*cos(pi/3); ...
+                             sin(pi/3), cos(pi/3), 0, (l2*sin(-pi/3)) - hip_to_hip*sin(pi/3); ...
                              0, 0, 1, 0];                        
                                                
-    TransformStruct(7).Oc = [-1, 0, 0, (l2*cos(-pi/3)) - d*cos(pi/3) + (l2*cos(2*pi/3)); ...
-                             0, -1, 0, (l2*sin(-pi/3)) - d*sin(pi/3) + (l2*sin(2*pi/3)); ...
+    TransformStruct(7).Oc = [-1, 0, 0, (l2*cos(-pi/3)) - hip_to_hip*cos(pi/3) + (l2*cos(2*pi/3)); ...
+                             0, -1, 0, (l2*sin(-pi/3)) - hip_to_hip*sin(pi/3) + (l2*sin(2*pi/3)); ...
                              0, 0, 1, 0];  
 
-    TransformStruct(8).Oc = [-1, 0, 0, (l2*cos(-pi/3)) - d*cos(pi/3) + (l2*cos(2*pi/3)) - l1; ...
-                             0, -1, 0, (l2*sin(-pi/3)) - d*sin(pi/3) + (l2*sin(2*pi/3)); ...
+    TransformStruct(8).Oc = [-1, 0, 0, (l2*cos(-pi/3)) - hip_to_hip*cos(pi/3) + (l2*cos(2*pi/3)) - l1; ...
+                             0, -1, 0, (l2*sin(-pi/3)) - hip_to_hip*sin(pi/3) + (l2*sin(2*pi/3)); ...
                              0, 0, 1, 0];                           
                          
 else  

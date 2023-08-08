@@ -56,23 +56,11 @@ function [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, n,
     addpath(genpath(fileparts(mfilename('fullpath'))));
     
     % Define h1 and h2 value for extended revolute joints
-    h1 = 0.035;
-    h2 = 0.035;
+    h1 = 0.03;
+    h2 = 0.03;
     
     % Determine N (this will ultimately change for JointPlacement.m case)
     N = size(JointStruct, 2) - 1;
-    
-    % Define h1 and h2 data for each joint (in JointStruct)
-    for i = 1:N+1
-        
-        if JointStruct(i).type == 'E'
-            JointStruct(i).h1 = h1;
-            JointStruct(i).h2 = h2;
-        else
-            JointStruct(i).h1 = 0;
-            JointStruct(i).h2 = 0;
-        end        
-    end
     
     if strcmp(jointselect, 'selfassign') == 1
                
