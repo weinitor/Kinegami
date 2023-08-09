@@ -42,7 +42,7 @@ DXF = 'on';
 
 % Specify whether or not pre-segmentation (for printing) is enabled
 % ('on'/'off')
-segmentation = 'off';
+segmentation = 'on';
 
 % Specify whether intermediary plots should be run ('on'/'off'). 'off' is
 % recommended for faster computational time, 'on' is recommended for more
