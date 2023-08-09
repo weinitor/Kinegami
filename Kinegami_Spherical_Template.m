@@ -78,6 +78,11 @@ D = [0, 0, 0.1, 0; ...
 % 'P': Prismatic joint, 'F': Fingertip, 'W': Waypoint (not a joint)
 TYPE = ['R', 'R', 'R', 'F']; 
 
+% Specify extended revolute tube section length (for 'E' joints, else 0)
+% Define as h1 and h2 values
+h1 = 0.03;
+h2 = 0.03;
+
 % Maximum joint range (row vec.)
 Qm = [pi, pi, pi, pi]; 
 
@@ -100,6 +105,15 @@ for i = 1:n
     JointStruct(i).q0 = Q0(i);
     JointStruct(i).type = TYPE(i);
     JointStruct(i).nz = Nz(i);
+    
+    % Define h1 and h2 data for each joint
+    if JointStruct(i).type == 'E'
+        JointStruct(i).h1 = h1;
+        JointStruct(i).h2 = h2;
+    else
+        JointStruct(i).h1 = 0;
+        JointStruct(i).h2 = 0;
+    end 
 end
 N = size(JointStruct, 2) - 1;
 TransformStruct(N+1) = struct();
