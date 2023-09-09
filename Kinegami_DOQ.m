@@ -1,4 +1,4 @@
-% KINEGAMI_TEMPLATE - Generates a crease pattern for the given robot
+% KINEGAMI_DOQ - Generates a crease pattern for the Dynamic Origami Quadruped robot
 % specification. Fill in the Kinematic parameters '??' and specify the user
 % options. Written in the "selfassign" option.
 
@@ -14,6 +14,9 @@
 clear
 close all
 clc
+
+% Measuring runtime with tic and toc
+tic;
 
 % Add all the folders and subfolders to the search path
 addpath(genpath(fileparts(mfilename('fullpath'))));
@@ -80,8 +83,8 @@ TYPE = ['W', 'E', 'E', 'W', 'W', 'E', 'E', 'W'];
 
 % Specify extended revolute tube section length (for 'E' joints, else 0)
 % Define as h1 and h2 values
-h1 = 0.03;
-h2 = 0.03;
+h1 = 0.035;
+h2 = 0.035;
 
 % Maximum joint range (row vec.)
 Qm = [pi/2, pi, pi, pi/2, pi/2, pi, pi, pi/2]; 
@@ -129,8 +132,10 @@ if strcmp(jointselect, 'selfassign') == 1
     % Lengths [m]
     l1 = 0.1;
     l2 = 0.1;
-    hip_to_hip = 2*l1;
-    indent = 0.075;
+    hip_to_hip = 2.5*l1;
+    first_waypoint = 0.09;
+%     first_waypoint = hip_to_hip/3;
+    indent = 0.08;
     
     % Specify the frame (3X4) of each individul joint in global frame
     TransformStruct(1).Oc = [1, 0, 0, -l2; ...
@@ -145,12 +150,12 @@ if strcmp(jointselect, 'selfassign') == 1
                              sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3); ...
                              0, 0, 1, 0];  
                      
-    TransformStruct(4).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - ((hip_to_hip*cos(pi/3))/3); ...
-                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - ((hip_to_hip*sin(pi/3)/3)); ...
+    TransformStruct(4).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - first_waypoint*cos(pi/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - first_waypoint*sin(pi/3); ...
                              0, 0, 1, -indent];   
                          
-    TransformStruct(5).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - (3*(hip_to_hip*cos(pi/3))/3); ...
-                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - (3*(hip_to_hip*sin(pi/3))/3); ...
+    TransformStruct(5).Oc = [cos(-2*pi/3), -sin(-2*pi/3), 0, l2*cos(-pi/3) - (hip_to_hip)*cos(pi/3); ...
+                             sin(-2*pi/3), cos(-2*pi/3), 0, l2*sin(-pi/3) - (hip_to_hip)*sin(pi/3); ...
                              0, 0, 1, -indent];   
                          
     TransformStruct(6).Oc = [cos(pi/3), -sin(pi/3), 0, (l2*cos(-pi/3)) - hip_to_hip*cos(pi/3); ...
@@ -175,3 +180,5 @@ end
 [infostruct, TransformStruct, DataNet, JointStruct] = Kinegami(D, r, nsides, JointStruct, ...
     elbow_tuck, triple, theta_mod, fingertip, TransformStruct, ...
     DXF, split, segmentation, plotoption, jointselect, tubeinit);
+
+toc;
