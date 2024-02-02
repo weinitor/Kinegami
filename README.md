@@ -21,7 +21,7 @@ In addition, it provides the additional contribution of automatically choosing t
 The resulting pipeline does not require additional human input beyond the D-H specification. However, its algorithmic steps are sufficiently transparent to facilitate the integration of designers' alternative modules or more suitably optimized compositions when desired.
 
 ## User Guide
-Kinegami runs on MATLAB (works on version MATLAB_R2021a). 
+Kinegami runs on MATLAB (works on version MATLAB_R2021a). You will need the optimization toolbox. 
 
 To intialize submodules - which contain necessary files for `.dxf` file generation and spherical bounding and optimization - open terminal on your system, change the working directory to the synced folder, and enter `git submodule update --init`.
 
